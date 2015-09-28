@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import pl.displayNames.Names_EN;
-import pl.frame.ParkingManager;
+import pl.frame.ParkingManagerFrame;
 
 public class MainParkingClass {
 
@@ -13,7 +13,7 @@ public class MainParkingClass {
 		EventQueue.invokeLater(new Runnable() {
 			
 			public void run() {
-				ParkingManager parkingManagerFrame=new ParkingManager();
+				ParkingManagerFrame parkingManagerFrame=new ParkingManagerFrame();
 				parkingManagerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				parkingManagerFrame.setTitle(Names_EN.PARKINGMANAGER_TITLEFRAME);
 				parkingManagerFrame.pack();
