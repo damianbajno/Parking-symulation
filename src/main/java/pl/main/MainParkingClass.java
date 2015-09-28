@@ -16,7 +16,7 @@ public class MainParkingClass {
 				ParkingManagerFrame parkingManagerFrame=new ParkingManagerFrame();
 				parkingManagerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				parkingManagerFrame.setTitle(Names_EN.PARKINGMANAGER_TITLEFRAME);
-				parkingManagerFrame.pack();
+				parkingManagerFrame.setSize(700, 600);
 				parkingManagerFrame.setVisible(true);
 			}
 		});

@@ -17,7 +17,8 @@ public class ParkingManagerFrame extends JFrame {
 
 	public void createParking() {
 		ParkingPanel parkingPanel=new ParkingPanel();
-		add(parkingPanel, BorderLayout.EAST);
+		JScrollPane parkingScrollPane=new JScrollPane(parkingPanel);
+		add(parkingScrollPane, BorderLayout.EAST);
 	}
 
 }
