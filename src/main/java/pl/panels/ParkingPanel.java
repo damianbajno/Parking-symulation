@@ -17,9 +17,8 @@ import pl.tools.GBC;
 
 public class ParkingPanel extends JPanel {
 
-	private static final Dimension parkingSpaceDimension = new Dimension(50, 80);
-	private static ArrayList<JButton> parkingFieldList = new ArrayList<JButton>();
-	private ParkingSpaceListener parkingSpaceListener=new ParkingSpaceListener();
+	private static ArrayList<ParkingField> parkingFieldList = new ArrayList<ParkingField>();
+
 	
 	public ParkingPanel() {
 		createParkingSpace();
@@ -29,29 +28,20 @@ public class ParkingPanel extends JPanel {
 		setLayout(new GridBagLayout());
 		for (int i = 0; i < 7; i++) {
 			for (int j = 0; j < 13; j++) {
-				JButton parkingField = new JButton();
-				parkingField.setOpaque(true);
-				parkingField.setHorizontalAlignment(JLabel.CENTER);
-				setParkingFieldsSettingsDifferFromPlace(parkingField, i, j);
-				parkingField.setPreferredSize(parkingSpaceDimension);
-				add(parkingField, new GBC(j, i));
+				ParkingField parkingField=new ParkingField();
+				setRoadOrPrakingSpace(parkingField, i, j);
+				add(parkingField.getParkingField(), new GBC(j, i));
+				if (parkingField.isParkingSpace())
 				parkingFieldList.add(parkingField);
 			}
 		}
 	}
 
-	
-	private static int parkingSpaceNumber = 1;
-	private void setParkingFieldsSettingsDifferFromPlace(JButton parkingField, int i, int j) {
+	private void setRoadOrPrakingSpace(ParkingField parkingField, int i, int j) {
 		if (selectingRoadFields(i, j)) {
-			parkingField.setText(String.valueOf(parkingSpaceNumber));
-			parkingField.setBorder(new LineBorder(Color.BLACK, 2, false));
-			parkingSpaceNumber++;
-			parkingField.setBackground(Color.GREEN);
-			parkingField.addActionListener(parkingSpaceListener);
+			parkingField.setParkingSpace();
 		} else {
-			parkingField.setBackground(Color.GRAY);
-			parkingField.setBorder(null);
+			parkingField.setRoad();
 		}
 
 	}
