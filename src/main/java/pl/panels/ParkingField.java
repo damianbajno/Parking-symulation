@@ -9,40 +9,51 @@ import javax.swing.border.LineBorder;
 
 import pl.action.ParkingSpaceListener;
 
-public class ParkingField {
+public class ParkingField extends JButton {
 
 	private final Dimension parkingSpaceDimension = new Dimension(50, 80);
 	private static int parkingSpaceNumber = 1;
-	private JButton parkingField;
 	private ParkingSpaceListener parkingSpaceListener = new ParkingSpaceListener();
-	private boolean isPrakingSpace=false;
-	
+
 	public ParkingField() {
-		parkingField = new JButton();
-		parkingField.setOpaque(true);
-		parkingField.setHorizontalAlignment(JLabel.CENTER);
-		parkingField.setPreferredSize(parkingSpaceDimension);
+		setOpaque(true);
+		setHorizontalAlignment(JLabel.CENTER);
+		setPreferredSize(parkingSpaceDimension);
 	}
 
 	public void setParkingSpace() {
-		parkingField.setText(String.valueOf(parkingSpaceNumber));
-		parkingField.setBorder(new LineBorder(Color.BLACK, 2, false));
+		setText(String.valueOf(parkingSpaceNumber));
+		setBorder(new LineBorder(Color.BLACK, 2, false));
+		setBackground(Color.GREEN);
+		addActionListener(parkingSpaceListener);
 		parkingSpaceNumber++;
-		parkingField.setBackground(Color.GREEN);
-		parkingField.addActionListener(parkingSpaceListener);
-		isPrakingSpace=true;
 	}
 
 	public void setRoad() {
-		parkingField.setBackground(Color.GRAY);
-		parkingField.setBorder(null);
+		setBackground(Color.GRAY);
+		setBorder(null);
 	}
 
-	public JButton getParkingField() {
-		return parkingField;
+	public void setOccupied() {
+		setBackground(Color.RED);
 	}
 
-	public boolean isParkingSpace(){
-		return isPrakingSpace;
+	public void setFree() {
+		setBackground(Color.GREEN);
 	}
+	
+	public boolean isOccupied() {
+		if (getBackground().equals(Color.RED))
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean isParkingSpace() {
+		if (getBackground().equals(Color.GREEN))
+			return true;
+		else
+			return false;
+	}
+	
 }

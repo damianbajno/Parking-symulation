@@ -13,26 +13,26 @@ import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import pl.action.ParkingSpaceListener;
+import pl.constantsandstrings.Constants;
 import pl.tools.GBC;
 
 public class ParkingPanel extends JPanel {
 
 	private static ArrayList<ParkingField> parkingFieldList = new ArrayList<ParkingField>();
 
-	
 	public ParkingPanel() {
 		createParkingSpace();
 	}
 
 	private void createParkingSpace() {
 		setLayout(new GridBagLayout());
-		for (int i = 0; i < 7; i++) {
-			for (int j = 0; j < 13; j++) {
-				ParkingField parkingField=new ParkingField();
+		for (int i = 0; i < Constants.ParkingPanel_ROWS; i++) {
+			for (int j = 0; j < Constants.ParkingPanel_COLUMNS; j++) {
+				ParkingField parkingField = new ParkingField();
 				setRoadOrPrakingSpace(parkingField, i, j);
-				add(parkingField.getParkingField(), new GBC(j, i));
+				add(parkingField, new GBC(j, i));
 				if (parkingField.isParkingSpace())
-				parkingFieldList.add(parkingField);
+					parkingFieldList.add(parkingField);
 			}
 		}
 	}
@@ -47,7 +47,6 @@ public class ParkingPanel extends JPanel {
 	}
 
 	private boolean selectingRoadFields(int i, int j) {
-		return (i == 0) || (i > 0 & (i+4) % 3/2 == 0 & j > 1);
+		return (i == 0) || (i > 0 & (i + 4) % 3 / 2 == 0 & j > 1);
 	}
 }
-

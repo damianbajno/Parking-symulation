@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-import pl.displayNames.Names_EN;
+import pl.constantsandstrings.Names_EN;
 import pl.frame.ParkingManagerFrame;
 
 public class MainParkingClass {
