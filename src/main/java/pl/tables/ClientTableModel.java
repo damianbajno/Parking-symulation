@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import pl.pojo.Client;
+import pl.tools.Tools;
 
 public class ClientTableModel extends AbstractTableModel {
 
@@ -25,7 +26,8 @@ public class ClientTableModel extends AbstractTableModel {
 
 	@Override
 	public String getColumnName(int column) {
-		return Client.class.getDeclaredFields()[column].getName();
+		String columnName = Client.class.getDeclaredFields()[column].getName();
+		return Tools.makeFirstLetterStringUpper(columnName);
 	}
 
 	@Override

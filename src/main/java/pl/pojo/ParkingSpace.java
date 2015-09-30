@@ -24,6 +24,12 @@ public class ParkingSpace {
 		this.parkingNumber = parkingNumber;
 	}
 
+	public ParkingSpace(int parkingNumber, int parkingCost) {
+		super();
+		this.parkingNumber = parkingNumber;
+		this.parkingCost = parkingCost;
+	}
+
 	public int getParkingCost() {
 		return parkingCost;
 	}

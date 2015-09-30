@@ -12,7 +12,7 @@ import pl.action.ParkingSpaceListener;
 public class ParkingField extends JButton {
 
 	private final Dimension parkingSpaceDimension = new Dimension(50, 80);
-	private static int parkingSpaceNumber = 1;
+	public static int parkingSpaceNumber = 1;
 	private ParkingSpaceListener parkingSpaceListener = new ParkingSpaceListener();
 
 	public ParkingField() {

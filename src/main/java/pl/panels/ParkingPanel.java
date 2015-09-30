@@ -18,7 +18,7 @@ import pl.tools.GBC;
 
 public class ParkingPanel extends JPanel {
 
-	private static ArrayList<ParkingField> parkingFieldList = new ArrayList<ParkingField>();
+	public static ArrayList<ParkingField> parkingFieldList = new ArrayList<ParkingField>();
 
 	public ParkingPanel() {
 		createParkingSpace();
