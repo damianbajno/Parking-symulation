@@ -3,54 +3,65 @@ package pl.dao;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.metadata.ClassMetadata;
+
+import pl.pojo.Company;
+import pl.pojo.Worker;
 
 public class DAO {
 
-	private static Configuration configuration = new Configuration()
-			.configure();
-	private static StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
+	private static final ThreadLocal<Session> session = new ThreadLocal<Session>();
+	private static final Configuration configuration = new Configuration()
+			.configure().addAnnotatedClass(Worker.class)
+			.addAnnotatedClass(Company.class);
+	private static final StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
 			.applySettings(configuration.getProperties());
-	private static SessionFactory factory = configuration
+	private static final SessionFactory sessionfactory = configuration
 			.buildSessionFactory(builder.build());
-	private static Session session = null;
-	
-	private DAO() {
-		// TODO Auto-generated constructor stub
+
+	protected DAO() {
 	}
 
 	protected static Session getSession() {
+		Session session = DAO.session.get();
 		if (session == null) {
-			session = factory.openSession();
+			session = sessionfactory.openSession();
+			DAO.session.set(session);
 		}
+
 		return session;
 	}
-	
+
 	protected static void beginTransaction() {
-		session.beginTransaction();
+		getSession().beginTransaction();
 	}
-	
-	protected static void commiteTransaction() {
-		session.getTransaction().commit();
+
+	protected static void commitTransaction() {
+		getSession().getTransaction().commit();
 	}
-	
-	protected static void rollback(){
+
+	protected static void rollback() {
 		try {
-			session.getTransaction().rollback();
+			System.out.println("Transaction started rolling back");
+			getSession().getTransaction().rollback();
 		} catch (HibernateException e) {
-			session.close();
+			System.out.println("Transaction Can't roll back");
+			e.printStackTrace();
+		}
+		try {
+			System.out.println("Session started closing");
+			getSession().close();
+		} catch (HibernateException e) {
+			System.out.println("Session can't close");
 			e.printStackTrace();
 		}
 	}
-	
-	protected static void close(){
-		try {
-			session.close();
-		} catch (HibernateException e) {
-			System.out.println("Can't close session");
-			e.printStackTrace();
-		}
+
+	public static void close() {
+		getSession().close();
+		DAO.session.set(null);
 	}
+		
 }
