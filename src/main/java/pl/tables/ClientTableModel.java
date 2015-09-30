@@ -12,6 +12,10 @@ public class ClientTableModel extends AbstractTableModel {
 
 	List<Client> clientList=new ArrayList<Client>();
 	
+	public ClientTableModel() {
+		clientList = ClientDAO.getAll;
+	}
+
 	public int getRowCount() {
 		return clientList.size();
 	}
