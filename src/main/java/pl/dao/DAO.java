@@ -5,17 +5,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.metadata.ClassMetadata;
 
-import pl.pojo.Company;
-import pl.pojo.Worker;
+import pl.pojo.Client;
+import pl.pojo.ParkingSpace;
 
 public class DAO {
 
 	private static final ThreadLocal<Session> session = new ThreadLocal<Session>();
 	private static final Configuration configuration = new Configuration()
-			.configure().addAnnotatedClass(Worker.class)
-			.addAnnotatedClass(Company.class);
+			.configure().addAnnotatedClass(Client.class)
+			.addAnnotatedClass(ParkingSpace.class);
 	private static final StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
 			.applySettings(configuration.getProperties());
 	private static final SessionFactory sessionfactory = configuration

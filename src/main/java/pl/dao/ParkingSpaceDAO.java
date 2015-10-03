@@ -5,10 +5,9 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.metadata.ClassMetadata;
 
-import pl.pojo.Company;
-import pl.pojo.Worker;
+import pl.pojo.Client;
+import pl.pojo.ParkingSpace;
 
 public class ParkingSpaceDAO extends DAO {
 
@@ -16,114 +15,111 @@ public class ParkingSpaceDAO extends DAO {
 		super();
 	}
 
-	public static void companyChange(Worker worker, Company company) {
+	public static void parkingSpaceChange(Client client, ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
-
-			worker.setCompany(company);
 			commitTransaction();
 		} catch (HibernateException e) {
-			System.out.println("WorkerDAO couldn't change worker company");
+			System.out.println("ClientDAO couldn't change client ParkingSpace");
 			rollback();
 		}
 
 	}
 
-	public static void saveOrUpdate(Worker worker) {
+	public static void saveOrUpdate(ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
-			getSession().saveOrUpdate(worker);
+			getSession().saveOrUpdate(parkingSpace);
 			commitTransaction();
 		} catch (HibernateException e) {
-			System.out.println("WorkerDAO couldn't saveOrUpdate a worker.");
+			System.out.println("ParkingSpaceDAO couldn't saveOrUpdate a ParkingSpace.");
 			rollback();
 		}
 	}
 
-	public static void persist(Worker worker) {
+	public static void persist(ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
-			getSession().persist(worker);
+			getSession().persist(parkingSpace);
 			commitTransaction();
 		} catch (HibernateException e) {
-			System.out.println("WorkerDAO couldn't persiste a worker.");
+			System.out.println("ParkingSpaceDAO couldn't persiste a ParkingSpace.");
 			rollback();
 		}
 	}
 
-	public static Worker get(Long id) {
-		Worker worker = null;
+	public static ParkingSpace get(Long id) {
+		ParkingSpace parkingSpace = null;
 		try {
 			beginTransaction();
-			worker = (Worker) getSession().get(Worker.class, id);
+			parkingSpace = (ParkingSpace) getSession().get(ParkingSpace.class, id);
 			commitTransaction();
 		} catch (HibernateException e) {
-			System.out.println("WorkerDAO couldn't get a worker.");
+			System.out.println("ParkingSpaceDAO couldn't get a ParkingSpace.");
 			rollback();
 		}
-		return worker;
+		return parkingSpace;
 	}
 
-	public static void delateOrphan(Worker worker) {
+	public static void delateOrphan(ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
-			worker.getCompany().getWorkers().remove(worker);
-			getSession().delete(worker);
+			getSession().delete(parkingSpace);
 			commitTransaction();
 		} catch (HibernateException e) {
 			rollback();
-			System.out.println("WorkerDAO couldn't deleteOrphan worker");
-		}
-	}
-
-	public static void delate(Worker worker) {
-		try {
-			beginTransaction();
-			getSession().delete(worker);
-			commitTransaction();
-		} catch (HibernateException e) {
-			rollback();
-			System.out.println("WorkerDAO couldn't delete worker");
+			System.out.println("ParkingSpaceDAO couldn't deleteOrphan ParkingSpace");
 		}
 	}
 
-	public static Worker load(Long id) {
-		Worker worker = null;
+	public static void delate(ParkingSpace ParkingSpace) {
 		try {
 			beginTransaction();
-			worker = (Worker) getSession().load(Worker.class, id);
+			getSession().delete(ParkingSpace);
 			commitTransaction();
 		} catch (HibernateException e) {
 			rollback();
-			System.out.println("WorkerDAO couldn't load worker");
-		}
-		return worker;
-	}
-
-	public static void update(Worker worker) {
-		try {
-			beginTransaction();
-			getSession().update(worker);
-			commitTransaction();
-		} catch (HibernateException e) {
-			rollback();
-			System.out.println("WorkerDAO couldn't update worker");
+			System.out.println("ParkingSpaceDAO couldn't delete ParkingSpace");
 		}
 	}
 
-	public static List<Worker> getAll() {
-		List<Worker> workers = new ArrayList<Worker>();
+	public static ParkingSpace load(Long id) {
+		ParkingSpace parkingSpace = null;
 		try {
 			beginTransaction();
-			Query workerQuery = getSession().createQuery(
-					"Select w from Worker w");
-			workers = (List<Worker>) workerQuery.list();
+			parkingSpace = (ParkingSpace) getSession().load(ParkingSpace.class, id);
 			commitTransaction();
 		} catch (HibernateException e) {
 			rollback();
-			System.out.println("WorkerDAO couldn't get All worker");
+			System.out.println("ParkingSpaceDAO couldn't load ParkingSpace");
 		}
-		return workers;
+		return parkingSpace;
+	}
+
+	public static void update(ParkingSpace parkingSpace) {
+		try {
+			beginTransaction();
+			getSession().update(parkingSpace);
+			commitTransaction();
+		} catch (HibernateException e) {
+			rollback();
+			System.out.println("ParkingSpaceDAO couldn't update ParkingSpace");
+		}
+	}
+
+	public static List<ParkingSpace> getAll() {
+		List<ParkingSpace> ParkingSpaces = new ArrayList<ParkingSpace>();
+		try {
+			beginTransaction();
+			Query ParkingSpaceQuery = getSession().createQuery(
+					"Select w from ParkingSpace w");
+			ParkingSpaces = (List<ParkingSpace>) ParkingSpaceQuery.list();
+			commitTransaction();
+		} catch (HibernateException e) {
+			rollback();
+			System.out.println("ParkingSpaceDAO couldn't get All ParkingSpace");
+		}
+		return ParkingSpaces;
 
 	}
 

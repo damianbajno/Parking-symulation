@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import pl.dao.ClientDAO;
 import pl.pojo.Client;
 import pl.tools.Tools;
 
@@ -13,7 +14,7 @@ public class ClientTableModel extends AbstractTableModel {
 	List<Client> clientList=new ArrayList<Client>();
 	
 	public ClientTableModel() {
-		clientList = ClientDAO.getAll;
+		clientList = ClientDAO.getAll();
 	}
 
 	public int getRowCount() {
