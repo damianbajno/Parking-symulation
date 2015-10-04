@@ -19,7 +19,7 @@ public class DAO {
 			.applySettings(configuration.getProperties());
 	private static final SessionFactory sessionfactory = configuration
 			.buildSessionFactory(builder.build());
-
+	
 	protected DAO() {
 	}
 

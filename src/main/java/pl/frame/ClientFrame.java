@@ -19,9 +19,11 @@ public class ClientFrame implements ActionListener{
 	public ClientFrame() {
 		super();
 		defaultSettings();
+
 		clientFrame.setLayout(new BorderLayout());
 		JScrollPane clientJTablePane=new JScrollPane(clientJTable);
 		clientFrame.add(clientJTablePane, BorderLayout.CENTER);
+		
 		commiteButton.addActionListener(this);
 		clientFrame.add(commiteButton, BorderLayout.SOUTH);
 	}
@@ -34,6 +36,7 @@ public class ClientFrame implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
+
 		clientFrame.dispose();
 		
 	}

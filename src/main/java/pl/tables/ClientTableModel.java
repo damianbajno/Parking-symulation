@@ -26,13 +26,13 @@ public class ClientTableModel extends AbstractTableModel {
 	}
 
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		return null;
+		return clientList.get(rowIndex).getField(columnIndex);
 	}
 
 	@Override
 	public String getColumnName(int column) {
 		String columnName = Client.class.getDeclaredFields()[column].getName();
-		return Tools.makeFirstLetterStringUpper(columnName);
+		return Tools.makeFirstLetterUpper(columnName);
 	}
 
 	@Override
@@ -40,5 +40,4 @@ public class ClientTableModel extends AbstractTableModel {
 		return false;
 	}
 
-	
 }

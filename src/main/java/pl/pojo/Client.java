@@ -1,12 +1,10 @@
 package pl.pojo;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -33,5 +31,17 @@ public class Client {
 		this.lastName = lastName;
 	}
 	
+	public Object getField(int fieldNumber){
+		switch (fieldNumber) {
+		case 0:
+			return id;
+		case 1:
+			return name;
+		case 2:
+			return lastName;
+		default:
+			return "-";
+		}
+	}
 	
 }

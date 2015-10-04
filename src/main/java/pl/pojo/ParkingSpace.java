@@ -15,9 +15,10 @@ public class ParkingSpace {
 	@Id
 	private int parkingNumber;
 	private int parkingCost;
+	private boolean occupy;
 	@OneToOne
 	@Cascade({CascadeType.PERSIST, CascadeType.SAVE_UPDATE})
-	private Client client;
+	private Client clientReservation;
 	
 	public ParkingSpace() {
 		// TODO Auto-generated constructor stub
@@ -32,8 +33,10 @@ public class ParkingSpace {
 		super();
 		this.parkingNumber = parkingNumber;
 		this.parkingCost = parkingCost;
+		occupy=true;
 	}
 
+	
 	public int getParkingCost() {
 		return parkingCost;
 	}
@@ -42,17 +45,22 @@ public class ParkingSpace {
 		this.parkingCost = parkingCost;
 	}
 
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
-
 	public int getParkingNumber() {
 		return parkingNumber;
 	}
+
+	public boolean isOccupy() {
+		return occupy;
+	}
+
+	public Client getClientReservation() {
+		return clientReservation;
+	}
+
+	public void setClientReservation(Client clientReservation) {
+		this.clientReservation = clientReservation;
+	}
+
 	
 	
 }

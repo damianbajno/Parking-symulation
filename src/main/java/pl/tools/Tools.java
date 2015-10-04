@@ -18,7 +18,7 @@ public class Tools {
 		return null;
 	}
 
-	public static String makeFirstLetterStringUpper(String word){
+	public static String makeFirstLetterUpper(String word){
 		StringBuilder stringBuilder=new StringBuilder();
 		stringBuilder.append(String.valueOf(word.charAt(0)).toUpperCase());
 		stringBuilder.append(word.substring(1));
