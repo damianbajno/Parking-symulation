@@ -12,8 +12,8 @@ import javax.swing.JTextArea;
 
 import pl.constantsandstrings.Constants;
 import pl.constantsandstrings.Names_EN;
-import pl.panels.ParkingBoard;
-import pl.panels.ParkingPanel;
+import pl.panels.ParkingTextBoard;
+import pl.panels.ParkingButtonPanel;
 
 public class ParkingManagerFrame extends JFrame {
 
@@ -27,14 +27,14 @@ public class ParkingManagerFrame extends JFrame {
 	}
 
 	public void createParking() {
-		ParkingPanel parkingPanel=new ParkingPanel();
-		JScrollPane parkingScrollPane=new JScrollPane(parkingPanel);
+		ParkingButtonPanel parkingButtonPanel=new ParkingButtonPanel();
+		JScrollPane parkingScrollPane=new JScrollPane(parkingButtonPanel);
 		add(parkingScrollPane, BorderLayout.EAST);
 	}
 	
 	public void createParkingTextBorder() {
-		ParkingBoard parkingBoard=new ParkingBoard();
-		JScrollPane parkingBoardPane=new JScrollPane(parkingBoard);
+		ParkingTextBoard parkingTextBoard=ParkingTextBoard.getInstance();
+		JScrollPane parkingBoardPane=new JScrollPane(parkingTextBoard);
 		
 		add(parkingBoardPane, BorderLayout.CENTER);
 	}

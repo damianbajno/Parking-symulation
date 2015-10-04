@@ -6,9 +6,11 @@ import javax.swing.JFrame;
 
 import pl.constantsandstrings.Names_EN;
 import pl.frame.ParkingManagerFrame;
+import pl.thread.ParkingManagerThread;
 
 public class MainParkingClass {
-
+	private static ParkingManagerThread parkingManager=new ParkingManagerThread();
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			
@@ -20,7 +22,9 @@ public class MainParkingClass {
 				parkingManagerFrame.setVisible(true);
 			}
 		});
-			
+		
+		Thread parkingManagerThread=new Thread(parkingManager);
+		parkingManagerThread.start();
 
 	}
 

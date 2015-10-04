@@ -2,7 +2,7 @@ package pl.tools;
 
 import pl.dao.ClientDAO;
 import pl.dao.ParkingSpaceDAO;
-import pl.panels.ParkingPanel;
+import pl.panels.ParkingButtonPanel;
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 

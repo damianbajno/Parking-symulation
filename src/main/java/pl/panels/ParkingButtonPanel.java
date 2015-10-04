@@ -8,11 +8,12 @@ import javax.swing.JPanel;
 import pl.constantsandstrings.Constants;
 import pl.tools.GBC;
 
-public class ParkingPanel extends JPanel {
+public class ParkingButtonPanel extends JPanel {
 
 	private static ArrayList<ParkingSpaceButton> parkingSpaceList = new ArrayList<ParkingSpaceButton>();
-
-	public ParkingPanel() {
+	
+	
+	public ParkingButtonPanel() {
 		createParkingFields();
 	}
 
@@ -28,6 +29,7 @@ public class ParkingPanel extends JPanel {
 					ParkingRoadButton parkingRoadButton=new ParkingRoadButton();
 					add(parkingRoadButton, new GBC(j, i));
 				}
+				
 			}
 		}
 	}

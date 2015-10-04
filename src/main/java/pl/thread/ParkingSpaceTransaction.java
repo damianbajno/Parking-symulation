@@ -1,52 +1,54 @@
 package pl.thread;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import pl.constantsandstrings.Names_EN;
-import pl.dao.ClientDAO;
-import pl.panels.ParkingPanel;
+import pl.panels.ParkingButtonPanel;
 import pl.panels.ParkingSpaceButton;
-import pl.pojo.Client;
+import pl.panels.ParkingTextBoard;
 
 public class ParkingSpaceTransaction {
 
-	private List<Client> clientList = ClientDAO.getAll();
-	private ArrayList<ParkingSpaceButton> parkingSpaceList = ParkingPanel
+	private ArrayList<ParkingSpaceButton> parkingSpaceList = ParkingButtonPanel
 			.getParkingSpaceList();
 	private Random random = new Random();
-
+	private ParkingSpaceButton parkingSpace;
+	private ParkingTextBoard parkingTextBoard; 
+	
 	public ParkingSpaceTransaction() {
-
+		parkingTextBoard = ParkingTextBoard.getInstance();
 	}
 
 	public void transaction() {
+		int numberOfParkingSpace = parkingSpaceList.size()-1;
+		parkingSpace = parkingSpaceList.get(random.nextInt(numberOfParkingSpace) + 1);
+		changeParkingSpaceStatus(parkingSpace);
+	}
 
-		ParkingSpaceButton parkingSpace;
-		parkingSpace = parkingSpaceList.get(random.nextInt(56) + 1);
+	/**
+	 * @param parkingSpace
+	 */
+	private void changeParkingSpaceStatus(ParkingSpaceButton parkingSpace) {
 		synchronized (parkingSpace) {
 			if (parkingSpace.isOccupied()) {
 				parkingSpace.setFree();
-				parkingPlaceOccupySentence(parkingSpace);
+				parkingPlaceFreeSentence(parkingSpace);
 			} else {
 				parkingSpace.setOccupied();
-				parkingPlaceFreeSentence(parkingSpace);
+				parkingPlaceOccupySentence(parkingSpace);
 			}
 		}
-
 	}
 
 	private void parkingPlaceFreeSentence(ParkingSpaceButton parkingSpace) {
-		System.out.printf(Names_EN.ParkingSpaceTransaction_Parking_Place_Free,
-				parkingSpace.getParkingSpaceNumber());
-		System.out.println();
+		parkingTextBoard.append(String.format(Names_EN.ParkingSpaceTransaction_Parking_Place_Free,
+				parkingSpace.getParkingSpaceNumber()));
 	}
 
 	private void parkingPlaceOccupySentence(ParkingSpaceButton parkingSpace) {
-		System.out.printf(Names_EN.ParkingSpaceTransaction_Parking_Place_Occupy,
-				parkingSpace.getParkingSpaceNumber());
-		System.out.println();
+		parkingTextBoard.append(String.format(Names_EN.ParkingSpaceTransaction_Parking_Place_Occupy,
+				parkingSpace.getParkingSpaceNumber()));
 	}
 
 }
