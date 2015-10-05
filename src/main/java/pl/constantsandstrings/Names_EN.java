@@ -8,5 +8,6 @@ public class Names_EN {
 	public static final String ParkingManager_WATEK_INTERAPTED = "Wątek Interapted";
 	public static final String ParkingSpaceTransaction_Parking_Place_Free = "Miejsce parkingowe numer %d zostało zwolnione.\n";
 	public static final String ParkingSpaceTransaction_Parking_Place_Occupy = "Miejsce parkingowe numer %d zostało zajęte.\n";
-
+	public static final String ParkingSpaceTransaction_Start = " wątek zaczął pracę. \n";
+	public static final String PARKINGMANAGERTHREAD_GetInterupted = "ParkingManagerThread został przerwany. \n";
 }

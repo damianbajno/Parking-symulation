@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import pl.constantsandstrings.Constants;
+import pl.thread.ParkingManagerThread;
 import pl.tools.GBC;
 
 public class ParkingButtonPanel extends JPanel {
@@ -15,6 +16,8 @@ public class ParkingButtonPanel extends JPanel {
 	
 	public ParkingButtonPanel() {
 		createParkingFields();
+		startParkingManagerThread();
+		startParkingManagerThread();
 	}
 
 	private void createParkingFields() {
@@ -34,6 +37,14 @@ public class ParkingButtonPanel extends JPanel {
 		}
 	}
 
+	private void startParkingManagerThread() {
+//		ExecutorService transactionFixedThreadPool = Executors.newFixedThreadPool(2);
+//		transactionFixedThreadPool.submit(task)
+		
+		ParkingManagerThread parkingManager=new ParkingManagerThread();
+		Thread parkingManagerThread=new Thread(parkingManager);
+		parkingManagerThread.start();
+	}
 
 	private boolean selectingRoadFields(int i, int j) {
 		return (i == 0) || (i > 0 & (i + 4) % 3 / 2 == 0 & j > 1);

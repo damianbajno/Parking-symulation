@@ -14,39 +14,38 @@ public class ParkingSpaceTransaction {
 			.getParkingSpaceList();
 	private Random random = new Random();
 	private ParkingSpaceButton parkingSpace;
-	private ParkingTextBoard parkingTextBoard; 
+	private ParkingTextBoard parkingTextBoard= ParkingTextBoard.getInstance(); 
 	
 	public ParkingSpaceTransaction() {
-		parkingTextBoard = ParkingTextBoard.getInstance();
+
 	}
 
+	public void printTransactionStartOnBoard(Integer threadNumber){
+		parkingTextBoard.append(threadNumber.toString()+" "+Names_EN.ParkingSpaceTransaction_Start);
+	}
+	
 	public void transaction() {
 		int numberOfParkingSpace = parkingSpaceList.size()-1;
 		parkingSpace = parkingSpaceList.get(random.nextInt(numberOfParkingSpace) + 1);
 		changeParkingSpaceStatus(parkingSpace);
 	}
 
-	/**
-	 * @param parkingSpace
-	 */
-	private void changeParkingSpaceStatus(ParkingSpaceButton parkingSpace) {
-		synchronized (parkingSpace) {
+	private synchronized void changeParkingSpaceStatus(ParkingSpaceButton parkingSpace) {
 			if (parkingSpace.isOccupied()) {
 				parkingSpace.setFree();
-				parkingPlaceFreeSentence(parkingSpace);
+				printParkingPlaceFreeSentence(parkingSpace);
 			} else {
 				parkingSpace.setOccupied();
-				parkingPlaceOccupySentence(parkingSpace);
+				printParkingPlaceOccupy(parkingSpace);
 			}
-		}
 	}
-
-	private void parkingPlaceFreeSentence(ParkingSpaceButton parkingSpace) {
+	
+	private void printParkingPlaceFreeSentence(ParkingSpaceButton parkingSpace) {
 		parkingTextBoard.append(String.format(Names_EN.ParkingSpaceTransaction_Parking_Place_Free,
 				parkingSpace.getParkingSpaceNumber()));
 	}
 
-	private void parkingPlaceOccupySentence(ParkingSpaceButton parkingSpace) {
+	private void printParkingPlaceOccupy(ParkingSpaceButton parkingSpace) {
 		parkingTextBoard.append(String.format(Names_EN.ParkingSpaceTransaction_Parking_Place_Occupy,
 				parkingSpace.getParkingSpaceNumber()));
 	}

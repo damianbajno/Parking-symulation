@@ -4,6 +4,7 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JTextArea;
+import javax.swing.border.TitledBorder;
 
 import pl.constantsandstrings.Constants;
 import pl.constantsandstrings.Names_EN;
@@ -24,10 +25,13 @@ public class ParkingTextBoard extends JTextArea {
 	public ParkingTextBoard() {
 
 		setEditable(false);
-		setFont(new Font(Font.SERIF, Font.PLAIN, 7));
+		setFont(new Font(Font.SERIF, Font.PLAIN, 12));
 		setPreferredSize(Constants.ParkingBoard_DIMENSION);
-		setBorder(BorderFactory
-				.createTitledBorder(Names_EN.ParkingBoard_PARKING_BOARD));
+		setBorder(BorderFactory.createTitledBorder(null,
+				Names_EN.ParkingBoard_PARKING_BOARD,
+				TitledBorder.DEFAULT_JUSTIFICATION,
+				TitledBorder.DEFAULT_POSITION, 
+				new Font(Font.SERIF, Font.PLAIN,17)));
 	}
 
 }
