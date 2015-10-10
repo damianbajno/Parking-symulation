@@ -27,6 +27,8 @@ public class ParkingTextBoard extends JTextArea {
 		setEditable(false);
 		setFont(new Font(Font.SERIF, Font.PLAIN, 12));
 		setPreferredSize(Constants.ParkingBoard_DIMENSION);
+		setAutoscrolls(true);
+		setLineWrap(true);
 		setBorder(BorderFactory.createTitledBorder(null,
 				Names_EN.ParkingBoard_PARKING_BOARD,
 				TitledBorder.DEFAULT_JUSTIFICATION,

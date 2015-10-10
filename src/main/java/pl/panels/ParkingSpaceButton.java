@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
 import pl.action.ParkingSpaceListener;
+import pl.dao.ParkingSpaceDAO;
 import pl.pojo.ParkingSpace;
 
 public class ParkingSpaceButton {
@@ -16,7 +17,7 @@ public class ParkingSpaceButton {
 	private final Dimension parkingSpaceDimension = new Dimension(50, 80);
 	private static int parkingSpaceNumberGenerator = 1;
 	private ParkingSpaceListener parkingSpaceListener = new ParkingSpaceListener();
-	private ParkingSpace parkingSpace;
+	private ParkingSpace ParkingSpace;
 	private JButton parkingSpaceButton=new JButton();
 	private int parkingSpaceNumber;
 	
@@ -37,7 +38,7 @@ public class ParkingSpaceButton {
 	}
 
 	private void sendToDataBase() {
-		parkingSpace = new ParkingSpace(parkingSpaceNumberGenerator,
+		ParkingSpace = new ParkingSpace(parkingSpaceNumberGenerator,
 				200 + new Random().nextInt(200));
 //		ParkingSpaceDAO.persist(parkingSpace);
 	}

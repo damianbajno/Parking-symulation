@@ -11,12 +11,12 @@ import javax.swing.JScrollPane;
 import pl.constantsandstrings.Names_EN;
 import pl.tables.ClientJTable;
 
-public class ClientFrame implements ActionListener{
+public class ChooseClientFrame implements ActionListener{
 	JFrame clientFrame=new JFrame();
 	ClientJTable clientJTable=new ClientJTable();
 	JButton commiteButton=new JButton(Names_EN.CLIENTFRAME_COMMITE_BUTTON);
 	
-	public ClientFrame() {
+	public ChooseClientFrame() {
 		super();
 		defaultSettings();
 

@@ -19,7 +19,7 @@ public class ParkingManagerThread implements Runnable {
 		for (int i = 0; i < 50; i++) {
 			parkingSpaceTransaction.transaction();
 			try {
-				Thread.sleep(1500);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				System.err.println(Names_EN.PARKINGMANAGERTHREAD_GetInterupted);
 				e.printStackTrace();

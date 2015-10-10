@@ -21,7 +21,7 @@ public class ParkingSpaceTransaction {
 	}
 
 	public void printTransactionStartOnBoard(Integer threadNumber){
-		parkingTextBoard.append(threadNumber.toString()+" "+Names_EN.ParkingSpaceTransaction_Start);
+		parkingTextBoard.append(String.format(Names_EN.ParkingSpaceTransaction_Start,threadNumber));
 	}
 	
 	public void transaction() {

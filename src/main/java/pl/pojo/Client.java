@@ -1,23 +1,26 @@
 package pl.pojo;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class Client {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.)
+	@Column(name="Client_ID")
 	private Long id;
 	private String name;
-	private String lastName;
+	private String surName;
 	@OneToOne
-	@JoinColumn(name="ParkingSpace_Number")
 	@Cascade({CascadeType.PERSIST,CascadeType.SAVE_UPDATE})
 	private ParkingSpace parkingSpace;
 	
@@ -25,10 +28,10 @@ public class Client {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Client(String name, String lastName) {
+	public Client(String name, String surName) {
 		super();
 		this.name = name;
-		this.lastName = lastName;
+		this.surName = surName;
 	}
 	
 	public Object getField(int fieldNumber){
@@ -38,10 +41,28 @@ public class Client {
 		case 1:
 			return name;
 		case 2:
-			return lastName;
+			return surName;
 		default:
 			return "-";
 		}
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setSurName(String surName) {
+		this.surName = surName;
+	}
+
+	public void setParkingSpace(ParkingSpace parkingSpace) {
+		this.parkingSpace = parkingSpace;
+	}
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", name=" + name + ", surName=" + surName+"]";
+	}
+
 	
 }

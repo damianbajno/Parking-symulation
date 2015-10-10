@@ -14,8 +14,8 @@ public class MainClassGenerator {
 			}
 			
 			for (int i = 0; i < 10; i++) {
-				ParkingSpace parkingSpace=new ParkingSpace(i, 200+generator.generateInteger(200));
-				ParkingSpaceDAO.persist(parkingSpace);
+				ParkingSpace ParkingSpace=new ParkingSpace(i, 200+generator.generateInteger(200));
+				ParkingSpaceDAO.persist(ParkingSpace);
 			}
 	
 	}

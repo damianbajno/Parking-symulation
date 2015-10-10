@@ -15,7 +15,7 @@ public class ParkingSpaceDAO extends DAO {
 		super();
 	}
 
-	public static void parkingSpaceChange(Client client, ParkingSpace parkingSpace) {
+	public static void parkingSpaceChange(Client client, ParkingSpace ParkingSpace) {
 		try {
 			beginTransaction();
 			commitTransaction();
@@ -26,10 +26,10 @@ public class ParkingSpaceDAO extends DAO {
 
 	}
 
-	public static void saveOrUpdate(ParkingSpace parkingSpace) {
+	public static void saveOrUpdate(ParkingSpace ParkingSpace) {
 		try {
 			beginTransaction();
-			getSession().saveOrUpdate(parkingSpace);
+			getSession().saveOrUpdate(ParkingSpace);
 			commitTransaction();
 		} catch (HibernateException e) {
 			System.out.println("ParkingSpaceDAO couldn't saveOrUpdate a ParkingSpace.");
@@ -37,10 +37,10 @@ public class ParkingSpaceDAO extends DAO {
 		}
 	}
 
-	public static void persist(ParkingSpace parkingSpace) {
+	public static void persist(ParkingSpace ParkingSpace) {
 		try {
 			beginTransaction();
-			getSession().persist(parkingSpace);
+			getSession().persist(ParkingSpace);
 			commitTransaction();
 		} catch (HibernateException e) {
 			System.out.println("ParkingSpaceDAO couldn't persiste a ParkingSpace.");
@@ -49,22 +49,22 @@ public class ParkingSpaceDAO extends DAO {
 	}
 
 	public static ParkingSpace get(Long id) {
-		ParkingSpace parkingSpace = null;
+		ParkingSpace ParkingSpace = null;
 		try {
 			beginTransaction();
-			parkingSpace = (ParkingSpace) getSession().get(ParkingSpace.class, id);
+			ParkingSpace = (ParkingSpace) getSession().get(ParkingSpace.class, id);
 			commitTransaction();
 		} catch (HibernateException e) {
 			System.out.println("ParkingSpaceDAO couldn't get a ParkingSpace.");
 			rollback();
 		}
-		return parkingSpace;
+		return ParkingSpace;
 	}
 
-	public static void delateOrphan(ParkingSpace parkingSpace) {
+	public static void delateOrphan(ParkingSpace ParkingSpace) {
 		try {
 			beginTransaction();
-			getSession().delete(parkingSpace);
+			getSession().delete(ParkingSpace);
 			commitTransaction();
 		} catch (HibernateException e) {
 			rollback();
@@ -84,22 +84,22 @@ public class ParkingSpaceDAO extends DAO {
 	}
 
 	public static ParkingSpace load(Long id) {
-		ParkingSpace parkingSpace = null;
+		ParkingSpace ParkingSpace = null;
 		try {
 			beginTransaction();
-			parkingSpace = (ParkingSpace) getSession().load(ParkingSpace.class, id);
+			ParkingSpace = (ParkingSpace) getSession().load(ParkingSpace.class, id);
 			commitTransaction();
 		} catch (HibernateException e) {
 			rollback();
 			System.out.println("ParkingSpaceDAO couldn't load ParkingSpace");
 		}
-		return parkingSpace;
+		return ParkingSpace;
 	}
 
-	public static void update(ParkingSpace parkingSpace) {
+	public static void update(ParkingSpace ParkingSpace) {
 		try {
 			beginTransaction();
-			getSession().update(parkingSpace);
+			getSession().update(ParkingSpace);
 			commitTransaction();
 		} catch (HibernateException e) {
 			rollback();

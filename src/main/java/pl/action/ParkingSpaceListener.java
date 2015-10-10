@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import pl.frame.ClientFrame;
+import pl.frame.ChooseClientFrame;
+import pl.frame.CreateOrChooseClientFrame;
 import pl.panels.ParkingButtonPanel;
 import pl.panels.ParkingSpaceButton;
 import pl.tools.Tools;
@@ -17,16 +18,20 @@ public class ParkingSpaceListener implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		JButton parkingSpaceButton= (JButton) e.getSource();
-		Integer parkingSpaceNumber = Integer.valueOf(parkingSpaceButton.getText());
-		ParkingSpaceButton parkingSpace = ParkingButtonPanel.getParkingSpaceList().get(parkingSpaceNumber);
+		ParkingSpaceButton parkingSpace = getParkingSpaceButton(e);
 		if (parkingSpace.isOccupied())
 			parkingSpace.setFree();
 		else {
 			parkingSpace.setOccupied();
-			ClientFrame clientFrame=new ClientFrame();
-			System.out.println(Tools.makeFirstLetterUpper("dupa"));;
+			CreateOrChooseClientFrame createOrChooseClientFrame = new CreateOrChooseClientFrame();
 		}
+	}
+
+	private ParkingSpaceButton getParkingSpaceButton(ActionEvent e) {
+		JButton parkingSpaceButton= (JButton) e.getSource();
+		Integer parkingSpaceNumber = Integer.valueOf(parkingSpaceButton.getText());
+		ParkingSpaceButton parkingSpace = ParkingButtonPanel.getParkingSpaceList().get(parkingSpaceNumber);
+		return parkingSpace;
 	}
 
 }
