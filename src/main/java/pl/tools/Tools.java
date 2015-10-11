@@ -48,6 +48,10 @@ public class Tools {
 	public static boolean isText(String str) {
 		return str.matches("[a-zA-Z]+\\s*[a-zA-Z]*");
 	}
+	
+	public static void showMessage(){
+		JOptionPane.showMessageDialog(null, "Wartość powinna składać się tylko z liczb");
+	}
 
 	public static boolean isTextIfNotShowMessage(String str) {
 		System.out.println(str);

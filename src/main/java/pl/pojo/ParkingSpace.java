@@ -19,12 +19,9 @@ public class ParkingSpace {
 	@Column(columnDefinition = "int default 100")
 	private int parkingCost;
 	private boolean occupy;
-	@OneToOne
-	@JoinTable(name = "Client_ParkingSpace", 
-	joinColumns = @JoinColumn(referencedColumnName = "ParkingSpace_ID"), 
-	inverseJoinColumns = @JoinColumn(name = "Client_ID"))
-	@Cascade({ CascadeType.PERSIST, CascadeType.SAVE_UPDATE })
-	private Client clientReservation;
+	@OneToOne (mappedBy="parkingSpace")
+	@Cascade({ CascadeType.ALL })
+	private Client client;
 
 	public ParkingSpace() {
 		// TODO Auto-generated constructor stub
@@ -58,21 +55,26 @@ public class ParkingSpace {
 		return occupy;
 	}
 
-	public Client getClientReservation() {
-		return clientReservation;
+	public void setFree() {
+		this.occupy = false;
 	}
 
-	public void setClientReservation(Client clientReservation) {
-		this.clientReservation = clientReservation;
+	public void setOccupy() {
+		this.occupy = true;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	@Override
 	public String toString() {
 		return "ParkingSpace [parkingNumber=" + parkingNumber
-				+ ", parkingCost=" + parkingCost + ", occupy=" + occupy
-				+ ", clientReservation=" + clientReservation + "]";
+				+ ", parkingCost=" + parkingCost + ", occupy=" + occupy + "]";
 	}
 
-	
-	
 }

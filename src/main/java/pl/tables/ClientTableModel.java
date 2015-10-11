@@ -11,7 +11,7 @@ import pl.tools.Tools;
 
 public class ClientTableModel extends AbstractTableModel {
 
-	List<Client> clientList=new ArrayList<Client>();
+	private static List<Client> clientList=new ArrayList<Client>();
 	
 	public ClientTableModel() {
 		clientList = ClientDAO.getAll();

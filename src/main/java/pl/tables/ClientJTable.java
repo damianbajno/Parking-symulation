@@ -1,7 +1,10 @@
 package pl.tables;
-
+ 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+
+import pl.dao.ClientDAO;
+import pl.pojo.Client;
 
 public class ClientJTable extends JTable {
 	ClientTableModel clientTableModel;
@@ -12,6 +15,9 @@ public class ClientJTable extends JTable {
 		setModel(clientTableModel);
 	}
 	
-//	public Client getSelectedClient(){
-//	}
+	public Client getSelectedClient(){
+		int selectedRowNumber = this.getSelectedRow(); 
+		Client client = ClientDAO.get(selectedRowNumber);
+		return client;
+	}
 }

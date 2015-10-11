@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -15,11 +16,12 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Client {
 	@Id
-	@GeneratedValue(strategy=GenerationType.)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="Client_ID")
 	private Long id;
 	private String name;
 	private String surName;
+	private boolean reserved;
 	@OneToOne
 	@Cascade({CascadeType.PERSIST,CascadeType.SAVE_UPDATE})
 	private ParkingSpace parkingSpace;
@@ -57,6 +59,14 @@ public class Client {
 
 	public void setParkingSpace(ParkingSpace parkingSpace) {
 		this.parkingSpace = parkingSpace;
+	}
+	
+	public boolean isReservedParkingSpace() {
+		return reserved;
+	}
+
+	public void setReserved(boolean reserved) {
+		this.reserved = reserved;
 	}
 
 	@Override

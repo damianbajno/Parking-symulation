@@ -15,7 +15,7 @@ public class ParkingSpaceDAO extends DAO {
 		super();
 	}
 
-	public static void parkingSpaceChange(Client client, ParkingSpace ParkingSpace) {
+	public static void parkingSpaceChange(Client client, ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
 			commitTransaction();
@@ -26,10 +26,10 @@ public class ParkingSpaceDAO extends DAO {
 
 	}
 
-	public static void saveOrUpdate(ParkingSpace ParkingSpace) {
+	public static void saveOrUpdate(ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
-			getSession().saveOrUpdate(ParkingSpace);
+			getSession().saveOrUpdate(parkingSpace);
 			commitTransaction();
 		} catch (HibernateException e) {
 			System.out.println("ParkingSpaceDAO couldn't saveOrUpdate a ParkingSpace.");
@@ -37,10 +37,10 @@ public class ParkingSpaceDAO extends DAO {
 		}
 	}
 
-	public static void persist(ParkingSpace ParkingSpace) {
+	public static void persist(ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
-			getSession().persist(ParkingSpace);
+			getSession().persist(parkingSpace);
 			commitTransaction();
 		} catch (HibernateException e) {
 			System.out.println("ParkingSpaceDAO couldn't persiste a ParkingSpace.");
@@ -48,17 +48,17 @@ public class ParkingSpaceDAO extends DAO {
 		}
 	}
 
-	public static ParkingSpace get(Long id) {
-		ParkingSpace ParkingSpace = null;
+	public static ParkingSpace get(int id) {
+		ParkingSpace parkingSpace = null;
 		try {
 			beginTransaction();
-			ParkingSpace = (ParkingSpace) getSession().get(ParkingSpace.class, id);
+			parkingSpace = (ParkingSpace) getSession().get(ParkingSpace.class, id);
 			commitTransaction();
 		} catch (HibernateException e) {
 			System.out.println("ParkingSpaceDAO couldn't get a ParkingSpace.");
 			rollback();
 		}
-		return ParkingSpace;
+		return parkingSpace;
 	}
 
 	public static void delateOrphan(ParkingSpace ParkingSpace) {
@@ -96,10 +96,10 @@ public class ParkingSpaceDAO extends DAO {
 		return ParkingSpace;
 	}
 
-	public static void update(ParkingSpace ParkingSpace) {
+	public static void update(ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
-			getSession().update(ParkingSpace);
+			getSession().update(parkingSpace);
 			commitTransaction();
 		} catch (HibernateException e) {
 			rollback();

@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import pl.constantsandstrings.Constants;
-import pl.thread.ParkingManagerThread;
+import pl.thread.ParkingSpaceManagerThread;
 import pl.tools.GBC;
 
 public class ParkingButtonPanel extends JPanel {
 
 	private static ArrayList<ParkingSpaceButton> parkingSpaceList = new ArrayList<ParkingSpaceButton>();
-	
 	
 	public ParkingButtonPanel() {
 		createParkingFields();
@@ -32,7 +31,6 @@ public class ParkingButtonPanel extends JPanel {
 					ParkingRoadButton parkingRoadButton=new ParkingRoadButton();
 					add(parkingRoadButton, new GBC(j, i));
 				}
-				
 			}
 		}
 	}
@@ -41,7 +39,7 @@ public class ParkingButtonPanel extends JPanel {
 //		ExecutorService transactionFixedThreadPool = Executors.newFixedThreadPool(2);
 //		transactionFixedThreadPool.submit(task)
 		
-		ParkingManagerThread parkingManager=new ParkingManagerThread();
+		ParkingSpaceManagerThread parkingManager=new ParkingSpaceManagerThread();
 		Thread parkingManagerThread=new Thread(parkingManager);
 		parkingManagerThread.start();
 	}
@@ -53,4 +51,5 @@ public class ParkingButtonPanel extends JPanel {
 	public static ArrayList<ParkingSpaceButton> getParkingSpaceList() {
 		return parkingSpaceList;
 	}
+
 }

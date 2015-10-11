@@ -12,6 +12,6 @@ public class Names_EN {
 	public static final String ParkingSpaceTransaction_Start = "Wątek nr. %d zaczął pracę. \n";
 	public static final String PARKINGMANAGERTHREAD_GetInterupted = "ParkingManagerThread został przerwany. \n";
 	public static final String ClientPanel_messageForUncorrectedFiledFilds = "Nie uzupełniono wszystkich niezbędnych póll (Imie, Nazwisko), lub wartości w polach są nieprawidłowe";
-	public static final String CreateClientFrame_ADD_CLIENT_BUTTON = "Dodaj Klienta";
+	public static final String CreateClientFrame_ADD_CLIENT_BUTTON = "Dodaj Klienta i ustaw na tym miejscu";
 	public static final String CreateClientFrame_EXIT = "Wyjdź";
 }

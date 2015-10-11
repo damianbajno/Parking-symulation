@@ -1,12 +1,16 @@
 package pl.thread;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import pl.constantsandstrings.Names_EN;
+import pl.dao.ClientDAO;
 import pl.panels.ParkingButtonPanel;
 import pl.panels.ParkingSpaceButton;
 import pl.panels.ParkingTextBoard;
+import pl.pojo.Client;
+import pl.tables.ClientTableModel;
 
 public class ParkingSpaceTransaction {
 
@@ -15,6 +19,7 @@ public class ParkingSpaceTransaction {
 	private Random random = new Random();
 	private ParkingSpaceButton parkingSpace;
 	private ParkingTextBoard parkingTextBoard= ParkingTextBoard.getInstance(); 
+	
 	
 	public ParkingSpaceTransaction() {
 
@@ -30,13 +35,13 @@ public class ParkingSpaceTransaction {
 		changeParkingSpaceStatus(parkingSpace);
 	}
 
-	private synchronized void changeParkingSpaceStatus(ParkingSpaceButton parkingSpace) {
-			if (parkingSpace.isOccupied()) {
-				parkingSpace.setFree();
-				printParkingPlaceFreeSentence(parkingSpace);
+	private synchronized void changeParkingSpaceStatus(ParkingSpaceButton parkingSpaceButton) {
+			if (parkingSpaceButton.isOccupied()) {
+				parkingSpaceButton.setFree();
+				printParkingPlaceFreeSentence(parkingSpaceButton);
 			} else {
-				parkingSpace.setOccupied();
-				printParkingPlaceOccupy(parkingSpace);
+				parkingSpaceButton.setOccupy();
+				printParkingPlaceOccupy(parkingSpaceButton);
 			}
 	}
 	
