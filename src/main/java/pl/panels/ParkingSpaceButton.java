@@ -15,71 +15,53 @@ import pl.dao.ParkingSpaceDAO;
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 
-public class ParkingSpaceButton {
+public class ParkingSpaceButton extends JButton {
 
 	private final Dimension parkingSpaceDimension = new Dimension(50, 80);
-	private static int parkingSpaceNumberGenerator = 0;
 	private ParkingSpaceListener parkingSpaceListener = new ParkingSpaceListener();
-	private ParkingSpace parkingSpace;
-	private JButton parkingSpaceButton = new JButton();
+	private static int parkingSpaceNumberGenerator = 0;
 	private int parkingSpaceNumber;
-	private Random random = new Random();
 
 	public ParkingSpaceButton() {
-		defaultSettings();
 		parkingSpaceNumber = parkingSpaceNumberGenerator++;
-		getParkingSpaceFromDataBase();
+		defaultSettings();
+		setParkingSpaceStatus();
 	}
 
 	private void defaultSettings() {
-		parkingSpaceButton.setOpaque(true);
-		parkingSpaceButton.setHorizontalAlignment(JLabel.CENTER);
-		parkingSpaceButton.setPreferredSize(parkingSpaceDimension);
-		parkingSpaceButton.setText(String.valueOf(parkingSpaceNumberGenerator));
-		parkingSpaceButton.setBorder(new LineBorder(Color.BLACK, 2, false));
-		parkingSpaceButton.setBackground(Color.GREEN);
-		parkingSpaceButton.addActionListener(parkingSpaceListener);
+		setOpaque(true);
+		setHorizontalAlignment(JLabel.CENTER);
+		setPreferredSize(parkingSpaceDimension);
+		setText(String.valueOf(parkingSpaceNumberGenerator));
+		setBorder(new LineBorder(Color.BLACK, 2, false));
+		addActionListener(parkingSpaceListener);
 	}
 
-	private void getParkingSpaceFromDataBase() {
-		parkingSpace = ParkingSpaceDAO.get(parkingSpaceNumber);
+	/**
+	 * 
+	 */
+	private void setParkingSpaceStatus() {
+		ParkingSpace parkingSpace = ParkingSpaceDAO
+				.get(parkingSpaceNumberGenerator);
+		if (parkingSpace.isOccupy())
+			setBackground(Color.RED);
+		else
+			setBackground(Color.GREEN);
 	}
-
-	private Client client;
 
 	public void setOccupy() {
-		parkingSpaceButton.setBackground(Color.RED);
-		parkingSpace.setOccupy();
-		getClientWithOutparkingSpace();
-		synchronized (client) {
-			parkingSpace.setClient(client);
-			ParkingSpaceDAO.update(parkingSpace);
-		}
-	}
-
-	private void getClientWithOutparkingSpace() {
-		do {
-			client = ClientDAO.get(random.nextInt(ClientDAO.getAll().size()));
-		} while (client.isReservedParkingSpace());
+		setBackground(Color.RED);
 	}
 
 	public void setFree() {
-		parkingSpaceButton.setBackground(Color.GREEN);
-		parkingSpace.setFree();
-		parkingSpace.setClient(null);
-		ParkingSpaceDAO.update(parkingSpace);
-
+		setBackground(Color.GREEN);
 	}
 
 	public boolean isOccupied() {
-		if (parkingSpaceButton.getBackground().equals(Color.RED))
+		if (getBackground().equals(Color.RED))
 			return true;
 		else
 			return false;
-	}
-
-	public JButton getParkingSpaceButton() {
-		return parkingSpaceButton;
 	}
 
 	public int getParkingSpaceNumber() {

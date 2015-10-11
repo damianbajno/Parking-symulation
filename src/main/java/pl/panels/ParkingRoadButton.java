@@ -8,7 +8,6 @@ import pl.constantsandstrings.Constants;
 
 public class ParkingRoadButton extends JButton {
 
-	
 	public ParkingRoadButton() {
 		setDefaultSettings();
 	}

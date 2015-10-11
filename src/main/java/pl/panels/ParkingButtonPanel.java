@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import pl.constantsandstrings.Constants;
-import pl.thread.ParkingSpaceManagerThread;
+import pl.thread.ParkingSpaceTransactionThread;
 import pl.tools.GBC;
 
 public class ParkingButtonPanel extends JPanel {
@@ -25,7 +25,7 @@ public class ParkingButtonPanel extends JPanel {
 			for (int j = 0; j < Constants.ParkingPanel_COLUMNS; j++) {
 				if (selectingRoadFields(i, j)) {
 					ParkingSpaceButton parkingSpaceButton=new ParkingSpaceButton();
-					add(parkingSpaceButton.getParkingSpaceButton(), new GBC(j, i));
+					add(parkingSpaceButton, new GBC(j, i));
 					parkingSpaceList.add(parkingSpaceButton);
 				} else {
 					ParkingRoadButton parkingRoadButton=new ParkingRoadButton();
@@ -36,10 +36,7 @@ public class ParkingButtonPanel extends JPanel {
 	}
 
 	private void startParkingManagerThread() {
-//		ExecutorService transactionFixedThreadPool = Executors.newFixedThreadPool(2);
-//		transactionFixedThreadPool.submit(task)
-		
-		ParkingSpaceManagerThread parkingManager=new ParkingSpaceManagerThread();
+		ParkingSpaceTransactionThread parkingManager=new ParkingSpaceTransactionThread();
 		Thread parkingManagerThread=new Thread(parkingManager);
 		parkingManagerThread.start();
 	}
