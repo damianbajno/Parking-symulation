@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import pl.constantsandstrings.Names_EN;
+import pl.constantsandstrings.Names_PL;
 import pl.panels.ParkingSpaceButton;
 
 public class CreateOrChooseClientFrame extends JFrame implements ActionListener {
@@ -25,7 +25,7 @@ public class CreateOrChooseClientFrame extends JFrame implements ActionListener 
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		pack();
-		setTitle(Names_EN.ClientOrNewClientFrame_TITLE_FRAME);
+		setTitle(Names_PL.ClientOrNewClientFrame_TITLE_FRAME);
 	}
 
 	private void createButtons() {

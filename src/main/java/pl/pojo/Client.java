@@ -22,18 +22,22 @@ public class Client {
 	private String name;
 	private String surName;
 	private boolean reserved;
-	@OneToOne
+	@OneToOne(mappedBy = "client")
 	@Cascade({ CascadeType.PERSIST, CascadeType.SAVE_UPDATE })
 	private ParkingSpace parkingSpace;
 
 	public Client() {
-		reserved=true;
+
 	}
 
 	public Client(String name, String surName) {
 		super();
 		this.name = name;
 		this.surName = surName;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public Object getField(int fieldNumber) {

@@ -3,7 +3,7 @@ package pl.thread;
 import java.util.ArrayList;
 import java.util.Random;
 
-import pl.constantsandstrings.Names_EN;
+import pl.constantsandstrings.Names_PL;
 import pl.managers.ParkingSpaceManager;
 import pl.panels.ParkingButtonPanel;
 import pl.panels.ParkingSpaceButton;
@@ -21,9 +21,9 @@ public class ParkingSpaceTransaction implements Runnable {
 	}
 
 	public void run() {
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 40; i++) {
 			transaction();
-			threadAwait(1000);
+			threadAwait(500);
 		}
 	}
 
@@ -37,7 +37,7 @@ public class ParkingSpaceTransaction implements Runnable {
 		try {
 			Thread.sleep(time);
 		} catch (InterruptedException e) {
-			System.err.println(Names_EN.PARKINGMANAGERTHREAD_GetInterupted);
+			System.err.println(Names_PL.PARKINGMANAGERTHREAD_GetInterupted);
 			e.printStackTrace();
 		}
 	}

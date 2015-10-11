@@ -3,7 +3,7 @@ package pl.managers;
 import java.util.ArrayList;
 import java.util.Random;
 
-import pl.constantsandstrings.Names_EN;
+import pl.constantsandstrings.Names_PL;
 import pl.dao.ClientDAO;
 import pl.dao.ParkingSpaceDAO;
 import pl.panels.ParkingButtonPanel;
@@ -31,42 +31,39 @@ public class ParkingSpaceManager {
 		ParkingSpace parkingSpace = ParkingSpaceDAO.get(parkingSpaceNumber);
 		synchronized (parkingSpaceButton) {
 			if (parkingSpace.isOccupy()) {
-				makeParkingSpaceFree(parkingSpaceButton, parkingSpace);
+				setParkingSpaceFree(parkingSpaceButton, parkingSpace);
 			} else {
-				makeParkingSpaceOccupy(parkingSpaceButton, parkingSpace);
+				setParkingSpaceOccupy(parkingSpaceButton, parkingSpace);
 			}
 		}
 		ParkingSpaceDAO.update(parkingSpace);
 	}
 
-	private void makeParkingSpaceOccupy(ParkingSpaceButton parkingSpaceButton,
+	private void setParkingSpaceOccupy(ParkingSpaceButton parkingSpaceButton,
 			ParkingSpace parkingSpace) {
-		parkingSpace.setOccupy();
 		parkingSpaceButton.setOccupy();
 		connectClientToParkingSpace(parkingSpace);
-		printParkingPlaceOccupy(parkingSpaceButton);
+		printParkingPlaceOccupy(parkingSpace);
 	}
 
+	private Client clientWithOutParkingSpace;
 	private void connectClientToParkingSpace(ParkingSpace parkingSpace) {
-		Client clientWithOutParkingSpace = getClientWithOutParkingSpace();
-		clientWithOutParkingSpace.setParkingSpace(parkingSpace);
+		clientWithOutParkingSpace = getClientWithOutParkingSpace();
+		clientWithOutParkingSpace.setReserved(true);
+		parkingSpace.setClient(clientWithOutParkingSpace);
+		ParkingSpaceDAO.update(parkingSpace);
 		ClientDAO.update(clientWithOutParkingSpace);
 	}
 
-	private void makeParkingSpaceFree(ParkingSpaceButton parkingSpaceButton,
+	private void setParkingSpaceFree(ParkingSpaceButton parkingSpaceButton,
 			ParkingSpace parkingSpace) {
-		parkingSpace.setFree();
 		parkingSpaceButton.setFree();
+		printParkingPlaceFreeSentence(parkingSpace);
 		disconnectClientFromParkingSpace(parkingSpace);
-		printParkingPlaceFreeSentence(parkingSpaceButton);
 	}
 
 	private void disconnectClientFromParkingSpace(ParkingSpace parkingSpace) {
-		Client client2 = parkingSpace.getClient();
-		if (client2 != null) {
-			client2.setParkingSpace(null);
-			ClientDAO.update(client2);
-		}
+		parkingSpace.setClient(null);
 	}
 
 	private Client getClientWithOutParkingSpace() {
@@ -77,16 +74,17 @@ public class ParkingSpaceManager {
 		return client;
 	}
 
-	private void printParkingPlaceFreeSentence(ParkingSpaceButton parkingSpace) {
+	private void printParkingPlaceFreeSentence(ParkingSpace parkingSpace) {
 		parkingTextBoard.append(String.format(
-				Names_EN.ParkingSpaceTransaction_Parking_Place_Free,
-				parkingSpace.getParkingSpaceNumber()));
+				Names_PL.ParkingSpaceTransaction_Parking_Place_Free,
+				parkingSpace.getParkingNumber(), 
+				parkingSpace.getClient().getId()));
 	}
 
-	private void printParkingPlaceOccupy(ParkingSpaceButton parkingSpace) {
+	private void printParkingPlaceOccupy(ParkingSpace parkingSpace) {
 		parkingTextBoard.append(String.format(
-				Names_EN.ParkingSpaceTransaction_Parking_Place_Occupy,
-				parkingSpace.getParkingSpaceNumber()));
+				Names_PL.ParkingSpaceTransaction_Parking_Place_Occupy,
+				parkingSpace.getParkingNumber(),clientWithOutParkingSpace.getId()));
 	}
 
 	public void setOccupyByUser() {

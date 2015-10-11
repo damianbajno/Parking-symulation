@@ -1,6 +1,6 @@
 package pl.thread;
 
-import pl.constantsandstrings.Names_EN;
+import pl.constantsandstrings.Names_PL;
 import pl.panels.ParkingTextBoard;
 
 public class ParkingSpaceTransactionThread{
@@ -21,7 +21,7 @@ public class ParkingSpaceTransactionThread{
 
 	public void printTransactionStartOnBoard(String threadName) {
 		parkingTextBoard.append(String.format(
-				Names_EN.ParkingSpaceTransaction_Start, threadName));
+				Names_PL.ParkingSpaceTransaction_Start, threadName));
 	}
 
 	

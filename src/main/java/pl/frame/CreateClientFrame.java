@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import pl.action.ParkingSpaceListener;
-import pl.constantsandstrings.Names_EN;
+import pl.constantsandstrings.Names_PL;
 import pl.dao.ClientDAO;
 import pl.panels.CreateClientPanel;
 import pl.pojo.Client;
@@ -25,8 +25,8 @@ public class CreateClientFrame extends JFrame implements ActionListener{
 	public CreateClientFrame() {
 		createClientPanel=new CreateClientPanel();
 		panel.add(createClientPanel.getPanel(), BorderLayout.CENTER);
-		createButton(Names_EN.CreateClientFrame_ADD_CLIENT_BUTTON);
-		createButton(Names_EN.CreateClientFrame_EXIT);
+		createButton(Names_PL.CreateClientFrame_ADD_CLIENT_BUTTON);
+		createButton(Names_PL.CreateClientFrame_EXIT);
 		addButtonsToPanel();
 		add(panel);
 		defaultSettings();
@@ -53,10 +53,10 @@ public class CreateClientFrame extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		String buttonActionCommand = e.getActionCommand();
-		if (Names_EN.CreateClientFrame_EXIT==buttonActionCommand) {
+		if (Names_PL.CreateClientFrame_EXIT==buttonActionCommand) {
 			this.dispose();
 		}
-		if (Names_EN.CreateClientFrame_ADD_CLIENT_BUTTON==buttonActionCommand){
+		if (Names_PL.CreateClientFrame_ADD_CLIENT_BUTTON==buttonActionCommand){
 			Client client = createClientPanel.getClient();
 			ParkingSpace selectedParkingSpace = ParkingSpaceListener.getSelectedParkingSpace();
 			if (client!=null){

@@ -9,7 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import pl.constantsandstrings.Constants;
-import pl.constantsandstrings.Names_EN;
+import pl.constantsandstrings.Names_PL;
 import pl.panels.ParkingButtonPanel;
 import pl.panels.ParkingTextBoard;
 
@@ -27,7 +27,7 @@ public class ParkingManagerFrame extends JFrame {
 
 	private void defaultSettings() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle(Names_EN.PARKINGMANAGER_TITLE_FRAME);
+		setTitle(Names_PL.PARKINGMANAGER_TITLE_FRAME);
 		pack();
 		setVisible(true);
 	}

@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import pl.action.ParkingSpaceListener;
-import pl.constantsandstrings.Names_EN;
+import pl.constantsandstrings.Names_PL;
 import pl.dao.ClientDAO;
 import pl.panels.ParkingSpaceButton;
 import pl.pojo.Client;
@@ -19,7 +19,7 @@ import pl.tables.ClientJTable;
 public class ChooseClientFrame implements ActionListener{
 	JFrame clientFrame=new JFrame();
 	ClientJTable clientJTable=new ClientJTable();
-	JButton commiteButton=new JButton(Names_EN.CLIENTFRAME_COMMITE_BUTTON);
+	JButton commiteButton=new JButton(Names_PL.CLIENTFRAME_COMMITE_BUTTON);
 	
 	public ChooseClientFrame() {
 		super();
@@ -37,7 +37,7 @@ public class ChooseClientFrame implements ActionListener{
 		clientFrame.setVisible(true);
 		clientFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		clientFrame.setSize(500, 600);
-		clientFrame.setTitle(Names_EN.CLIENTFRAME_TITLE_FRAME);
+		clientFrame.setTitle(Names_PL.CLIENTFRAME_TITLE_FRAME);
 	}
 
 	public void actionPerformed(ActionEvent e) {

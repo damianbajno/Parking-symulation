@@ -7,7 +7,7 @@ import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 import pl.constantsandstrings.Constants;
-import pl.constantsandstrings.Names_EN;
+import pl.constantsandstrings.Names_PL;
 
 public class ParkingTextBoard extends JTextArea {
 	private static ParkingTextBoard parkingTextBoard;
@@ -30,7 +30,7 @@ public class ParkingTextBoard extends JTextArea {
 		setAutoscrolls(true);
 		setLineWrap(true);
 		setBorder(BorderFactory.createTitledBorder(null,
-				Names_EN.ParkingBoard_PARKING_BOARD,
+				Names_PL.ParkingBoard_PARKING_BOARD,
 				TitledBorder.DEFAULT_JUSTIFICATION,
 				TitledBorder.DEFAULT_POSITION, 
 				new Font(Font.SERIF, Font.PLAIN,17)));

@@ -18,8 +18,7 @@ public class ParkingSpace {
 	private int parkingNumber;
 	@Column(columnDefinition = "int default 100")
 	private int parkingCost;
-	private boolean occupy;
-	@OneToOne (mappedBy="parkingSpace")
+	@OneToOne
 	@Cascade({ CascadeType.ALL })
 	private Client client;
 
@@ -36,7 +35,6 @@ public class ParkingSpace {
 		super();
 		this.parkingNumber = parkingNumber;
 		this.parkingCost = parkingCost;
-		occupy = true;
 	}
 
 	public int getParkingCost() {
@@ -52,15 +50,10 @@ public class ParkingSpace {
 	}
 
 	public boolean isOccupy() {
-		return occupy;
-	}
-
-	public void setFree() {
-		this.occupy = false;
-	}
-
-	public void setOccupy() {
-		this.occupy = true;
+		if (client==null) {
+			return false;
+		} else
+			return true;
 	}
 
 	public Client getClient() {
@@ -74,7 +67,7 @@ public class ParkingSpace {
 	@Override
 	public String toString() {
 		return "ParkingSpace [parkingNumber=" + parkingNumber
-				+ ", parkingCost=" + parkingCost + ", occupy=" + occupy + "]";
+				+ ", parkingCost=" + parkingCost + ", occupy=" + isOccupy() + "]";
 	}
 
 }
