@@ -1,6 +1,8 @@
 package pl.test;
 
+import pl.dao.ClientDAO;
 import pl.dao.ParkingSpaceDAO;
+import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 
 public class MainTestClass {
@@ -15,11 +17,16 @@ public class MainTestClass {
 		// ClientDAO.persist(client);
 		// }
 
-		ParkingSpace parkingSpace = ParkingSpaceDAO.get(5);
-		System.out.println(parkingSpace.toString());
-		parkingSpace.setFree();
-		System.out.println(parkingSpace.toString());
-		ParkingSpaceDAO.update(parkingSpace);
+		// ParkingSpace parkingSpace = ParkingSpaceDAO.get(5);
+		// System.out.println(parkingSpace.toString());
+		// parkingSpace.setFree();
+		// System.out.println(parkingSpace.toString());
+		// ParkingSpaceDAO.update(parkingSpace);
+	
+		Client client = ClientDAO.get(5);
+		System.out.println(client.reservedParkingSpace());
+		
+		
 	}
 
 }

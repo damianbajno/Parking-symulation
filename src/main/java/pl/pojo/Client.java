@@ -16,18 +16,18 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Client {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="Client_ID")
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "Client_ID")
+	private int id;
 	private String name;
 	private String surName;
 	private boolean reserved;
 	@OneToOne
-	@Cascade({CascadeType.PERSIST,CascadeType.SAVE_UPDATE})
+	@Cascade({ CascadeType.PERSIST, CascadeType.SAVE_UPDATE })
 	private ParkingSpace parkingSpace;
-	
+
 	public Client() {
-		// TODO Auto-generated constructor stub
+		reserved=true;
 	}
 
 	public Client(String name, String surName) {
@@ -35,8 +35,8 @@ public class Client {
 		this.name = name;
 		this.surName = surName;
 	}
-	
-	public Object getField(int fieldNumber){
+
+	public Object getField(int fieldNumber) {
 		switch (fieldNumber) {
 		case 0:
 			return id;
@@ -60,8 +60,8 @@ public class Client {
 	public void setParkingSpace(ParkingSpace parkingSpace) {
 		this.parkingSpace = parkingSpace;
 	}
-	
-	public boolean isReservedParkingSpace() {
+
+	public boolean reservedParkingSpace() {
 		return reserved;
 	}
 
@@ -71,8 +71,8 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", name=" + name + ", surName=" + surName+"]";
+		return "Client [id=" + id + ", name=" + name + ", surName=" + surName
+				+ ", reserved=" + reserved + "]";
 	}
 
-	
 }

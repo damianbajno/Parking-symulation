@@ -1,35 +1,28 @@
 package pl.thread;
 
 import pl.constantsandstrings.Names_EN;
+import pl.panels.ParkingTextBoard;
 
-public class ParkingSpaceTransactionThread implements Runnable {
-
+public class ParkingSpaceTransactionThread{
+	private ParkingTextBoard parkingTextBoard = ParkingTextBoard.getInstance();
 	private static ParkingSpaceTransaction parkingSpaceTransaction = new ParkingSpaceTransaction();
-	private Integer threadNumber = 0;
 
 	public ParkingSpaceTransactionThread() {
-		System.out.println(threadNumber);
-		threadAwait(1000);
+		startParkingSpaceThread();
+		startParkingSpaceThread();
 	}
 
-	public void run() {
-		synchronized (threadNumber) {
-			threadNumber++;
-			parkingSpaceTransaction.printTransactionStartOnBoard(threadNumber);
-		}
-		for (int i = 0; i < 10; i++) {
-			parkingSpaceTransaction.transaction();
-			threadAwait(2000);
-		}
+	private void startParkingSpaceThread() {
+		ParkingSpaceTransaction parkingSpaceTransaction=new ParkingSpaceTransaction();
+		Thread parkingSpaceManagerThread=new Thread(parkingSpaceTransaction);
+		printTransactionStartOnBoard(parkingSpaceManagerThread.getName());
+		parkingSpaceManagerThread.start();
 	}
 
-	private void threadAwait(int time) {
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			System.err.println(Names_EN.PARKINGMANAGERTHREAD_GetInterupted);
-			e.printStackTrace();
-		}
+	public void printTransactionStartOnBoard(String threadName) {
+		parkingTextBoard.append(String.format(
+				Names_EN.ParkingSpaceTransaction_Start, threadName));
 	}
 
+	
 }

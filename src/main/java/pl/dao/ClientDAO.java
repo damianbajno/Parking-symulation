@@ -34,7 +34,7 @@ public class ClientDAO extends DAO {
 		}
 	}
 
-	public static void updateOrUpdate(Client client) {
+	public static void update(Client client) {
 		try {
 			beginTransaction();
 			getSession().saveOrUpdate(client);
@@ -59,11 +59,12 @@ public class ClientDAO extends DAO {
 		}
 		return Clients;
 	}
+
 	public static Client load(Long id) {
-		Client Client=null;
+		Client Client = null;
 		try {
 			beginTransaction();
-			Client= (Client) getSession().load(Client.class, id);
+			Client = (Client) getSession().load(Client.class, id);
 			commitTransaction();
 		} catch (HibernateException e) {
 			rollback();
@@ -76,8 +77,7 @@ public class ClientDAO extends DAO {
 		Client Client = null;
 		try {
 			beginTransaction();
-			Client = (Client) getSession().get(Client.class,
-					Long.valueOf(index));
+			Client = (Client) getSession().get(Client.class, index);
 			commitTransaction();
 		} catch (HibernateException e) {
 			rollback();

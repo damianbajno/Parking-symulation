@@ -15,8 +15,6 @@ public class ParkingButtonPanel extends JPanel {
 	
 	public ParkingButtonPanel() {
 		createParkingFields();
-		startParkingManagerThread();
-		startParkingManagerThread();
 	}
 
 	private void createParkingFields() {
@@ -33,12 +31,8 @@ public class ParkingButtonPanel extends JPanel {
 				}
 			}
 		}
-	}
-
-	private void startParkingManagerThread() {
-		ParkingSpaceTransactionThread parkingManager=new ParkingSpaceTransactionThread();
-		Thread parkingManagerThread=new Thread(parkingManager);
-		parkingManagerThread.start();
+		
+		ParkingSpaceTransactionThread parkingSpaceTransactionThread=new ParkingSpaceTransactionThread();
 	}
 
 	private boolean selectingRoadFields(int i, int j) {
