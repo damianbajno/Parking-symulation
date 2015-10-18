@@ -16,4 +16,9 @@ public class ParkingSpaceManagerTest {
 		fail("Not yet implemented");
 	}
 
+	@Test
+	public void getClientWithOutParkingSpaceTest(){
+		ParkingSpaceManager parkingSpaceManager=new ParkingSpaceManager();
+		parkingSpaceManager.getClientWithOutParkingSpace().
+	}
 }

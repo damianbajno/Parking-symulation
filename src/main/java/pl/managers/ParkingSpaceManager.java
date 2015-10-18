@@ -23,10 +23,10 @@ public class ParkingSpaceManager {
 
 	}
 
-	public synchronized void changeParkingSpaceStatuByThread(
+	public synchronized void changeParkingSpaceStatusByThread(
 			int parkingSpaceNumber) {
 		ParkingSpaceButton parkingSpaceButton = parkingSpaceButtonList
-				.get(parkingSpaceNumber);
+				.get(parkingSpaceNumber-1);
 		ParkingSpace parkingSpace = ParkingSpaceDAO.get(parkingSpaceNumber);
 			if (parkingSpace.isOccupy()) {
 				setParkingSpaceFree(parkingSpaceButton, parkingSpace);
@@ -35,22 +35,14 @@ public class ParkingSpaceManager {
 			}
 	}
 
-	private void setParkingSpaceOccupy(ParkingSpaceButton parkingSpaceButton,
+	private synchronized void setParkingSpaceOccupy(ParkingSpaceButton parkingSpaceButton,
 			ParkingSpace parkingSpace) {
 		parkingSpaceButton.setOccupy();
-		connectClientToParkingSpace(parkingSpace);
-		printParkingSpaceOccupy(parkingSpace);
+		ParkingSpaceDAO.parkingSpaceMakeOccupy(parkingSpace, getClientWithOutParkingSpace());
+		printParkingSpaceOccupySentence(parkingSpace);
 	}
-	private Client clientWithOutParkingSpace; 
-	private void connectClientToParkingSpace(ParkingSpace parkingSpace) {
-		clientWithOutParkingSpace = getClientWithOutParkingSpace();
-		clientWithOutParkingSpace.setReserved(true);
-		parkingSpace.setClient(clientWithOutParkingSpace);
-		ParkingSpaceDAO.update(parkingSpace);
-		ClientDAO.update(clientWithOutParkingSpace);
-	}
-
-	private Client getClientWithOutParkingSpace() {
+	
+	public synchronized Client getClientWithOutParkingSpace() {
 		Client client;
 		do {
 			client = ClientDAO.get(random.nextInt(numberOfClients) + 1);
@@ -59,36 +51,24 @@ public class ParkingSpaceManager {
 		return client;
 	}
 	
-	private void setParkingSpaceFree(ParkingSpaceButton parkingSpaceButton,
+	private synchronized void setParkingSpaceFree(ParkingSpaceButton parkingSpaceButton,
 			ParkingSpace parkingSpace) {
 		parkingSpaceButton.setFree();
-		disconnectClientFromParkingSpace(parkingSpace);
 		printParkingSpaceFreeSentence(parkingSpace);
+		ParkingSpaceDAO.parkingSpaceMakeFree(parkingSpace);
 	}
 
-	private Client clientExcludedFromParkingSpace;
-	private void disconnectClientFromParkingSpace(ParkingSpace parkingSpace) {
-		clientExcludedFromParkingSpace=null;
-		
-		clientExcludedFromParkingSpace = parkingSpace.getClient();
-		clientExcludedFromParkingSpace.setReserved(false);
-		ClientDAO.update(clientExcludedFromParkingSpace);
-
-		parkingSpace.setClient(null);
-		ParkingSpaceDAO.update(parkingSpace);
-	}
-
-	private void printParkingSpaceFreeSentence(ParkingSpace parkingSpace) {
+	private synchronized void printParkingSpaceFreeSentence(ParkingSpace parkingSpace) {
 		parkingTextBoard.append(String.format(
 				Names_PL.ParkingSpaceTransaction_Parking_Place_Free,
 				parkingSpace.getParkingNumber(), 
-				clientExcludedFromParkingSpace.getId()));
+				parkingSpace.getClient().getId()));
 	}
 
-	private void printParkingSpaceOccupy(ParkingSpace parkingSpace) {
+	private synchronized void printParkingSpaceOccupySentence(ParkingSpace parkingSpace) {
 		parkingTextBoard.append(String.format(
 				Names_PL.ParkingSpaceTransaction_Parking_Place_Occupy,
-				parkingSpace.getParkingNumber(),clientWithOutParkingSpace.getId()));
+				parkingSpace.getParkingNumber(),parkingSpace.getClient().getId()));
 	}
 
 }

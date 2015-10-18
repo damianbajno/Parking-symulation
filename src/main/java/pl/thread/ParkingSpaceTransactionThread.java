@@ -9,7 +9,8 @@ public class ParkingSpaceTransactionThread{
 
 	public ParkingSpaceTransactionThread() {
 		startParkingSpaceThread();
-		startParkingSpaceThread();
+		
+//		startParkingSpaceThread();
 	}
 
 	private void startParkingSpaceThread() {
