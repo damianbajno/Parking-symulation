@@ -57,7 +57,7 @@ public class ParkingSpaceButton extends JButton {
 		setBackground(Color.GREEN);
 	}
 
-	public boolean isOccupied() {
+	public boolean isOccupy() {
 		if (getBackground().equals(Color.RED))
 			return true;
 		else

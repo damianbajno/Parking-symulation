@@ -10,13 +10,9 @@ public class MainTestClass {
 
 	public static void main(String[] args) {
 
-		
-		for (int i = 0; i < 40; i++) {
-			Client client = new Client(Generator.generateName(),
-					Generator.generateSurname());
-			ClientDAO.persist(client);
-		}
-		
+		Thread thread=new Thread(new TestThread());
+		thread.start();
+			
 		// ParkingSpace parkingSpace = ParkingSpaceDAO.get(5);
 		// System.out.println(parkingSpace.toString());
 		// parkingSpace.setFree();

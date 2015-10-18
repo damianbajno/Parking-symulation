@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import pl.constantsandstrings.Names_PL;
-import pl.managers.ParkingSpaceManager;
+import pl.managers.ParkingSpaceManagerTest;
 import pl.panels.ParkingButtonPanel;
 import pl.panels.ParkingSpaceButton;
 import pl.panels.ParkingTextBoard;
@@ -14,7 +14,7 @@ public class ParkingSpaceTransaction implements Runnable {
 	private ArrayList<ParkingSpaceButton> parkingSpaceButtonList = ParkingButtonPanel
 			.getParkingSpaceList();
 	private Random random = new Random();
-	private ParkingSpaceManager parkingSpaceManager = new ParkingSpaceManager();
+	private ParkingSpaceManagerTest parkingSpaceManager = new ParkingSpaceManagerTest();
 
 	public ParkingSpaceTransaction() {
 
