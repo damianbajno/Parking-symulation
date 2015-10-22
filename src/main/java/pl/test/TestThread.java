@@ -7,26 +7,31 @@ import pl.dao.ParkingSpaceDAO;
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 
-public class TestThread implements Runnable{
-	Random random=new Random();
-	
+public class TestThread implements Runnable {
+	Random random = new Random();
+	private int threadNumber = 0;
+	private static int threadNumberGenerator = 0;
+
 	public TestThread() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public void run() {
+		threadNumberGenerator++;
+		threadNumber = threadNumberGenerator;
+		System.out.println("Start Thread nr. = " + threadNumber);
 		for (int i = 0; i < 20; i++) {
-			ParkingSpace parkingSpace=new ParkingSpace(random.nextInt(50));
-			Client client = parkingSpace.getClient();
-			client.setReserved(false);
-			parkingSpace.setClient(null);
-			ParkingSpaceDAO.update(parkingSpace);
-			ClientDAO.update(client);
-			printText(parkingSpace, client);
+
+			TestManagerClass.cyckleAll(i, threadNumber);
+			// ParkingSpace parkingSpace=new ParkingSpace(random.nextInt(50));
+			// Client client = parkingSpace.getClient();
+			// client.setReserved(false);
+			// parkingSpace.setClient(null);
+			// ParkingSpaceDAO.update(parkingSpace);
+			// ClientDAO.update(client);
+			// printText(parkingSpace, client);
 		}
-		
-		
-		
+
 	}
 
 	/**
@@ -34,6 +39,8 @@ public class TestThread implements Runnable{
 	 * @param client
 	 */
 	private void printText(ParkingSpace parkingSpace, Client client) {
-		System.out.println("parking number = "+parkingSpace.getParkingNumber()+" client number = "+client.getId());
+		System.out.println("parking number = "
+				+ parkingSpace.getParkingNumber() + " client number = "
+				+ client.getId());
 	}
 }

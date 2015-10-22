@@ -10,26 +10,18 @@ public class MainTestClass {
 
 	public static void main(String[] args) {
 
-		Thread thread=new Thread(new TestThread());
+		TestThread testThread = new TestThread();
+		TestThread testThread1 = new TestThread();
+		Thread thread = new Thread(testThread);
+		Thread thread1 = new Thread(testThread1);
 		thread.start();
-			
-		// ParkingSpace parkingSpace = ParkingSpaceDAO.get(5);
-		// System.out.println(parkingSpace.toString());
-		// parkingSpace.setFree();
-		// System.out.println(parkingSpace.toString());
-		// ParkingSpaceDAO.update(parkingSpace);
-		//
-		// Client client = ClientDAO.get(5);
-		// System.out.println(client.reservedParkingSpace());
-
-		
-//		generateTableForClientAndParkingSpace();
+		thread1.start();
 	}
 
 	public static void generateTableForClientAndParkingSpace() {
 
 		for (int i = 0; i < 57; i++) {
-			ParkingSpace parkingSpace = new ParkingSpace(i+1,
+			ParkingSpace parkingSpace = new ParkingSpace(i + 1,
 					200 + Generator.generateInteger(200));
 			if (i % 3 == 0) {
 				Client client = new Client(Generator.generateName(),
