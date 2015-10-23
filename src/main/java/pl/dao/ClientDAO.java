@@ -46,18 +46,18 @@ public class ClientDAO extends DAO {
 	}
 
 	public static List<Client> getAll() {
-		List<Client> Clients = new ArrayList<Client>();
+		List<Client> clients = new ArrayList<Client>();
 		try {
 			beginTransaction();
 			Query ClientQuery = getSession().createQuery(
 					"Select c from Client c");
-			Clients = (List<Client>) ClientQuery.list();
+			clients = (List<Client>) ClientQuery.list();
 			commitTransaction();
 		} catch (HibernateException e) {
 			rollback();
 			System.out.println("ClientDao rollback getAllClient");
 		}
-		return Clients;
+		return clients;
 	}
 
 	public static Client load(Long id) {
@@ -74,15 +74,15 @@ public class ClientDAO extends DAO {
 	}
 
 	public static Client get(int index) {
-		Client Client = null;
+		Client client = null;
 		try {
 			beginTransaction();
-			Client = (Client) getSession().get(Client.class, index);
+			client = (Client) getSession().get(Client.class, index);
 			commitTransaction();
 		} catch (HibernateException e) {
 			rollback();
 			System.out.println("ClientDao couldn't get Client");
 		}
-		return Client;
+		return client;
 	}
 }

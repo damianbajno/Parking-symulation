@@ -11,7 +11,7 @@ import pl.pojo.ParkingSpace;
 
 public class DAO {
 
-	private static final ThreadLocal<Session> session = new ThreadLocal<Session>();
+	private static Session session;
 	private static final Configuration configuration = new Configuration()
 			.configure().addAnnotatedClass(Client.class)
 			.addAnnotatedClass(ParkingSpace.class);
@@ -24,10 +24,9 @@ public class DAO {
 	}
 
 	protected static Session getSession() {
-		Session session = DAO.session.get();
 		if (session == null) {
 			session = sessionfactory.openSession();
-			DAO.session.set(session);
+			return session;
 		}
 
 		return session;
@@ -60,7 +59,6 @@ public class DAO {
 
 	public static void close() {
 		getSession().close();
-		DAO.session.set(null);
 	}
 		
 }

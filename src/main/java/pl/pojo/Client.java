@@ -2,6 +2,7 @@ package pl.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -21,8 +23,7 @@ public class Client {
 	private int id;
 	private String name;
 	private String surName;
-	private boolean reserved;
-	@OneToOne(mappedBy = "client")
+	@OneToOne(mappedBy = "client", fetch=FetchType.EAGER)
 	@Cascade({ CascadeType.PERSIST, CascadeType.SAVE_UPDATE })
 	private ParkingSpace parkingSpace;
 
@@ -66,17 +67,20 @@ public class Client {
 	}
 
 	public boolean reservedParkingSpace() {
-		return reserved;
+		if (parkingSpace == null)
+			return false;
+		else
+			return true;
 	}
 
-	public void setReserved(boolean reserved) {
-		this.reserved = reserved;
+	
+	public ParkingSpace getParkingSpace() {
+		return parkingSpace;
 	}
 
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", name=" + name + ", surName=" + surName
-				+ ", reserved=" + reserved + "]";
+		return "Client [id=" + id + ", name=" + name + ", surName=" + surName+"]";
 	}
 
 }

@@ -3,6 +3,7 @@ package pl.frame;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -22,6 +23,7 @@ public class ParkingManagerFrame extends JFrame {
 		setLayout(new BorderLayout());
 		createParking();
 		createParkingTextBorder();
+		
 		defaultSettings();
 	}
 
@@ -46,4 +48,9 @@ public class ParkingManagerFrame extends JFrame {
 		add(parkingBoardPane, BorderLayout.CENTER);
 	}
 
+	public void createThreadButtonsPanel(){
+		
+	}
+	
+	
 }

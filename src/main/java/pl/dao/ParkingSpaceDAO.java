@@ -6,12 +6,14 @@ import java.util.Random;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.Session;
 
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 
 public class ParkingSpaceDAO extends DAO {
 
+	
 	public ParkingSpaceDAO() {
 		super();
 	}
@@ -20,7 +22,6 @@ public class ParkingSpaceDAO extends DAO {
 		try {
 			beginTransaction();
 			Client client = parkingSpace.getClient();
-			client.setReserved(false);
 			parkingSpace.setClient(null);
 			getSession().update(client);
 			getSession().update(parkingSpace);
@@ -34,11 +35,11 @@ public class ParkingSpaceDAO extends DAO {
 	public synchronized static void parkingSpaceMakeOccupy(ParkingSpace parkingSpace, Client client) {
 		try {
 			beginTransaction();
-			client.setReserved(true);
 			parkingSpace.setClient(client);
 			getSession().update(parkingSpace);
-			getSession().update(client);
+			getSession().flush();
 			commitTransaction();
+			getSession().clear();
 		} catch (HibernateException e) {
 			System.out.println("ClientDAO couldn't change client ParkingSpace");
 			rollback();
@@ -69,7 +70,7 @@ public class ParkingSpaceDAO extends DAO {
 		}
 	}
 
-	public static ParkingSpace get(int id) {
+	public synchronized static ParkingSpace get(int id) {
 		ParkingSpace parkingSpace = null;
 		try {
 			beginTransaction();
