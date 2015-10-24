@@ -15,7 +15,7 @@ import pl.pojo.ParkingSpace;
 public class ParkingSpaceManager {
 	private ArrayList<ParkingSpaceButton> parkingSpaceButtonList = ParkingButtonPanel
 			.getParkingSpaceList();
-	private int numberOfClients = ClientDAO.getAll().size();
+	private static int numberOfClients = ClientDAO.getAll().size();
 	private ParkingTextBoard parkingTextBoard = ParkingTextBoard.getInstance();
 	private Random random = new Random();
 
@@ -43,14 +43,12 @@ public class ParkingSpaceManager {
 		printParkingSpaceOccupySentence(parkingSpace);
 	}
 
-	Client previousClient = new Client("p", "p");
 	Client client;
 
-	public synchronized Client getClientWithOutParkingSpace() {
+	public Client getClientWithOutParkingSpace() {
 		do {
 			client = ClientDAO.get(random.nextInt(numberOfClients) + 1);
-		} while (client.reservedParkingSpace() && client != previousClient);
-		previousClient = client;
+		} while (client.reservedParkingSpace());
 		return client;
 	}
 

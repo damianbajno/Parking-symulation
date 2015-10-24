@@ -8,18 +8,20 @@ import org.hibernate.cfg.Configuration;
 
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
+import pl.pojo.StatisticData;
 
 public class DAO {
 
 	private static Session session;
 	private static final Configuration configuration = new Configuration()
 			.configure().addAnnotatedClass(Client.class)
-			.addAnnotatedClass(ParkingSpace.class);
+			.addAnnotatedClass(ParkingSpace.class)
+			.addAnnotatedClass(StatisticData.class);
 	private static final StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
 			.applySettings(configuration.getProperties());
 	private static final SessionFactory sessionfactory = configuration
 			.buildSessionFactory(builder.build());
-	
+
 	protected DAO() {
 	}
 
@@ -60,5 +62,5 @@ public class DAO {
 	public static void close() {
 		getSession().close();
 	}
-		
+
 }

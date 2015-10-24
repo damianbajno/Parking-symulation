@@ -5,6 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -13,6 +14,7 @@ import pl.constantsandstrings.Constants;
 import pl.constantsandstrings.Names_PL;
 import pl.panels.ParkingButtonPanel;
 import pl.panels.ParkingTextBoard;
+import pl.panels.ThreadButtonPanel;
 
 public class ParkingManagerFrame extends JFrame {
 
@@ -23,7 +25,7 @@ public class ParkingManagerFrame extends JFrame {
 		setLayout(new BorderLayout());
 		createParking();
 		createParkingTextBorder();
-		
+		createThreadButtonsPanel();
 		defaultSettings();
 	}
 
@@ -34,22 +36,25 @@ public class ParkingManagerFrame extends JFrame {
 		setVisible(true);
 	}
 
-	public void createParking() {
-		ParkingButtonPanel parkingButtonPanel = new ParkingButtonPanel();
-		JScrollPane parkingScrollPane = new JScrollPane(parkingButtonPanel);
-		add(parkingScrollPane, BorderLayout.EAST);
-	}
-
 	public void createParkingTextBorder() {
 		ParkingTextBoard parkingTextBoard = ParkingTextBoard.getInstance();
 		JScrollPane parkingBoardPane = new JScrollPane(parkingTextBoard);
 		parkingBoardPane.setPreferredSize(Constants.ParkingManagerFrame_ParkingBorderPane);
 		parkingBoardPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		add(parkingBoardPane, BorderLayout.CENTER);
+		add(parkingBoardPane, BorderLayout.WEST);
+	}
+	
+	public void createParking() {
+		ParkingButtonPanel parkingButtonPanel = new ParkingButtonPanel();
+		JScrollPane parkingScrollPane = new JScrollPane(parkingButtonPanel);
+		add(parkingScrollPane, BorderLayout.CENTER);
 	}
 
 	public void createThreadButtonsPanel(){
-		
+		ThreadButtonPanel threadButtonPanel = new ThreadButtonPanel();
+		JPanel threadButtonPanel1 = threadButtonPanel.createThreadButtonPanel();
+		JScrollPane threadButtonScrollPane=new JScrollPane(threadButtonPanel1);
+		add(threadButtonScrollPane, BorderLayout.EAST);
 	}
 	
 	
