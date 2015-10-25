@@ -11,7 +11,7 @@ import pl.frame.CreateOrChooseClientFrame;
 import pl.panels.ParkingButtonPanel;
 import pl.panels.ParkingSpaceButton;
 import pl.pojo.ParkingSpace;
-import pl.tools.Tools;
+import pl.tools.MassageTextUtils;
 
 public class ParkingSpaceListener implements ActionListener {
 	private static ParkingSpaceButton parkingSpaceButton; 

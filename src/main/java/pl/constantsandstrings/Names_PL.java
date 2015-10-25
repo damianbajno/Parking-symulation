@@ -14,4 +14,5 @@ public class Names_PL {
 	public static final String ClientPanel_messageForUncorrectedFiledFilds = "Nie uzupełniono wszystkich niezbędnych póll (Imie, Nazwisko), lub wartości w polach są nieprawidłowe";
 	public static final String CreateClientFrame_ADD_CLIENT_BUTTON = "Dodaj Klienta i ustaw na tym miejscu";
 	public static final String CreateClientFrame_EXIT = "Wyjdź";
+	public static final String threadManagerFrame_THREAD_MANAGER = "Menadzer wątków";
 }

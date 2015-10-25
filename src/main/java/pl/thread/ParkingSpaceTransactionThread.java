@@ -2,35 +2,35 @@ package pl.thread;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
-import pl.constantsandstrings.Constants;
 import pl.constantsandstrings.Names_PL;
 import pl.managers.ParkingSpaceManager;
 import pl.panels.ParkingButtonPanel;
 import pl.panels.ParkingSpaceButton;
-import pl.panels.ParkingTextBoard;
+import pl.panels.TextBoardParkingSpaces;
 import pl.panels.ThreadButton;
 import pl.panels.ThreadButtonPanel;
 
 public class ParkingSpaceTransactionThread {
 
-	private ParkingTextBoard parkingTextBoard = ParkingTextBoard.getInstance();
+	private TextBoardParkingSpaces textBoardParkingSpaces = TextBoardParkingSpaces.getInstance();
 	private ArrayList<ParkingSpaceButton> parkingSpaceButtonList = ParkingButtonPanel
 			.getParkingSpaceList();
 	private ParkingSpaceManager parkingSpaceManager = new ParkingSpaceManager();
-	private static int totalNumberLoops = 0;
-	
+	private static AtomicInteger totalNumberLoops = new AtomicInteger(0);
+	private ExecutorService parkingSpaceFixedThreadPool = Executors.newFixedThreadPool(2);
 	
 	public synchronized void startParkingSpaceThread(ThreadButton threadButton) {
 		ParkingSpaceTransaction parkingSpaceTransaction = new ParkingSpaceTransaction(threadButton);
-		Thread parkingSpaceManagerThread = new Thread(parkingSpaceTransaction);
-		parkingSpaceManagerThread.setName(threadButton.getName());
-		printTransactionStartOnBoard(parkingSpaceManagerThread.getName());
-		parkingSpaceManagerThread.start();
+		printTransactionStartOnBoard(threadButton.getName());
+		parkingSpaceFixedThreadPool.execute(parkingSpaceTransaction);
 	}
 
 	public void printTransactionStartOnBoard(String threadName) {
-		parkingTextBoard.append(String.format(
+		textBoardParkingSpaces.append(String.format(
 				Names_PL.ParkingSpaceTransaction_Start, threadName));
 	}
 
@@ -49,17 +49,17 @@ public class ParkingSpaceTransactionThread {
 			int numberOfLoops = ThreadButtonPanel.numberOfLoops;
 			for (int i = 0; i < numberOfLoops; i++) {
 				transaction();
-				threadAwait(20);
 			}
+			textBoardParkingSpaces.append(Thread.currentThread().getName()+ " -- STOP ---");
 			threadButton.setEnabled(true);
 		}
 
 		public synchronized void transaction() {
 			int numberOfParkingSpaces = parkingSpaceButtonList.size() - 1;
 			int parkingSpaceNumber = random.nextInt(numberOfParkingSpaces) + 1;
-			totalNumberLoops++;
-			parkingTextBoard.append(totalNumberLoops + "   "
-					+ Thread.currentThread().getName() + "\n");
+			totalNumberLoops.incrementAndGet();
+//			textBoardParkingSpaces.append(totalNumberLoops + "   "
+//					+ Thread.currentThread().getName() + "\n");
 			parkingSpaceManager
 					.changeParkingSpaceStatusByThread(parkingSpaceNumber);
 		}

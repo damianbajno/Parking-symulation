@@ -9,5 +9,6 @@ public class Constants {
 	public static final Dimension parkingFieldDimension = new Dimension(50, 80);
 	public static final Dimension ParkingManagerFrame_ParkingBorderPane = new Dimension(500, 600);
 	public static final int defoultNumberLoops = 10;
-	public static final int numberOfThreadButtons = 4;
+	public static final int numberOfThread = 4;
+	
 }

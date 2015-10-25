@@ -1,8 +1,6 @@
 package pl.test;
 
-import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import pl.dao.ClientDAO;
 import pl.dao.ParkingSpaceDAO;
@@ -10,12 +8,12 @@ import pl.managers.ParkingSpaceManager;
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 
-public class TestThread implements Runnable {
+public class TestParkingSpaceThread implements Runnable {
 	Random random = new Random();
 	private int threadNumberGenerator = 1;
 	private ParkingSpaceManager parkingSpaceManager = new ParkingSpaceManager();
 
-	public TestThread() {
+	public TestParkingSpaceThread() {
 	}
 
 	public void run() {

@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import pl.constantsandstrings.Names_PL;
 import pl.frame.ParkingManagerFrame;
+import pl.threadManager.ThreadManagerFrame;
 
 public class MainParkingClass {
 	
@@ -15,6 +16,7 @@ public class MainParkingClass {
 			
 			public void run() {
 				ParkingManagerFrame parkingManagerFrame=new ParkingManagerFrame();
+				ThreadManagerFrame threadManagerFrame=new ThreadManagerFrame();
 			}
 		});
 		

@@ -31,7 +31,7 @@ public class ThreadButtonPanel implements ActionListener {
 	public JPanel createThreadButtonPanel() {
 		JPanel threadButtonPanel = new JPanel();
 		threadButtonPanel.setLayout(new GridLayout(10, 1, 30, 20));
-		for (int i = 0; i < Constants.numberOfThreadButtons; i++) {
+		for (int i = 0; i < Constants.numberOfThread; i++) {
 			threadButtonPanel.add(createThreadButton());
 		}
 
@@ -43,6 +43,7 @@ public class ThreadButtonPanel implements ActionListener {
 
 		threadButtonPanel.add(numberThreadLoopsLabel);
 		threadButtonPanel.add(numberThreadLoopsField);
+		threadButtonPanel.setPreferredSize(new Dimension(200, 500));
 		return threadButtonPanel;
 	}
 

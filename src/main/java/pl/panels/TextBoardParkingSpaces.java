@@ -10,20 +10,20 @@ import javax.swing.text.DefaultCaret;
 import pl.constantsandstrings.Constants;
 import pl.constantsandstrings.Names_PL;
 
-public class ParkingTextBoard extends JTextArea {
-	private static ParkingTextBoard parkingTextBoard;
+public class TextBoardParkingSpaces extends JTextArea {
+	private static TextBoardParkingSpaces textBoardParkingSpaces;
 
-	public static ParkingTextBoard getInstance() {
-		if (parkingTextBoard == null) {
-			parkingTextBoard = new ParkingTextBoard();
-			return parkingTextBoard;
+	public static TextBoardParkingSpaces getInstance() {
+		if (textBoardParkingSpaces == null) {
+			textBoardParkingSpaces = new TextBoardParkingSpaces();
+			return textBoardParkingSpaces;
 		} else {
-			return parkingTextBoard;
+			return textBoardParkingSpaces;
 		}
 
 	}
 
-	public ParkingTextBoard() {
+	public TextBoardParkingSpaces() {
 
 		setEditable(false);
 		setFont(new Font(Font.SERIF, Font.PLAIN, 12));
@@ -42,7 +42,7 @@ public class ParkingTextBoard extends JTextArea {
 	
 	int numberOfWritedLines=5;
 	@Override
-	public void append(String str) {
+	public synchronized void append(String str) {
 		numberOfWritedLines++;
 		setRows(numberOfWritedLines);
 		super.append(str);

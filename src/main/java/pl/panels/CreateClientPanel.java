@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 import pl.tools.GBC;
-import pl.tools.Tools;
+import pl.tools.MassageTextUtils;
 
 public class CreateClientPanel {
 
@@ -55,11 +55,11 @@ public class CreateClientPanel {
 	}
 
 	public boolean areFieldsCorrectlyFilled() {
-		if (Tools.isText(nameTextField.getText())
-				&& Tools.isText(surNameTextField.getText())) {
+		if (MassageTextUtils.isText(nameTextField.getText())
+				&& MassageTextUtils.isText(surNameTextField.getText())) {
 			return true;
 		} else {
-			Tools.showMessage();
+			MassageTextUtils.showMessage();
 			return false;
 		}
 	}

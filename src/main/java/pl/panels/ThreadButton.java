@@ -9,7 +9,7 @@ public class ThreadButton extends JButton {
 
 	public ThreadButton(String text) {
 		super(text);
-		setPreferredSize(new Dimension(200, 10));
+		setPreferredSize(new Dimension(30,50));
 	}
 
 	public void changeState(Thread.State state) {

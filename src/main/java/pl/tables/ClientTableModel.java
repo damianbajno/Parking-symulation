@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 import pl.dao.ClientDAO;
 import pl.pojo.Client;
-import pl.tools.Tools;
+import pl.tools.MassageTextUtils;
 
 public class ClientTableModel extends AbstractTableModel {
 
@@ -32,7 +32,7 @@ public class ClientTableModel extends AbstractTableModel {
 	@Override
 	public String getColumnName(int column) {
 		String columnName = Client.class.getDeclaredFields()[column].getName();
-		return Tools.makeFirstLetterUpper(columnName);
+		return MassageTextUtils.makeFirstLetterUpper(columnName);
 	}
 
 	@Override

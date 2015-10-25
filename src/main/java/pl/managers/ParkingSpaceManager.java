@@ -8,7 +8,7 @@ import pl.dao.ClientDAO;
 import pl.dao.ParkingSpaceDAO;
 import pl.panels.ParkingButtonPanel;
 import pl.panels.ParkingSpaceButton;
-import pl.panels.ParkingTextBoard;
+import pl.panels.TextBoardParkingSpaces;
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 
@@ -16,7 +16,7 @@ public class ParkingSpaceManager {
 	private ArrayList<ParkingSpaceButton> parkingSpaceButtonList = ParkingButtonPanel
 			.getParkingSpaceList();
 	private static int numberOfClients = ClientDAO.getAll().size();
-	private ParkingTextBoard parkingTextBoard = ParkingTextBoard.getInstance();
+	private TextBoardParkingSpaces textBoardParkingSpaces = TextBoardParkingSpaces.getInstance();
 	private Random random = new Random();
 
 	public ParkingSpaceManager() {
@@ -40,7 +40,7 @@ public class ParkingSpaceManager {
 		parkingSpaceButton.setOccupy();
 		ParkingSpaceDAO.parkingSpaceMakeOccupy(parkingSpace,
 				getClientWithOutParkingSpace());
-		printParkingSpaceOccupySentence(parkingSpace);
+//		printParkingSpaceOccupySentence(parkingSpace);
 	}
 
 	Client client;
@@ -55,13 +55,13 @@ public class ParkingSpaceManager {
 	private synchronized void setParkingSpaceFree(
 			ParkingSpaceButton parkingSpaceButton, ParkingSpace parkingSpace) {
 		parkingSpaceButton.setFree();
-		printParkingSpaceFreeSentence(parkingSpace);
+//		printParkingSpaceFreeSentence(parkingSpace);
 		ParkingSpaceDAO.parkingSpaceMakeFree(parkingSpace);
 	}
 
 	private synchronized void printParkingSpaceFreeSentence(
 			ParkingSpace parkingSpace) {
-		parkingTextBoard.append(String.format(
+		textBoardParkingSpaces.append(String.format(
 				Names_PL.ParkingSpaceTransaction_Parking_Place_Free,
 				parkingSpace.getParkingNumber(), parkingSpace.getClient()
 						.getId()));
@@ -69,7 +69,7 @@ public class ParkingSpaceManager {
 
 	private synchronized void printParkingSpaceOccupySentence(
 			ParkingSpace parkingSpace) {
-		parkingTextBoard.append(String.format(
+		textBoardParkingSpaces.append(String.format(
 				Names_PL.ParkingSpaceTransaction_Parking_Place_Occupy,
 				parkingSpace.getParkingNumber(), parkingSpace.getClient()
 						.getId()));
