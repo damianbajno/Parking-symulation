@@ -9,7 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Fetch;
@@ -23,7 +26,9 @@ public class Client {
 	private int id;
 	private String name;
 	private String surName;
-	@OneToOne(mappedBy = "client", fetch=FetchType.EAGER)
+	@Version
+	private Long version;
+	@OneToOne(mappedBy = "client", fetch = FetchType.EAGER)
 	@Cascade({ CascadeType.PERSIST, CascadeType.SAVE_UPDATE })
 	private ParkingSpace parkingSpace;
 
@@ -73,14 +78,14 @@ public class Client {
 			return true;
 	}
 
-	
 	public ParkingSpace getParkingSpace() {
 		return parkingSpace;
 	}
 
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", name=" + name + ", surName=" + surName+"]";
+		return "Client [id=" + id + ", name=" + name + ", surName=" + surName + ", version=" + version+"]";
 	}
+
 
 }

@@ -9,6 +9,9 @@ import pl.pojo.StatisticData;
 
 public class Tools {
 
+	static ParkingSpaceDAO parkingSpaceDAO=new ParkingSpaceDAO();
+	static ClientDAO clientDAO=new ClientDAO();
+	
 	public Tools() {
 		// TODO Auto-generated constructor stub
 	}
@@ -18,13 +21,13 @@ public class Tools {
 		 for (int i = 0; i < 57; i++) {
 		 ParkingSpace parkingSpace = new ParkingSpace(i + 1,
 		 200 + Generator.generateInteger(200));
-		 ParkingSpaceDAO.persist(parkingSpace);
+		 parkingSpaceDAO.persist(parkingSpace);
 		 }
 		
 		 for (int i = 0; i < 50; i++) {
 		 Client client = new Client(Generator.generateName(),
 		 Generator.generateSurname());
-		 ClientDAO.persist(client);
+		 clientDAO.persist(client);
 		 }
 		 
 		 StatisticDataDAO statisticDataDAO=new StatisticDataDAO();

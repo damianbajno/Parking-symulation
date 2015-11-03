@@ -1,6 +1,8 @@
 package pl.panels;
 
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.BorderFactory;
 import javax.swing.JTextArea;
@@ -13,7 +15,7 @@ import pl.constantsandstrings.Names_PL;
 public class TextBoardParkingSpaces extends JTextArea {
 	private static TextBoardParkingSpaces textBoardParkingSpaces;
 
-	public static TextBoardParkingSpaces getInstance() {
+	public synchronized static TextBoardParkingSpaces getInstance() {
 		if (textBoardParkingSpaces == null) {
 			textBoardParkingSpaces = new TextBoardParkingSpaces();
 			return textBoardParkingSpaces;
@@ -40,12 +42,17 @@ public class TextBoardParkingSpaces extends JTextArea {
 	}
 
 	
-	int numberOfWritedLines=5;
+	private AtomicInteger numberOfWritedLines=new AtomicInteger(5);
 	@Override
-	public synchronized void append(String str) {
-		numberOfWritedLines++;
-		setRows(numberOfWritedLines);
-		super.append(str);
+	public void append(String str) {
+		setRows(numberOfWritedLines.incrementAndGet());
+//		EventQueue.invokeLater(new Runnable() {
+			
+//			public void run() {
+				super.append(str);
+				
+//			}
+//		});
 	}
 
 	@Override

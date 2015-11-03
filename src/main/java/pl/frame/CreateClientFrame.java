@@ -58,11 +58,11 @@ public class CreateClientFrame extends JFrame implements ActionListener{
 		}
 		if (Names_PL.CreateClientFrame_ADD_CLIENT_BUTTON==buttonActionCommand){
 			Client client = createClientPanel.getClient();
-			ParkingSpace selectedParkingSpace = ParkingSpaceListener.getSelectedParkingSpace();
-			if (client!=null){
-				client.setParkingSpace(selectedParkingSpace);
-				ClientDAO.persist(client);
-			}
+//			ParkingSpace selectedParkingSpace = .getSelectedParkingSpace();
+//			if (client!=null){
+//				client.setParkingSpace(selectedParkingSpace);
+//				ClientDAO.persist(client);
+//			}
 		}
 			
 	}

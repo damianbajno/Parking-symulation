@@ -15,6 +15,7 @@ import pl.tools.MassageTextUtils;
 
 public class ParkingSpaceListener implements ActionListener {
 	private static ParkingSpaceButton parkingSpaceButton; 
+	private ParkingSpaceDAO parkingSpaceDAO=new ParkingSpaceDAO();
 	
 	public ParkingSpaceListener() {
 		// TODO Auto-generated constructor stub
@@ -29,9 +30,9 @@ public class ParkingSpaceListener implements ActionListener {
 		}
 	}
 
-	public static ParkingSpace getSelectedParkingSpace() {
+	public ParkingSpace getSelectedParkingSpace() {
 		int parkingSpaceNumber = parkingSpaceButton.getParkingSpaceNumber();
-		return ParkingSpaceDAO.get(parkingSpaceNumber);
+		return parkingSpaceDAO.get(parkingSpaceNumber);
 				
 	}
 

@@ -20,7 +20,7 @@ public class ParkingSpaceDAO extends DAO {
 		super();
 	}
 
-	public synchronized static void parkingSpaceMakeFree(
+	public boolean parkingSpaceMakeFree(
 			ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
@@ -29,14 +29,16 @@ public class ParkingSpaceDAO extends DAO {
 			getSession().update(client);
 			getSession().update(parkingSpace);
 			commitTransaction();
+			return true;
 		} catch (HibernateException e) {
 			System.out.println("ClientDAO couldn't change client ParkingSpace");
 			rollback();
+			return false;
 		}
 
 	}
 
-	public synchronized static void parkingSpaceMakeOccupy(
+	public boolean parkingSpaceMakeOccupy(
 			ParkingSpace parkingSpace, Client client) {
 		try {
 			beginTransaction();
@@ -49,14 +51,16 @@ public class ParkingSpaceDAO extends DAO {
 
 			commitTransaction();
 			getSession().clear();
+			return true;
 		} catch (HibernateException e) {
 			System.out.println("ClientDAO couldn't change client ParkingSpace");
 			rollback();
+			return false;
 		}
 
 	}
 
-	public static void saveOrUpdate(ParkingSpace parkingSpace) {
+	public void saveOrUpdate(ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
 			getSession().saveOrUpdate(parkingSpace);
@@ -68,7 +72,7 @@ public class ParkingSpaceDAO extends DAO {
 		}
 	}
 
-	public static void persist(ParkingSpace parkingSpace) {
+	public void persist(ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
 			getSession().persist(parkingSpace);
@@ -80,7 +84,7 @@ public class ParkingSpaceDAO extends DAO {
 		}
 	}
 
-	public synchronized static ParkingSpace get(int id) {
+	public ParkingSpace get(int id) {
 		ParkingSpace parkingSpace = null;
 		try {
 			beginTransaction();
@@ -94,7 +98,7 @@ public class ParkingSpaceDAO extends DAO {
 		return parkingSpace;
 	}
 
-	public static void delateOrphan(ParkingSpace ParkingSpace) {
+	public void delateOrphan(ParkingSpace ParkingSpace) {
 		try {
 			beginTransaction();
 			getSession().delete(ParkingSpace);
@@ -106,7 +110,7 @@ public class ParkingSpaceDAO extends DAO {
 		}
 	}
 
-	public static void delate(ParkingSpace ParkingSpace) {
+	public void delate(ParkingSpace ParkingSpace) {
 		try {
 			beginTransaction();
 			getSession().delete(ParkingSpace);
@@ -117,7 +121,7 @@ public class ParkingSpaceDAO extends DAO {
 		}
 	}
 
-	public static ParkingSpace load(Long id) {
+	public ParkingSpace load(Long id) {
 		ParkingSpace ParkingSpace = null;
 		try {
 			beginTransaction();
@@ -131,7 +135,7 @@ public class ParkingSpaceDAO extends DAO {
 		return ParkingSpace;
 	}
 
-	public static void update(ParkingSpace parkingSpace) {
+	public void update(ParkingSpace parkingSpace) {
 		try {
 			beginTransaction();
 			getSession().update(parkingSpace);
@@ -142,7 +146,7 @@ public class ParkingSpaceDAO extends DAO {
 		}
 	}
 
-	public static List<ParkingSpace> getAll() {
+	public List<ParkingSpace> getAll() {
 		List<ParkingSpace> ParkingSpaces = new ArrayList<ParkingSpace>();
 		try {
 			beginTransaction();

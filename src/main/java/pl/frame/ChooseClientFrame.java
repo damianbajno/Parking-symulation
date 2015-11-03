@@ -42,9 +42,9 @@ public class ChooseClientFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		Client selectedClient = clientJTable.getSelectedClient();
-		ParkingSpace selectedParkingSpace = ParkingSpaceListener.getSelectedParkingSpace();
-		selectedClient.setParkingSpace(selectedParkingSpace);
-		ClientDAO.persist(selectedClient);
+//		ParkingSpace selectedParkingSpace = ParkingSpaceListener.getSelectedParkingSpace();
+//		selectedClient.setParkingSpace(selectedParkingSpace);
+//		ClientDAO.persist(selectedClient);
 		clientFrame.dispose();
 		
 	}

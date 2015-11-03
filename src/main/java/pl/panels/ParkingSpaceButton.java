@@ -2,8 +2,10 @@ package pl.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -21,6 +23,8 @@ public class ParkingSpaceButton extends JButton {
 	private ParkingSpaceListener parkingSpaceListener = new ParkingSpaceListener();
 	private static int parkingSpaceNumberGenerator = 0;
 	private int parkingSpaceNumber;
+	private ParkingSpaceDAO parkingSpaceDAO = new ParkingSpaceDAO();
+	private static AtomicInteger i=new AtomicInteger(0);
 
 	public ParkingSpaceButton() {
 		parkingSpaceNumber = parkingSpaceNumberGenerator++;
@@ -41,8 +45,7 @@ public class ParkingSpaceButton extends JButton {
 	 * 
 	 */
 	private void setParkingSpaceStatus() {
-		ParkingSpace parkingSpace = ParkingSpaceDAO
-				.get(parkingSpaceNumberGenerator);
+		ParkingSpace parkingSpace = parkingSpaceDAO.get(parkingSpaceNumberGenerator);
 		if (parkingSpace.isOccupy())
 			setBackground(Color.RED);
 		else
@@ -50,11 +53,24 @@ public class ParkingSpaceButton extends JButton {
 	}
 
 	public void setOccupy() {
-		setBackground(Color.RED);
+		EventQueue.invokeLater(new Runnable() {
+
+			public void run() {
+				setBackground(Color.RED);
+			}
+		});
+		System.out.println(i.incrementAndGet());
 	}
 
 	public void setFree() {
-		setBackground(Color.GREEN);
+		EventQueue.invokeLater(new Runnable() {
+
+			public void run() {
+				setBackground(Color.GREEN);
+			}
+		});
+
+		System.out.println(i.incrementAndGet());
 	}
 
 	public boolean isOccupy() {

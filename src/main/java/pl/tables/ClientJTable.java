@@ -8,6 +8,7 @@ import pl.pojo.Client;
 
 public class ClientJTable extends JTable {
 	ClientTableModel clientTableModel;
+	ClientDAO clientDAO=new ClientDAO();
 	
 	public ClientJTable(){
 		setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -17,7 +18,7 @@ public class ClientJTable extends JTable {
 	
 	public Client getSelectedClient(){
 		int selectedRowNumber = this.getSelectedRow(); 
-		Client client = ClientDAO.get(selectedRowNumber);
+		Client client = clientDAO.get(selectedRowNumber);
 		return client;
 	}
 }
