@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,11 +27,13 @@ public class ParkingSpaceButton extends JButton {
 	private int parkingSpaceNumber;
 	private ParkingSpaceDAO parkingSpaceDAO = new ParkingSpaceDAO();
 	private static AtomicInteger i=new AtomicInteger(0);
-
+	private boolean lock=false;
+	
 	public ParkingSpaceButton() {
-		parkingSpaceNumber = parkingSpaceNumberGenerator++;
+		parkingSpaceNumber = ++parkingSpaceNumberGenerator;
 		defaultSettings();
 		setParkingSpaceStatus();
+		
 	}
 
 	private void defaultSettings() {
@@ -41,9 +45,6 @@ public class ParkingSpaceButton extends JButton {
 		addActionListener(parkingSpaceListener);
 	}
 
-	/**
-	 * 
-	 */
 	private void setParkingSpaceStatus() {
 		ParkingSpace parkingSpace = parkingSpaceDAO.get(parkingSpaceNumberGenerator);
 		if (parkingSpace.isOccupy())
@@ -51,7 +52,7 @@ public class ParkingSpaceButton extends JButton {
 		else
 			setBackground(Color.GREEN);
 	}
-
+	
 	public void setOccupy() {
 		EventQueue.invokeLater(new Runnable() {
 
@@ -60,6 +61,7 @@ public class ParkingSpaceButton extends JButton {
 			}
 		});
 		System.out.println(i.incrementAndGet());
+		unLock();
 	}
 
 	public void setFree() {
@@ -69,10 +71,22 @@ public class ParkingSpaceButton extends JButton {
 				setBackground(Color.GREEN);
 			}
 		});
-
+		unLock();
 		System.out.println(i.incrementAndGet());
 	}
 
+	public void lock() {
+		this.lock=true;
+	}
+
+	private void unLock() {
+		this.lock=false;
+	}
+
+	public boolean isLock(){
+		return lock;
+	}
+	
 	public boolean isOccupy() {
 		if (getBackground().equals(Color.RED))
 			return true;
@@ -80,7 +94,7 @@ public class ParkingSpaceButton extends JButton {
 			return false;
 	}
 
-	public int getParkingSpaceNumber() {
+	public int getParkingNumber() {
 		return parkingSpaceNumber;
 	}
 

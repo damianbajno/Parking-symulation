@@ -7,8 +7,8 @@ public class Names_PL {
 	public static final String CLIENTFRAME_COMMITE_BUTTON = "Commite";
 	public static final String ParkingBoard_PARKING_BOARD = "Parking Board";
 	public static final String ParkingManager_WATEK_INTERAPTED = "Wątek Interapted";
-	public static final String ParkingSpaceTransaction_Parking_Place_Free = "Miejsce parkingowe numer %d zostało zwolnione przez Klienta %d.\n";
-	public static final String ParkingSpaceTransaction_Parking_Place_Occupy = "Miejsce parkingowe numer %d zostało zajęte przez Klienta %d.\n";
+	public static final String ParkingSpaceTransaction_Parking_Place_Free = "Miejsce parkingowe numer %d zostało zwolnione przez Klienta .\n";
+	public static final String ParkingSpaceTransaction_Parking_Place_Occupy = "Miejsce parkingowe numer %d zostało zajęte przez Klienta .\n";
 	public static final String ParkingSpaceTransaction_Start = "%s zaczął pracę. \n";
 	public static final String PARKINGMANAGERTHREAD_GetInterupted = "ParkingManagerThread został przerwany. \n";
 	public static final String ClientPanel_messageForUncorrectedFiledFilds = "Nie uzupełniono wszystkich niezbędnych póll (Imie, Nazwisko), lub wartości w polach są nieprawidłowe";

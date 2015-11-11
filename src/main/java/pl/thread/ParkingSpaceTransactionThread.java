@@ -16,7 +16,7 @@ public class ParkingSpaceTransactionThread {
 	private TextBoardParkingSpaces textBoardParkingSpaces = TextBoardParkingSpaces.getInstance();
 
 	private static AtomicInteger totalNumberLoops = new AtomicInteger(0);
-	private ExecutorService parkingSpaceFixedThreadPool = Executors.newFixedThreadPool(2);
+	private ExecutorService parkingSpaceFixedThreadPool = Executors.newFixedThreadPool(4);
 
 	public synchronized void startParkingSpaceThread(ThreadButton threadButton) {
 		ParkingSpaceTransaction parkingSpaceTransaction = new ParkingSpaceTransaction(threadButton);
@@ -32,7 +32,6 @@ public class ParkingSpaceTransactionThread {
 		public ParkingSpaceTransaction(ThreadButton threadButton) {
 			super();
 			this.threadButton = threadButton;
-			
 		}
 
 		public void run() {
@@ -44,11 +43,12 @@ public class ParkingSpaceTransactionThread {
 			for (int i = 0; i < numberOfLoops; i++) {
 				totalNumberLoops.incrementAndGet();
 				parkingSpaceManager.changeParkingSpaceStatusByThread();
+				sleep(10);
 			}
 			threadButton.setEnabled(true);
 		}
 
-		private void threadAwait(int time) {
+		private void sleep(int time) {
 			try {
 				Thread.sleep(time);
 			} catch (InterruptedException e) {

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import pl.frame.ParkingManagerFrame;
 import pl.threadManager.ThreadManagerFrame;
+import pl.tools.ThreadTest;
 
 public class MainParkingClass {
 	
@@ -13,7 +14,7 @@ public class MainParkingClass {
 			
 			public void run() {
 				ParkingManagerFrame parkingManagerFrame=new ParkingManagerFrame();
-				ThreadManagerFrame threadManagerFrame=new ThreadManagerFrame();
+//				ThreadManagerFrame threadManagerFrame=new ThreadManagerFrame();
 			}
 		});
 		

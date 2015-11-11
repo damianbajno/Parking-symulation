@@ -8,8 +8,7 @@ public class MainTestClass {
 	
 
 	public static void main(String[] args) {
-		TextBoardParkingSpaces boardParkingSpaces=new TextBoardParkingSpaces();
-		System.out.println(boardParkingSpaces.toString());
+		Tools.generateTables();
 	}
 
 }

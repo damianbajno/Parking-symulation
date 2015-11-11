@@ -7,6 +7,7 @@ import java.util.Random;
 import javassist.expr.NewArray;
 
 import org.hibernate.HibernateException;
+import org.hibernate.LockMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -15,49 +16,63 @@ import pl.pojo.ParkingSpace;
 import pl.pojo.StatisticData;
 
 public class ParkingSpaceDAO extends DAO {
-
+	static int clientNumber=ClientDAO.getAll().size();
+	
 	public ParkingSpaceDAO() {
 		super();
 	}
 
-	public boolean parkingSpaceMakeFree(
-			ParkingSpace parkingSpace) {
+	public static void increment() {
+		clientNumber++;
+	}
+
+	public boolean parkingSpaceMakeFree(int parkingSpace_ID) {
 		try {
 			beginTransaction();
-			Client client = parkingSpace.getClient();
+			ParkingSpace parkingSpace = (ParkingSpace) getSession().get(
+					ParkingSpace.class, parkingSpace_ID);
 			parkingSpace.setClient(null);
-			getSession().update(client);
-			getSession().update(parkingSpace);
 			commitTransaction();
 			return true;
 		} catch (HibernateException e) {
-			System.out.println("ClientDAO couldn't change client ParkingSpace");
+			System.out.println("ParkingSpaceDAO couldn't make ParkingSpace "
+					+ parkingSpace_ID + " free");
 			rollback();
 			return false;
 		}
 
 	}
 
-	public boolean parkingSpaceMakeOccupy(
-			ParkingSpace parkingSpace, Client client) {
+	public boolean parkingSpaceMakeOccupy(int parkingSpace_Id) {
 		try {
 			beginTransaction();
-			StatisticData statisticData = new StatisticData(
-					client.getId(), parkingSpace.getParkingNumber());
-
+			ParkingSpace parkingSpace = (ParkingSpace) getSession().get(
+					ParkingSpace.class, parkingSpace_Id);
+			Client client = getClientWithOutParkingSpace(clientNumber);
 			parkingSpace.setClient(client);
-			getSession().update(parkingSpace);
-			getSession().persist(statisticData);
-
 			commitTransaction();
 			getSession().clear();
 			return true;
 		} catch (HibernateException e) {
-			System.out.println("ClientDAO couldn't change client ParkingSpace");
+			System.out.println("ParkingSpaceDAO couldn't make ParkingSpace "
+					+ parkingSpace_Id + " occupy ");
 			rollback();
 			return false;
 		}
+	}
 
+	Random random = new Random();
+
+	private Client getClientWithOutParkingSpace(int clientNumbers) {
+		Client client = null;
+		do {
+			client = (Client) getSession().get(Client.class,
+					random.nextInt(clientNumbers) + 1);
+			System.out.println(" =======  "+client.getId() + " search client");
+		} while (client.reservedParkingSpace() && client != null);
+		getSession().lock(client, LockMode.PESSIMISTIC_FORCE_INCREMENT);
+		System.out.println(" ========= "+client.getId() + " lock client");
+		return client;
 	}
 
 	public void saveOrUpdate(ParkingSpace parkingSpace) {

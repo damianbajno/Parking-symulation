@@ -31,7 +31,7 @@ public class ParkingSpaceListener implements ActionListener {
 	}
 
 	public ParkingSpace getSelectedParkingSpace() {
-		int parkingSpaceNumber = parkingSpaceButton.getParkingSpaceNumber();
+		int parkingSpaceNumber = parkingSpaceButton.getParkingNumber();
 		return parkingSpaceDAO.get(parkingSpaceNumber);
 				
 	}

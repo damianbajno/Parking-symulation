@@ -22,7 +22,7 @@ public class ThreadTest implements Runnable {
 
 	private void sleep() {
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,7 +37,12 @@ public class ThreadTest implements Runnable {
 
 			System.out.println("Thread Id = " + threadInfo2.getThreadId() + "         name =     " + threadInfo2.getThreadName());
 			System.out.println(
-					"Thread state = " + threadInfo2.getThreadState() + " lock Name = " + threadInfo2.getLockName());
+					"Thread state = " + threadInfo2.getThreadState() + " lock Name  = " + threadInfo2.getLockName());
+			System.out.println("Thread lock owner name = "+threadInfo2.getLockOwnerName());
+			StackTraceElement[] stackTrace = threadInfo2.getStackTrace();
+			for (int i = 0; i < stackTrace.length; i++) {
+				System.out.println("stack trace = "+stackTrace.toString());
+			}
 			System.out.println("   -----------    ");
 		}
 		System.out.println("--- END ThreadsINFO -----");

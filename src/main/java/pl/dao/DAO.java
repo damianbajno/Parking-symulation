@@ -50,6 +50,7 @@ public class DAO {
 			System.out.println("Transaction Can't roll back");
 			e.printStackTrace();
 		}
+		
 		try {
 			System.out.println("Session started closing");
 			getSession().close();
