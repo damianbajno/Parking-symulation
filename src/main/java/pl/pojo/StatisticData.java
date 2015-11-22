@@ -6,6 +6,7 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
 
 @Entity
@@ -15,14 +16,15 @@ public class StatisticData {
 	private int id;
 	private int clientNumber;
 	private int parkingSpaceNumber;
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-	private LocalDateTime dateTime;
+	private boolean isParking;
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime dateTime= new DateTime();
 
-	public StatisticData(int clientNumber, int parkingSpaceNumber) {
+	public StatisticData(int clientNumber, int parkingSpaceNumber, boolean isParking) {
 		super();
 		this.clientNumber = clientNumber;
 		this.parkingSpaceNumber = parkingSpaceNumber;
-		this.dateTime = new LocalDateTime();
+		this.isParking=isParking;
 	}
 
 	public StatisticData() {
@@ -53,13 +55,19 @@ public class StatisticData {
 		this.parkingSpaceNumber = parkingSpaceNumber;
 	}
 
-	public LocalDateTime getDateTime() {
+	public boolean isParking() {
+		return isParking;
+	}
+
+	public void setParking(boolean isParking) {
+		this.isParking = isParking;
+	}
+
+	public DateTime getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(LocalDateTime dateTime) {
+	public void setDateTime(DateTime dateTime) {
 		this.dateTime = dateTime;
 	}
-
-
 }

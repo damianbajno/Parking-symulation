@@ -87,5 +87,53 @@ public class Client {
 		return "Client [id=" + id + ", name=" + name + ", surName=" + surName + ", version=" + version+"]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((parkingSpace == null) ? 0 : parkingSpace.hashCode());
+		result = prime * result + ((surName == null) ? 0 : surName.hashCode());
+		result = prime * result + ((version == null) ? 0 : version.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Client other = (Client) obj;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (parkingSpace == null) {
+			if (other.parkingSpace != null)
+				return false;
+		} else if (!parkingSpace.equals(other.parkingSpace))
+			return false;
+		if (surName == null) {
+			if (other.surName != null)
+				return false;
+		} else if (!surName.equals(other.surName))
+			return false;
+		if (version == null) {
+			if (other.version != null)
+				return false;
+		} else if (!version.equals(other.version))
+			return false;
+		return true;
+	}
+
+	
 
 }

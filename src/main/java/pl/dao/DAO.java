@@ -57,7 +57,8 @@ public class DAO {
 		} catch (HibernateException e) {
 			System.out.println("Session can't close");
 			e.printStackTrace();
-		}
+			System.exit(0);
+		} 
 	}
 
 	public static void close() {

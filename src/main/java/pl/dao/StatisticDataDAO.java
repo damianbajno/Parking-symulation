@@ -14,9 +14,8 @@ public class StatisticDataDAO extends DAO {
 		try {
 			beginTransaction();
 
-			StatisticData parkingSpaceClientStatisticData = new StatisticData(
-					clientNumber, parkingNumber);
-			getSession().persist(parkingSpaceClientStatisticData);
+//			StatisticData parkingSpaceClientStatisticData = new StatisticData(clientNumber, parkingNumber);
+//			getSession().persist(parkingSpaceClientStatisticData);
 
 			commitTransaction();
 		} catch (HibernateException e) {

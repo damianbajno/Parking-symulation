@@ -48,15 +48,13 @@ public class ParkingManagerFrame extends JFrame {
 	
 	public void createParking() {
 		ParkingButtonPanel parkingButtonPanel = new ParkingButtonPanel();
-		JScrollPane parkingScrollPane = new JScrollPane(parkingButtonPanel);
-		parkingManagerPanel.add(parkingScrollPane, BorderLayout.CENTER);
+		parkingManagerPanel.add(parkingButtonPanel, BorderLayout.CENTER);
 	}
 
 	public void createThreadButtonsPanel(){
 		ThreadButtonPanel threadButtonPanel = new ThreadButtonPanel();
 		JPanel threadButtonPanel1 = threadButtonPanel.createThreadButtonPanel();
-		JScrollPane threadButtonScrollPane=new JScrollPane(threadButtonPanel1);
-		parkingManagerPanel.add(threadButtonScrollPane, BorderLayout.EAST);
+		parkingManagerPanel.add(threadButtonPanel1, BorderLayout.EAST);
 	}
 	
 	

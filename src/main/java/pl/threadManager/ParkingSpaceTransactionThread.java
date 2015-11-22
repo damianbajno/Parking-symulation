@@ -1,22 +1,18 @@
-package pl.thread;
+package pl.threadManager;
 
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import pl.constantsandstrings.Constants;
 import pl.constantsandstrings.Names_PL;
-import pl.managers.ParkingSpaceManager;
-import pl.panels.TextBoardParkingSpaces;
 import pl.panels.ThreadButton;
 import pl.panels.ThreadButtonPanel;
 
 public class ParkingSpaceTransactionThread {
 
-	private TextBoardParkingSpaces textBoardParkingSpaces = TextBoardParkingSpaces.getInstance();
-
-	private static AtomicInteger totalNumberLoops = new AtomicInteger(0);
-	private ExecutorService parkingSpaceFixedThreadPool = Executors.newFixedThreadPool(4);
+	private static AtomicInteger numberLoopsForThread = new AtomicInteger(0);
+	private ExecutorService parkingSpaceFixedThreadPool = Executors.newFixedThreadPool(Constants.numberOfThreadInFixedThreadPool);
 
 	public synchronized void startParkingSpaceThread(ThreadButton threadButton) {
 		ParkingSpaceTransaction parkingSpaceTransaction = new ParkingSpaceTransaction(threadButton);
@@ -26,7 +22,6 @@ public class ParkingSpaceTransactionThread {
 	// //// NESTED CLASS /////
 
 	private class ParkingSpaceTransaction implements Runnable {
-		private Random random = new Random();
 		private ThreadButton threadButton;
 		
 		public ParkingSpaceTransaction(ThreadButton threadButton) {
@@ -41,7 +36,7 @@ public class ParkingSpaceTransactionThread {
 
 			int numberOfLoops = ThreadButtonPanel.numberOfLoops;
 			for (int i = 0; i < numberOfLoops; i++) {
-				totalNumberLoops.incrementAndGet();
+				numberLoopsForThread.incrementAndGet();
 				parkingSpaceManager.changeParkingSpaceStatusByThread();
 				sleep(10);
 			}

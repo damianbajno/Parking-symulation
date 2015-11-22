@@ -1,4 +1,4 @@
-package pl.managers;
+package pl.threadManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +16,12 @@ import pl.pojo.ParkingSpace;
 
 public class ParkingSpaceManager {
 	private String threadName = Thread.currentThread().getName();
-	private List<ParkingSpaceButton> parkingSpaceButtonList = ParkingSpaceButtonList.getInstance();
-	private static int numberOfClients = ClientDAO.getAll().size();
+	private List<ParkingSpaceButton> parkingSpaceButtonList = ParkingSpaceButtonList
+			.getInstance();
 	private TextBoardParkingSpaces textBoardParkingSpaces = TextBoardParkingSpaces
 			.getInstance();
 	private Random random = new Random();
 	private ParkingSpaceDAO parkingSpaceDAO = new ParkingSpaceDAO();
-	private ClientDAO clientDAO = new ClientDAO();
 
 	public ParkingSpaceManager() {
 
@@ -42,8 +41,7 @@ public class ParkingSpaceManager {
 		}
 	}
 
-	private void setParkingSpaceOccupy(
-			ParkingSpaceButton parkingSpaceButton) {
+	private void setParkingSpaceOccupy(ParkingSpaceButton parkingSpaceButton) {
 		if (parkingSpaceDAO.parkingSpaceMakeOccupy(parkingSpaceButton
 				.getParkingNumber())) {
 			parkingSpaceButton.setOccupy();
@@ -53,8 +51,7 @@ public class ParkingSpaceManager {
 		}
 	}
 
-	private void setParkingSpaceFree(
-			ParkingSpaceButton parkingSpaceButton) {
+	private void setParkingSpaceFree(ParkingSpaceButton parkingSpaceButton) {
 		if (parkingSpaceDAO.parkingSpaceMakeFree(parkingSpaceButton
 				.getParkingNumber())) {
 			parkingSpaceButton.setFree();
@@ -71,6 +68,11 @@ public class ParkingSpaceManager {
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Free,
 						parkingSpaceButton.getParkingNumber()));
+		System.out.println(threadName
+				+ "\n    "
+				+ String.format(
+						Names_PL.ParkingSpaceTransaction_Parking_Place_Free,
+						parkingSpaceButton.getParkingNumber()));
 	}
 
 	private void printParkingSpaceFailFreeSentence(
@@ -79,9 +81,14 @@ public class ParkingSpaceManager {
 				+ "\n    "
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Free,
-						parkingSpaceButton.getParkingNumber())+"  FAIL   ");
+						parkingSpaceButton.getParkingNumber()) + "  FAIL   ");
+		System.out.println(threadName
+				+ "\n    "
+				+ String.format(
+						Names_PL.ParkingSpaceTransaction_Parking_Place_Free,
+						parkingSpaceButton.getParkingNumber()) + "  FAIL   ");
 	}
-	
+
 	private void printParkingSpaceOccupySentence(
 			ParkingSpaceButton parkingSpaceButton) {
 		textBoardParkingSpaces.append(threadName
@@ -89,15 +96,26 @@ public class ParkingSpaceManager {
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Occupy,
 						parkingSpaceButton.getParkingNumber()));
+
+		System.out.println(threadName
+				+ "\n    "
+				+ String.format(
+						Names_PL.ParkingSpaceTransaction_Parking_Place_Occupy,
+						parkingSpaceButton.getParkingNumber()));
 	}
-	
+
 	private void printParkingSpaceFailOccupySentence(
 			ParkingSpaceButton parkingSpaceButton) {
 		textBoardParkingSpaces.append(threadName
 				+ "\n    "
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Occupy,
-						parkingSpaceButton.getParkingNumber())+"  FAIL   ");
+						parkingSpaceButton.getParkingNumber()) + "  FAIL   ");
+		System.out.println(threadName
+				+ "\n    "
+				+ String.format(
+						Names_PL.ParkingSpaceTransaction_Parking_Place_Occupy,
+						parkingSpaceButton.getParkingNumber()) + "  FAIL   ");
 	}
 
 }

@@ -26,7 +26,6 @@ public class ParkingSpaceButton extends JButton {
 	private static int parkingSpaceNumberGenerator = 0;
 	private int parkingSpaceNumber;
 	private ParkingSpaceDAO parkingSpaceDAO = new ParkingSpaceDAO();
-	private static AtomicInteger i=new AtomicInteger(0);
 	private boolean lock=false;
 	
 	public ParkingSpaceButton() {
@@ -60,7 +59,6 @@ public class ParkingSpaceButton extends JButton {
 				setBackground(Color.RED);
 			}
 		});
-		System.out.println(i.incrementAndGet());
 		unLock();
 	}
 
@@ -72,7 +70,6 @@ public class ParkingSpaceButton extends JButton {
 			}
 		});
 		unLock();
-		System.out.println(i.incrementAndGet());
 	}
 
 	public void lock() {

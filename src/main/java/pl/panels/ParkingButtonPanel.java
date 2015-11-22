@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import pl.constantsandstrings.Constants;
-import pl.thread.ParkingSpaceTransactionThread;
+import pl.threadManager.ParkingSpaceTransactionThread;
 import pl.tools.GBC;
 
 public class ParkingButtonPanel extends JPanel {

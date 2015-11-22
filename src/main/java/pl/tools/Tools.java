@@ -31,7 +31,7 @@ public class Tools {
 		 }
 		 
 		 StatisticDataDAO statisticDataDAO=new StatisticDataDAO();
-		 statisticDataDAO.persist(new StatisticData(12, 40));
+//		 statisticDataDAO.persist(new StatisticData(12, 40));
 
 }
 }

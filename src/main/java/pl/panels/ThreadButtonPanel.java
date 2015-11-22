@@ -14,17 +14,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import pl.constantsandstrings.Constants;
-import pl.thread.ParkingSpaceTransactionThread;
+import pl.threadManager.ParkingSpaceTransactionThread;
 
 public class ThreadButtonPanel implements ActionListener {
 	private Integer threadNumberGenerator = 0;
 	private ParkingSpaceTransactionThread parkingSpaceTransactionThread = new ParkingSpaceTransactionThread();
 	private JPanel threadButtonPanel;
 	public static int numberOfLoops = Constants.defoultNumberLoops;
-
-	public ThreadButtonPanel() {
-
-	}
 
 	private JTextField numberThreadLoopsField;
 

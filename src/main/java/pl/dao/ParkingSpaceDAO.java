@@ -3,6 +3,7 @@ package pl.dao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javassist.expr.NewArray;
 
@@ -10,18 +11,17 @@ import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.mockito.internal.verification.AtMost;
 
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 import pl.pojo.StatisticData;
 
 public class ParkingSpaceDAO extends DAO {
-	static int clientNumber=ClientDAO.getAll().size();
+	private static int clientNumber=ClientDAO.getAll().size();
+	private static AtomicInteger numberOfSuccessfulTransaction=new AtomicInteger(0);
 	
-	public ParkingSpaceDAO() {
-		super();
-	}
-
+	
 	public static void increment() {
 		clientNumber++;
 	}
@@ -31,8 +31,11 @@ public class ParkingSpaceDAO extends DAO {
 			beginTransaction();
 			ParkingSpace parkingSpace = (ParkingSpace) getSession().get(
 					ParkingSpace.class, parkingSpace_ID);
+			getSession().persist(new StatisticData(parkingSpace.getClient().getId(), parkingSpace_ID, false));
 			parkingSpace.setClient(null);
 			commitTransaction();
+			System.out
+					.println("Successful  " + numberOfSuccessfulTransaction.incrementAndGet());
 			return true;
 		} catch (HibernateException e) {
 			System.out.println("ParkingSpaceDAO couldn't make ParkingSpace "
@@ -43,35 +46,40 @@ public class ParkingSpaceDAO extends DAO {
 
 	}
 
+	private Client client=null;
 	public boolean parkingSpaceMakeOccupy(int parkingSpace_Id) {
 		try {
 			beginTransaction();
 			ParkingSpace parkingSpace = (ParkingSpace) getSession().get(
 					ParkingSpace.class, parkingSpace_Id);
-			Client client = getClientWithOutParkingSpace(clientNumber);
+			client = getClientWithOutParkingSpace(clientNumber);
+			getSession().persist(new StatisticData(client.getId(), parkingSpace_Id, true));
 			parkingSpace.setClient(client);
+			System.out.println("Successful  " + numberOfSuccessfulTransaction.incrementAndGet());
 			commitTransaction();
 			getSession().clear();
 			return true;
 		} catch (HibernateException e) {
-			System.out.println("ParkingSpaceDAO couldn't make ParkingSpace "
-					+ parkingSpace_Id + " occupy ");
+			System.out.println(Thread.currentThread().getName()+"  ParkingSpaceDAO couldn't make ParkingSpace "
+					+ parkingSpace_Id + " occupy by "+client.getId());
 			rollback();
 			return false;
 		}
 	}
 
 	Random random = new Random();
-
+	Client lastClient=new Client();
+	
 	private Client getClientWithOutParkingSpace(int clientNumbers) {
 		Client client = null;
 		do {
 			client = (Client) getSession().get(Client.class,
 					random.nextInt(clientNumbers) + 1);
-			System.out.println(" =======  "+client.getId() + " search client");
-		} while (client.reservedParkingSpace() && client != null);
+			System.out.println(Thread.currentThread().getName()+" =======  "+client.getId() + " search client");
+		} while (client.reservedParkingSpace() && !lastClient.equals(client));
+		lastClient=client;
 		getSession().lock(client, LockMode.PESSIMISTIC_FORCE_INCREMENT);
-		System.out.println(" ========= "+client.getId() + " lock client");
+		System.out.println(Thread.currentThread().getName()+" ========= "+client.getId() + " lock client");
 		return client;
 	}
 

@@ -15,7 +15,6 @@ public class ParkingSpaceListenerTest {
 	
 	@Test
 	public void testActionPerformed() {
-		parkingSpaceListener.actionPerformed(e);
 	}
 
 	@Test

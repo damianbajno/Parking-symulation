@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.AfterClass;
 import org.junit.Test;
 
+import pl.threadManager.ParkingSpaceManager;
+
 public class ParkingSpaceManagerTest {
 
 	@AfterClass
@@ -19,6 +21,5 @@ public class ParkingSpaceManagerTest {
 	@Test
 	public void getClientWithOutParkingSpaceTest(){
 		ParkingSpaceManager parkingSpaceManager=new ParkingSpaceManager();
-		parkingSpaceManager.getClientWithOutParkingSpace().
 	}
 }
