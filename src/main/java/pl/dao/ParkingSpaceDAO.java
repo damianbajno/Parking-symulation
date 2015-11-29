@@ -18,68 +18,69 @@ import pl.pojo.ParkingSpace;
 import pl.pojo.StatisticData;
 
 public class ParkingSpaceDAO extends DAO {
-	private static int clientNumber=ClientDAO.getAll().size();
+	private static int clientNumbers=ClientDAO.getAll().size();
 	private static AtomicInteger numberOfSuccessfulTransaction=new AtomicInteger(0);
 	
 	
 	public static void increment() {
-		clientNumber++;
+		clientNumbers++;
 	}
 
-	public boolean parkingSpaceMakeFree(int parkingSpace_ID) {
+	public int parkingSpaceMakeFree(int parkingSpace_ID) {
 		try {
+			int clientNumber;
 			beginTransaction();
 			ParkingSpace parkingSpace = (ParkingSpace) getSession().get(
 					ParkingSpace.class, parkingSpace_ID);
-			getSession().persist(new StatisticData(parkingSpace.getClient().getId(), parkingSpace_ID, false));
+//			getSession().persist(new StatisticData(parkingSpace.getClient().getId(), parkingSpace_ID, false));
+			clientNumber=parkingSpace.getClient().getId();
 			parkingSpace.setClient(null);
 			commitTransaction();
 			System.out
-					.println("Successful  " + numberOfSuccessfulTransaction.incrementAndGet());
-			return true;
+			.println("Successful  " + numberOfSuccessfulTransaction.incrementAndGet());	
+			return clientNumber;
 		} catch (HibernateException e) {
 			System.out.println("ParkingSpaceDAO couldn't make ParkingSpace "
 					+ parkingSpace_ID + " free");
 			rollback();
-			return false;
+			return 0;
 		}
-
+		
+		
 	}
 
-	private Client client=null;
-	public boolean parkingSpaceMakeOccupy(int parkingSpace_Id) {
+	public int parkingSpaceMakeOccupy(int parkingSpace_Id) {
+		Client client=null;
 		try {
 			beginTransaction();
 			ParkingSpace parkingSpace = (ParkingSpace) getSession().get(
 					ParkingSpace.class, parkingSpace_Id);
-			client = getClientWithOutParkingSpace(clientNumber);
-			getSession().persist(new StatisticData(client.getId(), parkingSpace_Id, true));
+			client = getClientWithOutParkingSpace(clientNumbers);
+//			getSession().persist(new StatisticData(client.getId(), parkingSpace_Id, true));
 			parkingSpace.setClient(client);
-			System.out.println("Successful  " + numberOfSuccessfulTransaction.incrementAndGet());
 			commitTransaction();
 			getSession().clear();
-			return true;
+			System.out.println(Thread.currentThread().getName() + "  Successful  " + numberOfSuccessfulTransaction.incrementAndGet());
+			return client.getId();
 		} catch (HibernateException e) {
 			System.out.println(Thread.currentThread().getName()+"  ParkingSpaceDAO couldn't make ParkingSpace "
 					+ parkingSpace_Id + " occupy by "+client.getId());
 			rollback();
-			return false;
+			return 0;
 		}
 	}
 
 	Random random = new Random();
-	Client lastClient=new Client();
 	
 	private Client getClientWithOutParkingSpace(int clientNumbers) {
 		Client client = null;
 		do {
 			client = (Client) getSession().get(Client.class,
 					random.nextInt(clientNumbers) + 1);
-			System.out.println(Thread.currentThread().getName()+" =======  "+client.getId() + " search client");
-		} while (client.reservedParkingSpace() && !lastClient.equals(client));
-		lastClient=client;
-		getSession().lock(client, LockMode.PESSIMISTIC_FORCE_INCREMENT);
-		System.out.println(Thread.currentThread().getName()+" ========= "+client.getId() + " lock client");
+			System.out.println(Thread.currentThread().getName()+" ========= "+client.getId() + " search client");
+		} while (client.reservedParkingSpace());
+		getSession().lock(client, LockMode.OPTIMISTIC_FORCE_INCREMENT);
+		System.out.println(Thread.currentThread().getName()+" ========= "+client.getId() + " lock client \n");
 		return client;
 	}
 

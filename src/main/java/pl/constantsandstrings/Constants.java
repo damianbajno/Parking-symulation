@@ -10,5 +10,5 @@ public class Constants {
 	public static final Dimension ParkingManagerFrame_ParkingBorderPane = new Dimension(500, 600);
 	public static final int defoultNumberLoops = 10;
 	public static final int numberOfThread = 4;
-	public static final int numberOfThreadInFixedThreadPool=2;
+	public static final int numberOfThreadInFixedThreadPool=3;
 }

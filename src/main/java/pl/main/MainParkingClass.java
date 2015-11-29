@@ -18,8 +18,8 @@ public class MainParkingClass {
 			}
 		});
 		
-		Thread threadTest=new Thread(new ThreadTest());
-		threadTest.start();
+//		Thread threadTest=new Thread(new ThreadTest());
+//		threadTest.start();
 		
 	}
 

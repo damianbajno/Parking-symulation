@@ -28,7 +28,7 @@ public class DAO {
 	protected static Session getSession() {
 		Session session = DAO.session.get();
 		if (session == null) {
-			session = sessionfactory.openSession();
+			session = sessionfactory.getCurrentSession();
 			DAO.session.set(session);
 		}
 		return session;

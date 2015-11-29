@@ -41,9 +41,10 @@ public class ParkingSpaceManager {
 		}
 	}
 
+	private int clientNumberOccupy;
 	private void setParkingSpaceOccupy(ParkingSpaceButton parkingSpaceButton) {
-		if (parkingSpaceDAO.parkingSpaceMakeOccupy(parkingSpaceButton
-				.getParkingNumber())) {
+		if ((clientNumberOccupy=parkingSpaceDAO.parkingSpaceMakeOccupy(parkingSpaceButton
+				.getParkingNumber()))!=0) {
 			parkingSpaceButton.setOccupy();
 			printParkingSpaceOccupySentence(parkingSpaceButton);
 		} else {
@@ -51,9 +52,10 @@ public class ParkingSpaceManager {
 		}
 	}
 
+	private int clientNumberFree;
 	private void setParkingSpaceFree(ParkingSpaceButton parkingSpaceButton) {
-		if (parkingSpaceDAO.parkingSpaceMakeFree(parkingSpaceButton
-				.getParkingNumber())) {
+		if ((clientNumberFree=parkingSpaceDAO.parkingSpaceMakeFree(parkingSpaceButton
+				.getParkingNumber()))!=0) {
 			parkingSpaceButton.setFree();
 			printParkingSpaceFreeSentence(parkingSpaceButton);
 		} else {
@@ -64,58 +66,58 @@ public class ParkingSpaceManager {
 	private void printParkingSpaceFreeSentence(
 			ParkingSpaceButton parkingSpaceButton) {
 		textBoardParkingSpaces.append(threadName
-				+ "\n    "
+				+ "    "
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Free,
-						parkingSpaceButton.getParkingNumber()));
+						parkingSpaceButton.getParkingNumber(),clientNumberFree));
 		System.out.println(threadName
-				+ "\n    "
+				+ "    "
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Free,
-						parkingSpaceButton.getParkingNumber()));
+						parkingSpaceButton.getParkingNumber(), clientNumberFree));
 	}
 
 	private void printParkingSpaceFailFreeSentence(
 			ParkingSpaceButton parkingSpaceButton) {
 		textBoardParkingSpaces.append(threadName
-				+ "\n    "
+				+ "    "
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Free,
-						parkingSpaceButton.getParkingNumber()) + "  FAIL   ");
+						parkingSpaceButton.getParkingNumber(), clientNumberFree) + " == FAIL == ");
 		System.out.println(threadName
-				+ "\n    "
+				+ "    "
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Free,
-						parkingSpaceButton.getParkingNumber()) + "  FAIL   ");
+						parkingSpaceButton.getParkingNumber(), clientNumberFree) + " == FAIL ==  ");
 	}
 
 	private void printParkingSpaceOccupySentence(
 			ParkingSpaceButton parkingSpaceButton) {
 		textBoardParkingSpaces.append(threadName
-				+ "\n    "
+				+ "    "
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Occupy,
-						parkingSpaceButton.getParkingNumber()));
+						parkingSpaceButton.getParkingNumber(), clientNumberOccupy));
 
 		System.out.println(threadName
-				+ "\n    "
+				+ "    "
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Occupy,
-						parkingSpaceButton.getParkingNumber()));
+						parkingSpaceButton.getParkingNumber(),clientNumberOccupy));
 	}
 
 	private void printParkingSpaceFailOccupySentence(
 			ParkingSpaceButton parkingSpaceButton) {
 		textBoardParkingSpaces.append(threadName
-				+ "\n    "
+				+ "    "
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Occupy,
-						parkingSpaceButton.getParkingNumber()) + "  FAIL   ");
+						parkingSpaceButton.getParkingNumber(),clientNumberOccupy) + " == FAIL ==  ");
 		System.out.println(threadName
-				+ "\n    "
+				+ "    "
 				+ String.format(
 						Names_PL.ParkingSpaceTransaction_Parking_Place_Occupy,
-						parkingSpaceButton.getParkingNumber()) + "  FAIL   ");
+						parkingSpaceButton.getParkingNumber(), clientNumberOccupy) + " == FAIL  == ");
 	}
 
 }

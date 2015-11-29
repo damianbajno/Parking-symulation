@@ -21,7 +21,6 @@ public class ParkingManagerFrame extends JFrame {
 	
 
 	public ParkingManagerFrame() {
-
 		createParking();
 		createParkingTextBorder();
 		createThreadButtonsPanel();
