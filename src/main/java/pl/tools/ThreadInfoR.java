@@ -4,10 +4,10 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 
-public class ThreadTest implements Runnable {
+public class ThreadInfoR implements Runnable {
 	ThreadMXBean threadMXBean;
 
-	public ThreadTest() {
+	public ThreadInfoR() {
 		threadMXBean = ManagementFactory.getThreadMXBean();
 	}
 

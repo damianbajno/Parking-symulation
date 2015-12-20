@@ -3,9 +3,7 @@ package pl.panels;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.util.List;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -14,85 +12,91 @@ import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
 import pl.action.ParkingSpaceListener;
-import pl.dao.ClientDAO;
 import pl.dao.ParkingSpaceDAO;
-import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 
 public class ParkingSpaceButton extends JButton {
 
-	private final Dimension parkingSpaceDimension = new Dimension(50, 80);
-	private ParkingSpaceListener parkingSpaceListener = new ParkingSpaceListener();
-	private static int parkingSpaceNumberGenerator = 0;
-	private int parkingSpaceNumber;
-	private ParkingSpaceDAO parkingSpaceDAO = new ParkingSpaceDAO();
-	private boolean lock=false;
-	
-	public ParkingSpaceButton() {
-		parkingSpaceNumber = ++parkingSpaceNumberGenerator;
-		defaultSettings();
-		setParkingSpaceStatus();
-		
-	}
+    private static int parkingSpaceNumberGenerator = 0;
 
-	private void defaultSettings() {
-		setOpaque(true);
-		setHorizontalAlignment(JLabel.CENTER);
-		setPreferredSize(parkingSpaceDimension);
-		setText(String.valueOf(parkingSpaceNumberGenerator));
-		setBorder(new LineBorder(Color.BLACK, 2, false));
-		addActionListener(parkingSpaceListener);
-	}
+    private final Dimension parkingSpaceDimension = new Dimension(50, 80);
+    private int parkingSpaceNumber;
+    private ParkingSpaceListener parkingSpaceListener = new ParkingSpaceListener();
+    private ParkingSpaceDAO parkingSpaceDAO = ParkingSpaceDAO.getInstance();
+    private boolean free;
+    private Lock lock = new ReentrantLock();
 
-	private void setParkingSpaceStatus() {
-		ParkingSpace parkingSpace = parkingSpaceDAO.get(parkingSpaceNumberGenerator);
-		if (parkingSpace.isOccupy())
-			setBackground(Color.RED);
-		else
-			setBackground(Color.GREEN);
-	}
-	
-	public void setOccupy() {
-		EventQueue.invokeLater(new Runnable() {
+    public ParkingSpaceButton() {
+	parkingSpaceNumber = ++parkingSpaceNumberGenerator;
+	initializationSettings();
 
-			public void run() {
-				setBackground(Color.RED);
-			}
-		});
-		unLock();
-	}
+    }
 
-	public void setFree() {
-		EventQueue.invokeLater(new Runnable() {
+    private void initializationSettings() {
+	setOpaque(true);
+	setHorizontalAlignment(JLabel.CENTER);
+	setPreferredSize(parkingSpaceDimension);
+	setText(String.valueOf(parkingSpaceNumberGenerator));
+	setBorder(new LineBorder(Color.BLACK, 2, false));
+	addActionListener(parkingSpaceListener);
+	setParkingSpaceStatus();
+    }
 
-			public void run() {
-				setBackground(Color.GREEN);
-			}
-		});
-		unLock();
-	}
-
-	public void lock() {
-		this.lock=true;
-	}
-
-	private void unLock() {
-		this.lock=false;
-	}
-
-	public boolean isLock(){
-		return lock;
+    private void setParkingSpaceStatus() {
+	ParkingSpace parkingSpace = parkingSpaceDAO
+		.get(parkingSpaceNumberGenerator);
+	if (parkingSpace != null) {
+	    if (parkingSpace.isOccupy())
+		setOccupy();
+	    else
+		setFree();
 	}
 	
-	public boolean isOccupy() {
-		if (getBackground().equals(Color.RED))
-			return true;
-		else
-			return false;
-	}
+    }
 
-	public int getParkingNumber() {
-		return parkingSpaceNumber;
-	}
+    public void setOccupy() {
+	free = false;
+	EventQueue.invokeLater(new Runnable() {
 
+	    public void run() {
+		setBackground(Color.RED);
+	    }
+	});
+    }
+
+    public void setFree() {
+	free = true;
+	EventQueue.invokeLater(new Runnable() {
+
+	    public void run() {
+		setBackground(Color.GREEN);
+	    }
+	});
+    }
+
+    public boolean trylock() {
+	return this.lock.tryLock();
+    }
+
+    public boolean trylock(int sekunds) {
+	try {
+	    return this.lock.tryLock(2, TimeUnit.SECONDS);
+	} catch (InterruptedException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	    return false;
+	}
+    }
+
+    public void unLock() {
+	this.lock.unlock();
+    }
+
+    public boolean isFree() {
+	return free;
+    }
+
+    public int getParkingNumber() {
+	return parkingSpaceNumber;
+    }
 }

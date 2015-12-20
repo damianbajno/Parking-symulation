@@ -14,7 +14,7 @@ public class ParkingRoadButton extends JButton {
 
 	private void setDefaultSettings() {
 		setOpaque(true);
-		setPreferredSize(Constants.parkingFieldDimension);
+		setPreferredSize(Constants.PARKING_FIELD_DIMENSION);
 		setBackground(Color.GRAY);
 		setEnabled(false);
 		setBorder(null);

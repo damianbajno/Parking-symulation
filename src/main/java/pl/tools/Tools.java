@@ -9,7 +9,7 @@ import pl.pojo.StatisticData;
 
 public class Tools {
 
-	static ParkingSpaceDAO parkingSpaceDAO=new ParkingSpaceDAO();
+	static ParkingSpaceDAO parkingSpaceDAO=ParkingSpaceDAO.getInstance();
 	static ClientDAO clientDAO=new ClientDAO();
 	
 	public Tools() {

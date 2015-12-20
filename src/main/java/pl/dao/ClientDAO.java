@@ -13,23 +13,7 @@ import org.hibernate.Query;
 import pl.pojo.Client;
 
 public class ClientDAO extends DAO {
-	
 
-//	public int getNumberOfClients()
-//	{
-//		try {
-//			getSession().beginTransaction();
-//			Query numberOfClients = getSession().createQuery("Select Count(c) from Client"); 
-//			commitTransaction();
-//			return (int) numberOfClients.getFirstResult();
-//		} catch (HibernateException e){
-//
-//			rollback();
-//			System.out.println("ClientDao Couldn't get number of clients");
-//		}
-//
-//	}
-	
 	public void persist(Client client) {
 
 		try {
@@ -67,7 +51,7 @@ public class ClientDAO extends DAO {
 
 	private void sleep(int s) {
 		try {
-			Thread.sleep(s*1000);
+			Thread.sleep(s * 1000);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +62,8 @@ public class ClientDAO extends DAO {
 		List<Client> clients = new ArrayList<Client>();
 		try {
 			beginTransaction();
-			Query ClientQuery = getSession().createQuery("Select c from Client c");
+			Query ClientQuery = getSession().createQuery(
+					"Select c from Client c");
 			clients = (List<Client>) ClientQuery.list();
 			commitTransaction();
 		} catch (HibernateException e) {
@@ -114,14 +99,14 @@ public class ClientDAO extends DAO {
 		}
 		return client;
 	}
-	
+
 	public Client getWithoutParkingSpace() {
 		Client client = null;
-		Random random=new Random();
+		Random random = new Random();
 		try {
 			beginTransaction();
-			Integer numberOfClients = getSession().createQuery("Select Count(c) from Client c").getFirstResult(); 
-//			getSession().get(Client.class, random.nextInt(numberOfClients), LockModeType.OPTIMISTIC);
+			Integer numberOfClients = getSession().createQuery(
+					"Select Count(c) from Client c").getFirstResult();
 			getSession().lock(client, LockMode.PESSIMISTIC_FORCE_INCREMENT);
 			commitTransaction();
 		} catch (HibernateException e) {
@@ -130,5 +115,19 @@ public class ClientDAO extends DAO {
 		}
 		return client;
 	}
-	
+
+	// public int getNumberOfClients()
+	// {
+	// try {
+	// getSession().beginTransaction();
+	// Query numberOfClients =
+	// getSession().createQuery("Select Count(c) from Client");
+	// commitTransaction();
+	// return (int) numberOfClients.getFirstResult();
+	// } catch (HibernateException e){
+	//
+	// rollback();
+	// System.out.println("ClientDao Couldn't get number of clients");
+	// }
+	//
 }

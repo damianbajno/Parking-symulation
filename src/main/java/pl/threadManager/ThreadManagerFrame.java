@@ -19,7 +19,7 @@ public class ThreadManagerFrame extends JFrame {
 		JPanel cardPanel = new JPanel();
 		cardPanel.setLayout(new CardLayout());
 
-		for (int i = 0; i < Constants.numberOfThread; i++) {
+		for (int i = 0; i < Constants.NUMBER_OF_THREAD_BUTTONS; i++) {
 
 			ThreadCardPanel threadCardPanel = new ThreadCardPanel();
 			cardPanel.add(threadCardPanel, i);
@@ -30,7 +30,7 @@ public class ThreadManagerFrame extends JFrame {
 	
 	private void defaultSettings() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle(Names_PL.threadManagerFrame_THREAD_MANAGER);
+		setTitle(Names_PL.THREAD_MANAGER_TITLE);
 		pack();
 		setVisible(true);
 	}

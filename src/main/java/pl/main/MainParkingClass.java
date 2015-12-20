@@ -2,9 +2,9 @@ package pl.main;
 
 import java.awt.EventQueue;
 
-import pl.frame.ParkingManagerFrame;
+import pl.frame.ParkingFrame;
 import pl.threadManager.ThreadManagerFrame;
-import pl.tools.ThreadTest;
+import pl.tools.ThreadInfoR;
 
 public class MainParkingClass {
 	
@@ -13,7 +13,7 @@ public class MainParkingClass {
 		EventQueue.invokeLater(new Runnable() {
 			
 			public void run() {
-				ParkingManagerFrame parkingManagerFrame=new ParkingManagerFrame();
+				ParkingFrame parkingFrame=new ParkingFrame();
 //				ThreadManagerFrame threadManagerFrame=new ThreadManagerFrame();
 			}
 		});

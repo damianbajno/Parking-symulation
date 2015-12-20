@@ -15,7 +15,7 @@ import pl.tools.MassageTextUtils;
 
 public class ParkingSpaceListener implements ActionListener {
 	private static ParkingSpaceButton parkingSpaceButton; 
-	private ParkingSpaceDAO parkingSpaceDAO=new ParkingSpaceDAO();
+	private ParkingSpaceDAO parkingSpaceDAO=ParkingSpaceDAO.getInstance();
 	
 	public ParkingSpaceListener() {
 		// TODO Auto-generated constructor stub
@@ -23,7 +23,7 @@ public class ParkingSpaceListener implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		parkingSpaceButton= (ParkingSpaceButton) e.getSource();
-		if (parkingSpaceButton.isOccupy())
+		if (parkingSpaceButton.isFree())
 			parkingSpaceButton.setFree();
 		else {
 			CreateOrChooseClientFrame createOrChooseClientFrame = new CreateOrChooseClientFrame();

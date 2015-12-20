@@ -25,8 +25,8 @@ public class CreateClientFrame extends JFrame implements ActionListener{
 	public CreateClientFrame() {
 		createClientPanel=new CreateClientPanel();
 		panel.add(createClientPanel.getPanel(), BorderLayout.CENTER);
-		createButton(Names_PL.CreateClientFrame_ADD_CLIENT_BUTTON);
-		createButton(Names_PL.CreateClientFrame_EXIT);
+		createButton(Names_PL.ADD_CLIENT_BUTTON_TITLE);
+		createButton(Names_PL.EXIT);
 		addButtonsToPanel();
 		add(panel);
 		defaultSettings();
@@ -53,10 +53,10 @@ public class CreateClientFrame extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		String buttonActionCommand = e.getActionCommand();
-		if (Names_PL.CreateClientFrame_EXIT==buttonActionCommand) {
+		if (Names_PL.EXIT==buttonActionCommand) {
 			this.dispose();
 		}
-		if (Names_PL.CreateClientFrame_ADD_CLIENT_BUTTON==buttonActionCommand){
+		if (Names_PL.ADD_CLIENT_BUTTON_TITLE==buttonActionCommand){
 			Client client = createClientPanel.getClient();
 //			ParkingSpace selectedParkingSpace = .getSelectedParkingSpace();
 //			if (client!=null){

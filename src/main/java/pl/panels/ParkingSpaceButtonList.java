@@ -1,53 +1,57 @@
 package pl.panels;
 
-import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class ParkingSpaceButtonList {
-	private static List<ParkingSpaceButton> parkingSpaceButtonList;
+    private static ArrayList<ParkingSpaceButton> parkingSpaceButtons = new ArrayList<ParkingSpaceButton>();
+    private static ParkingSpaceButtonList parkingSpaceButtonList;
+    private ParkingSpacesTextBoard parkingSpacesTextBoard = ParkingSpacesTextBoard
+	    .getInstance();
 
-	private ParkingSpaceButtonList() {
-	}
+    private ParkingSpaceButtonList() {
+    }
 
-	public static List<ParkingSpaceButton> getInstance(){
-		if (parkingSpaceButtonList==null){
-			synchronized (ParkingSpaceButtonList.class) {
-				if (parkingSpaceButtonList==null)
-				parkingSpaceButtonList=new ArrayList<ParkingSpaceButton>();
-			}
-		}
-		return parkingSpaceButtonList;
+    public static ParkingSpaceButtonList getInstance() {
+	if (parkingSpaceButtonList == null) {
+	    synchronized (ParkingSpaceButtonList.class) {
+		if (parkingSpaceButtonList == null)
+		    ;
+		parkingSpaceButtonList = new ParkingSpaceButtonList();
+	    }
 	}
-	
-	
-	public ParkingSpaceButton get(int index) {
-		ParkingSpaceButton parkingSpaceButton = parkingSpaceButtonList
-				.get(index);
-		parkingSpaceButton.lock();
-		return parkingSpaceButton;
-	}
+	return parkingSpaceButtonList;
+    }
 
-	public int size() {
-		return parkingSpaceButtonList.size();
-	}
+    public ParkingSpaceButton get(int index) {
+	ParkingSpaceButton parkingSpaceButton = parkingSpaceButtons.get(index);
+	parkingSpaceButton.trylock();
+	return parkingSpaceButton;
+    }
 
-	public synchronized ParkingSpaceButton getRandomParkingSpace() {
-		Random random = new Random();
-		int parkingSpaceNumber;
-		ParkingSpaceButton parkingSpaceButton;
+    public int size() {
+	return parkingSpaceButtons.size();
+    }
 
-		do {
-			parkingSpaceNumber = random.nextInt(parkingSpaceButtonList.size());
-			parkingSpaceButton = parkingSpaceButtonList.get(parkingSpaceNumber);
-		} while (parkingSpaceButton.isLock());
-		parkingSpaceButton.lock();
-		return parkingSpaceButton;
-	}
-	
-	public void add(ParkingSpaceButton parkingSpaceButton){
-		parkingSpaceButtonList.add(parkingSpaceButton);
-	}
+    private Random random = new Random();
+
+    public synchronized ParkingSpaceButton getRandomParkingSpace() {
+	int parkingSpaceNumber;
+	ParkingSpaceButton parkingSpaceButton;
+
+	do {
+	    parkingSpaceNumber = random.nextInt(parkingSpaceButtons.size());
+	    parkingSpaceButton = parkingSpaceButtons.get(parkingSpaceNumber);
+
+	} while (!parkingSpaceButton.trylock());
+	parkingSpacesTextBoard.append("getRandomParkingSpace "
+		+ Thread.currentThread().getName() + "parking= "
+		+ parkingSpaceButton.getText() + " \n");
+	return parkingSpaceButton;
+    }
+
+    public void add(ParkingSpaceButton parkingSpaceButton) {
+	parkingSpaceButtons.add(parkingSpaceButton);
+    }
 
 }
