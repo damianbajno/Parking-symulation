@@ -17,7 +17,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.mockito.internal.verification.AtMost;
 
-import pl.panels.ParkingSpacesTextBoard;
+import pl.panel.ParkingSpacesTextBoard;
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 import pl.pojo.StatisticData;

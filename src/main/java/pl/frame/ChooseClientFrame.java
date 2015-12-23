@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import pl.action.ParkingSpaceListener;
 import pl.constantsandstrings.Names_PL;
 import pl.dao.ClientDAO;
-import pl.panels.ParkingSpaceButton;
+import pl.panel.ParkingSpaceButton;
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 import pl.tables.ClientJTable;

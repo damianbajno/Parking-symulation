@@ -1,4 +1,4 @@
-package pl.panels;
+package pl.panel;
 
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import pl.constantsandstrings.Constants;
-import pl.threadManager.ParkingSpaceTransactionThread;
+import pl.threadmanager.ParkingSpaceTransactionThread;
 import pl.tools.GBC;
 
 public class ParkingButtonPanel extends JPanel {

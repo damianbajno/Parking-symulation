@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import pl.action.ParkingSpaceListener;
 import pl.constantsandstrings.Names_PL;
 import pl.dao.ClientDAO;
-import pl.panels.CreateClientPanel;
+import pl.panel.CreateClientPanel;
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 

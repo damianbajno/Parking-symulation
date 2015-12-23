@@ -1,4 +1,4 @@
-package pl.panels;
+package pl.panel;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -65,12 +65,13 @@ public class ParkingSpacesTextBoard extends JPanel {
 	parkingSpacesTextBoard.add(jTextArea);
     }
 
-    private AtomicInteger numberOfWritedLines = new AtomicInteger(5);
+    private int numberOfWritedLines =5;
 
     public void append(String text) {
-	jTextArea.setRows(numberOfWritedLines.incrementAndGet());
-	setRows(numberOfWritedLines.get());
-	logger.info(text);
+	numberOfWritedLines++;
+	jTextArea.setRows(numberOfWritedLines);
+//	setRows(numberOfWritedLines.get());
+//	logger.info(text);
 
 	final String str1 = text;
 	EventQueue.invokeLater(new Runnable() {

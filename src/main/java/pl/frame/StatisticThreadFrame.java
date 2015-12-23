@@ -14,7 +14,7 @@ public class StatisticThreadFrame extends JFrame {
 
 	public void defoultSetting() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setTitle(Names_PL.PARKINGMANAGER_TITLE_FRAME);
+		setTitle(Names_PL.PARKING_TITLE_FRAME);
 		setMinimumSize(new Dimension(600, 600));
 		pack();
 		setVisible(true);

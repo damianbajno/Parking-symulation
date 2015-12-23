@@ -8,8 +8,8 @@ import javax.swing.JButton;
 import pl.dao.ParkingSpaceDAO;
 import pl.frame.ChooseClientFrame;
 import pl.frame.CreateOrChooseClientFrame;
-import pl.panels.ParkingButtonPanel;
-import pl.panels.ParkingSpaceButton;
+import pl.panel.ParkingButtonPanel;
+import pl.panel.ParkingSpaceButton;
 import pl.pojo.ParkingSpace;
 import pl.tools.MassageTextUtils;
 

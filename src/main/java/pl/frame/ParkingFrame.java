@@ -14,9 +14,10 @@ import javax.swing.ScrollPaneConstants;
 
 import pl.constantsandstrings.Constants;
 import pl.constantsandstrings.Names_PL;
-import pl.panels.ParkingButtonPanel;
-import pl.panels.ParkingSpacesTextBoard;
-import pl.panels.ThreadButtonPanel;
+import pl.panel.ParkingButtonPanel;
+import pl.panel.ParkingSpacesTextBoard;
+import pl.panel.ThreadButtonPanel;
+import pl.threadmanager.ThreadTracePanel;
 
 public class ParkingFrame extends JFrame {
 	JTabbedPane parkingManagerPanel=new JTabbedPane();
@@ -30,7 +31,7 @@ public class ParkingFrame extends JFrame {
 	private void defaultSettings() {
 		add(parkingManagerPanel);
 	    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle(Names_PL.PARKINGMANAGER_TITLE_FRAME);
+		setTitle(Names_PL.PARKING_TITLE_FRAME);
 		pack();
 		setVisible(true);
 	}
@@ -62,6 +63,11 @@ public class ParkingFrame extends JFrame {
 		JPanel threadButtonPanel1 = threadButtonPanel.createThreadButtonPanel();
 		threadButtonsAndBoard.add(threadButtonPanel1, BorderLayout.EAST);
 	}
-	
+
+	public void createThreadStatistic(){
+	    ThreadTracePanel threadTracePanel=new ThreadTracePanel();
+	    
+	    parkingManagerPanel.addTab("Thread Statistic", threadTracePanel);
+	}
 	
 }

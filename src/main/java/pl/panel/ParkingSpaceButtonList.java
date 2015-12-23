@@ -1,4 +1,4 @@
-package pl.panels;
+package pl.panel;
 
 import java.util.ArrayList;
 import java.util.Random;

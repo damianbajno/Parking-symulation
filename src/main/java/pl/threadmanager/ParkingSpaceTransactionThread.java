@@ -1,4 +1,4 @@
-package pl.threadManager;
+package pl.threadmanager;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -7,21 +7,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import pl.constantsandstrings.Constants;
 import pl.constantsandstrings.Names_PL;
-import pl.panels.ParkingSpacesTextBoard;
-import pl.panels.ThreadButton;
-import pl.panels.ThreadButtonPanel;
+import pl.panel.ParkingSpacesTextBoard;
+import pl.panel.ThreadButton;
+import pl.panel.ThreadButtonPanel;
 
 public class ParkingSpaceTransactionThread {
 
-    private ExecutorService parkingSpaceThreadPool = Executors
-	    .newFixedThreadPool(Constants.NUMBER_OF_THREAD_IN_FIXED_THREAD_POOL);
     private ParkingSpacesTextBoard parkingSpacesTextBoard=ParkingSpacesTextBoard.getInstance();
     
     public synchronized void startParkingSpaceThread(ThreadButton threadButton) {
-	// ParkingSpaceTransaction parkingSpaceTransaction = new
-	// ParkingSpaceTransaction(
-	// threadButton);
-	// parkingSpaceThreadPool.execute(parkingSpaceTransaction);
 	ParkingSpaceThread parkingSpaceThread = new ParkingSpaceThread(
 		threadButton);
 	parkingSpaceThread.start();
@@ -53,20 +47,28 @@ public class ParkingSpaceTransactionThread {
 		    numberOfLoopsMade++;
 		}
 		
-		parkingSpacesTextBoard.append(" Finished  "
-			+ Thread.currentThread().getName() + "  Loops= "
-			+ numberOfLoopsMade+"\n");
+		printFinishedSentences(numberOfLoopsMade);
 	    
 	    } catch (Exception e) {
 		
 		e.getStackTrace();
-		parkingSpacesTextBoard.append("Exeption "
-			+ Thread.currentThread().getName() + "  Loops = "
-			+ numberOfLoopsMade+"\n");
+		printExceptionSentence(numberOfLoopsMade);
 	    
 	    } finally {
 		threadButton.setEnabled(true);
 	    }
+	}
+
+	private void printExceptionSentence(int numberOfLoopsMade) {
+	    parkingSpacesTextBoard.append("Exeption "
+	    	+ Thread.currentThread().getName() + "  Loops = "
+	    	+ numberOfLoopsMade+"\n");
+	}
+
+	private void printFinishedSentences(int numberOfLoopsMade) {
+	    parkingSpacesTextBoard.append(" Finished  "
+	    	+ Thread.currentThread().getName() + "  Loops= "
+	    	+ numberOfLoopsMade+"\n");
 	}
 
     }

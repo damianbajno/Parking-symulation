@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import pl.constantsandstrings.Names_PL;
-import pl.panels.ParkingSpaceButton;
+import pl.panel.ParkingSpaceButton;
 
 public class CreateOrChooseClientFrame extends JFrame implements ActionListener {
 	private String[] frameTitle = { "Wybierz istniejącego klienta",
@@ -25,7 +25,7 @@ public class CreateOrChooseClientFrame extends JFrame implements ActionListener 
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		pack();
-		setTitle(Names_PL.ClientOrNewClientFrame_TITLE_FRAME);
+		setTitle(Names_PL.CLIENT_OR_NEW_CLIENT_FRAME_TITLE_FRAME);
 	}
 
 	private void createButtons() {

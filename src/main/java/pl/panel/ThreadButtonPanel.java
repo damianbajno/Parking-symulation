@@ -1,4 +1,4 @@
-package pl.panels;
+package pl.panel;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import pl.constantsandstrings.Constants;
-import pl.threadManager.ParkingSpaceTransactionThread;
+import pl.threadmanager.ParkingSpaceTransactionThread;
 
 public class ThreadButtonPanel implements ActionListener {
 	private Integer threadNumberGenerator = 0;

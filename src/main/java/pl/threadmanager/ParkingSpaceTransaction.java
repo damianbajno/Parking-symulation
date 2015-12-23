@@ -1,10 +1,10 @@
-package pl.threadManager;
+package pl.threadmanager;
 
 import pl.constantsandstrings.Names_PL;
 import pl.dao.ParkingSpaceDAO;
-import pl.panels.ParkingSpaceButton;
-import pl.panels.ParkingSpaceButtonList;
-import pl.panels.ParkingSpacesTextBoard;
+import pl.panel.ParkingSpaceButton;
+import pl.panel.ParkingSpaceButtonList;
+import pl.panel.ParkingSpacesTextBoard;
 
 public class ParkingSpaceTransaction {
 

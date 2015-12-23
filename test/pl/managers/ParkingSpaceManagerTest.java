@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.AfterClass;
 import org.junit.Test;
 
-import pl.threadManager.ParkingSpaceTransaction;
+import pl.threadmanager.ParkingSpaceTransaction;
 
 public class ParkingSpaceManagerTest {
 
