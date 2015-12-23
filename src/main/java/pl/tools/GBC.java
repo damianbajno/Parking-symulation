@@ -4,6 +4,8 @@ import java.awt.GridBagConstraints;
 
 public class GBC extends GridBagConstraints 
 {
+    
+    
 	/**
       Constructs a GBC with a given gridx and gridy position and
       all other grid bag constraint values set to the default.

@@ -20,11 +20,12 @@ import pl.panel.ThreadButtonPanel;
 import pl.threadmanager.ThreadTracePanel;
 
 public class ParkingFrame extends JFrame {
-	JTabbedPane parkingManagerPanel=new JTabbedPane();
+	private JTabbedPane parkingManagerPanel=new JTabbedPane();
 	
 	public ParkingFrame() {
 	    	createTextBoardAndThreadButtons();
 		createParking();
+		createThreadStatistic();
 		defaultSettings();
 	}
 

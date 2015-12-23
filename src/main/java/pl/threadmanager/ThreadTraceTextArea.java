@@ -6,13 +6,15 @@ import javax.swing.BorderFactory;
 import javax.swing.JTextArea;
 import javax.swing.text.DefaultCaret;
 
+import pl.constantsandstrings.Constants;
+
 public class ThreadTraceTextArea extends JTextArea {
     private int numberOfWritedLines = 5;
     private JTextArea jTextArea=this;
     
     public ThreadTraceTextArea() {
 	caretPolicy();
-	
+	setPreferredSize(Constants.PARKING_BOARD_TEXT_AREA_DIMENSION);
     }
     
     private void caretPolicy() {

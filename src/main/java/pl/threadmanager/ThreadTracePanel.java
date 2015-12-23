@@ -16,7 +16,7 @@ public class ThreadTracePanel extends JPanel {
 
     public ThreadTracePanel() {
 	
-//	setBorder(BorderFactory.createTitledBorder(threadName));
+	setBorder(BorderFactory.createTitledBorder(threadName));
 	setLayout(new BorderLayout());
 	createStatistic();
     }
