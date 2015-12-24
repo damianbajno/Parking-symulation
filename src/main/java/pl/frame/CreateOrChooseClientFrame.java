@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import pl.button.ParkingSpaceButton;
 import pl.constantsandstrings.Names_PL;
-import pl.panel.ParkingSpaceButton;
 
 public class CreateOrChooseClientFrame extends JFrame implements ActionListener {
 	private String[] frameTitle = { "Wybierz istniejącego klienta",

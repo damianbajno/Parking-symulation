@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+import pl.button.ParkingSpaceButton;
 import pl.dao.ParkingSpaceDAO;
 import pl.frame.ChooseClientFrame;
 import pl.frame.CreateOrChooseClientFrame;
 import pl.panel.ParkingButtonPanel;
-import pl.panel.ParkingSpaceButton;
 import pl.pojo.ParkingSpace;
 import pl.tools.MassageTextUtils;
 

@@ -1,9 +1,9 @@
 package pl.threadmanager;
 
+import pl.button.ParkingSpaceButton;
+import pl.button.ParkingSpaceButtonList;
 import pl.constantsandstrings.Names_PL;
 import pl.dao.ParkingSpaceDAO;
-import pl.panel.ParkingSpaceButton;
-import pl.panel.ParkingSpaceButtonList;
 import pl.panel.ParkingSpacesTextBoard;
 
 public class ParkingSpaceTransaction {
@@ -22,14 +22,7 @@ public class ParkingSpaceTransaction {
 		.getRandomParkingSpace();
 	if (parkingSpaceButton.isFree()) {
 	    setParkingSpaceOccupy(parkingSpaceButton);
-	    textBoardTransactions.append(Thread.currentThread().getName()
-		    + " changeParkingSpaceStatus Occupy nr = "
-		    + parkingSpaceButton.getText() + "\n");
-
 	} else {
-	    textBoardTransactions.append(Thread.currentThread().getName()
-		    + " changeParkingSpaceStatus Free nr = "
-		    + parkingSpaceButton.getText() + "\n");
 	    setParkingSpaceFree(parkingSpaceButton);
 	}
     }
@@ -52,10 +45,6 @@ public class ParkingSpaceTransaction {
     private void setParkingSpaceFree(ParkingSpaceButton parkingSpaceButton) {
 	if ((clientNumberFree = parkingSpaceDAO
 		.parkingSpaceMakeFree(parkingSpaceButton.getParkingNumber())) != 0) {
-
-	    textBoardTransactions.append(threadName + " ClientFree = "
-		    + clientNumberFree + " parkingSpace = "
-		    + parkingSpaceButton.getText() + " \n");
 
 	    parkingSpaceButton.setFree();
 	    printParkingSpaceFreeSentence(parkingSpaceButton);
@@ -92,7 +81,7 @@ public class ParkingSpaceTransaction {
 	    ParkingSpaceButton parkingSpaceButton) {
 	textBoardTransactions.append(threadName
 		+ "    "
-		+ String.format(Names_PL.Parking_SPACE_Occupy_TENSE,
+		+ String.format(Names_PL.Parking_SPACE_OCCUPY_SENTENSE,
 			parkingSpaceButton.getParkingNumber(),
 			clientNumberOccupy));
 
@@ -103,7 +92,7 @@ public class ParkingSpaceTransaction {
 	textBoardTransactions.append(" == FAIL ==  "
 		+ threadName
 		+ "    "
-		+ String.format(Names_PL.Parking_SPACE_Occupy_TENSE,
+		+ String.format(Names_PL.Parking_SPACE_OCCUPY_SENTENSE,
 			parkingSpaceButton.getParkingNumber(),
 			clientNumberOccupy));
     }

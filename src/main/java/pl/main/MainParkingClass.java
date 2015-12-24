@@ -2,23 +2,26 @@ package pl.main;
 
 import java.awt.EventQueue;
 
-import pl.frame.ParkingFrame;
+import pl.frame.MainParkingFrame;
 
 public class MainParkingClass {
-	
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+
+    public static void main(String[] args) {
+	    
+//	    final ConfigurableApplicationContext applicationContext=new ClassPathXmlApplicationContext("Configuration1.xml");
+	    EventQueue.invokeLater(new Runnable() {
 			
 			public void run() {
-				ParkingFrame parkingFrame=new ParkingFrame();
+			    	MainParkingFrame mainParkingFrame=new MainParkingFrame();
 //				ThreadManagerFrame threadManagerFrame=new ThreadManagerFrame();
 			}
 		});
 		
 //		Thread threadTest=new Thread(new ThreadTest());
 //		threadTest.start();
-		
+	
+//	    applicationContext.close();
 	}
-
+    
+    
 }

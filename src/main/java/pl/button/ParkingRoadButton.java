@@ -1,4 +1,4 @@
-package pl.panel;
+package pl.button;
 
 import java.awt.Color;
 

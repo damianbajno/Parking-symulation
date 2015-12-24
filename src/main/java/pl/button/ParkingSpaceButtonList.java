@@ -1,7 +1,9 @@
-package pl.panel;
+package pl.button;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import pl.panel.ParkingSpacesTextBoard;
 
 public class ParkingSpaceButtonList {
     private static ArrayList<ParkingSpaceButton> parkingSpaceButtons = new ArrayList<ParkingSpaceButton>();
@@ -42,11 +44,7 @@ public class ParkingSpaceButtonList {
 	do {
 	    parkingSpaceNumber = random.nextInt(parkingSpaceButtons.size());
 	    parkingSpaceButton = parkingSpaceButtons.get(parkingSpaceNumber);
-
 	} while (!parkingSpaceButton.trylock());
-	parkingSpacesTextBoard.append("getRandomParkingSpace "
-		+ Thread.currentThread().getName() + "parking= "
-		+ parkingSpaceButton.getText() + " \n");
 	return parkingSpaceButton;
     }
 

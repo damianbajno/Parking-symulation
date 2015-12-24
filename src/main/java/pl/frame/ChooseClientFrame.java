@@ -9,9 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 import pl.action.ParkingSpaceListener;
+import pl.button.ParkingSpaceButton;
 import pl.constantsandstrings.Names_PL;
 import pl.dao.ClientDAO;
-import pl.panel.ParkingSpaceButton;
 import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 import pl.tables.ClientJTable;
@@ -37,7 +37,7 @@ public class ChooseClientFrame implements ActionListener{
 		clientFrame.setVisible(true);
 		clientFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		clientFrame.setSize(500, 600);
-		clientFrame.setTitle(Names_PL.CLIENTFRAME_TITLE_FRAME);
+		clientFrame.setTitle(Names_PL.CLIENT_TITLE_FRAME);
 	}
 
 	public void actionPerformed(ActionEvent e) {

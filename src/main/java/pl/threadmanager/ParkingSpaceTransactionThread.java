@@ -1,25 +1,21 @@
 package pl.threadmanager;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import pl.constantsandstrings.Constants;
-import pl.constantsandstrings.Names_PL;
+import pl.button.ThreadButton;
 import pl.panel.ParkingSpacesTextBoard;
-import pl.panel.ThreadButton;
 import pl.panel.ThreadButtonPanel;
+import pl.panel.ThreadTracePanel;
 
 public class ParkingSpaceTransactionThread {
 
-    private ParkingSpacesTextBoard parkingSpacesTextBoard=ParkingSpacesTextBoard.getInstance();
-    
+    private ParkingSpacesTextBoard parkingSpacesTextBoard = ParkingSpacesTextBoard
+	    .getInstance();
+
+    private ThreadTracePanel threadTracePanel = ThreadTracePanel.getInstance();
+
     public synchronized void startParkingSpaceThread(ThreadButton threadButton) {
 	ParkingSpaceThread parkingSpaceThread = new ParkingSpaceThread(
 		threadButton);
 	parkingSpaceThread.start();
-
     }
 
     // //// NESTED CLASS /////
@@ -28,47 +24,60 @@ public class ParkingSpaceTransactionThread {
 	private ThreadButton threadButton;
 
 	public ParkingSpaceThread(ThreadButton threadButton) {
-	    super();
+	    super(threadButton.getName());
 	    this.threadButton = threadButton;
-	    this.setName(threadButton.getName());
 	}
 
 	public void run() {
+	    int loopsMade = 0;
+	    int numberOfTotalLoops = ThreadButtonPanel.numberOfLoops;
+
+	    threadTracePanel.createNestedPanel(threadButton.getName());
+	    threadTracePanel.setNumberOfTotalLoops(numberOfTotalLoops);
 	    
-	    int numberOfLoopsMade = 0;
-	    int numberOfLoopsToMake = ThreadButtonPanel.numberOfLoops;
 	    ParkingSpaceTransaction parkingSpaceTransaction = new ParkingSpaceTransaction();
 
 	    try {
 
-		parkingSpacesTextBoard.append(this.getName()+" Start \n");
-		for (int i = 0; i < numberOfLoopsToMake; i++) {
+		parkingSpacesTextBoard.append(this.getName() + " Start \n");
+
+		for (int i = 0; i < numberOfTotalLoops; i++) {
+		    loopsMade++;
+		    nextTransaction(loopsMade);
 		    parkingSpaceTransaction.changeParkingSpaceStatusByThread();
-		    numberOfLoopsMade++;
+		    if (i%10==0)
+			threadTracePanel.setNumberOfLoopsMade(loopsMade);
+		    
 		}
 		
-		printFinishedSentences(numberOfLoopsMade);
-	    
+		threadTracePanel.setNumberOfLoopsMade(loopsMade);
+		printFinishedSentences(loopsMade);
+
 	    } catch (Exception e) {
-		
+
 		e.getStackTrace();
-		printExceptionSentence(numberOfLoopsMade);
-	    
+		printExceptionSentence(loopsMade);
+
 	    } finally {
 		threadButton.setEnabled(true);
+		
 	    }
 	}
 
+	private void nextTransaction(int number){
+	    threadTracePanel.append("\n  === New Transaction = "+number+" === \n");
+	}
+	
 	private void printExceptionSentence(int numberOfLoopsMade) {
 	    parkingSpacesTextBoard.append("Exeption "
-	    	+ Thread.currentThread().getName() + "  Loops = "
-	    	+ numberOfLoopsMade+"\n");
+		    + Thread.currentThread().getName() + "  Loops = "
+		    + numberOfLoopsMade + "\n");
 	}
 
 	private void printFinishedSentences(int numberOfLoopsMade) {
 	    parkingSpacesTextBoard.append(" Finished  "
-	    	+ Thread.currentThread().getName() + "  Loops= "
-	    	+ numberOfLoopsMade+"\n");
+		    + Thread.currentThread().getName() + "  Loops= "
+		    + numberOfLoopsMade + "\n");
 	}
 
     }

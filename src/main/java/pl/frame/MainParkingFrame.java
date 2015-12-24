@@ -17,12 +17,12 @@ import pl.constantsandstrings.Names_PL;
 import pl.panel.ParkingButtonPanel;
 import pl.panel.ParkingSpacesTextBoard;
 import pl.panel.ThreadButtonPanel;
-import pl.threadmanager.ThreadTracePanel;
+import pl.panel.ThreadTracePanel;
 
-public class ParkingFrame extends JFrame {
+public class MainParkingFrame extends JFrame {
 	private JTabbedPane parkingManagerPanel=new JTabbedPane();
 	
-	public ParkingFrame() {
+	public MainParkingFrame() {
 	    	createTextBoardAndThreadButtons();
 		createParking();
 		createThreadStatistic();
@@ -66,9 +66,9 @@ public class ParkingFrame extends JFrame {
 	}
 
 	public void createThreadStatistic(){
-	    ThreadTracePanel threadTracePanel=new ThreadTracePanel();
-	    
-	    parkingManagerPanel.addTab("Thread Statistic", threadTracePanel);
+	    ThreadTracePanel threadTracePanel=ThreadTracePanel.getInstance();
+	    JScrollPane threadTraceScrollPanel=new JScrollPane(threadTracePanel);
+	    parkingManagerPanel.addTab("Thread Statistic", threadTraceScrollPanel);
 	}
 	
 }
