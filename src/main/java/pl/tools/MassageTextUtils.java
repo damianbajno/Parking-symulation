@@ -5,13 +5,6 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
-import pl.dao.ClientDAO;
-import pl.dao.ParkingSpaceDAO;
-import pl.dao.StatisticDataDAO;
-import pl.pojo.Client;
-import pl.pojo.ParkingSpace;
-import pl.pojo.StatisticData;
-
 public class MassageTextUtils {
 
 	public static String getValueBetweenTwoStrings(String text,
@@ -36,22 +29,6 @@ public class MassageTextUtils {
 		return str.matches("\\d+");
 	}
 
-	public static boolean isNumericIfNotShowMessage(String str) {
-		if (str.matches("\\d+")) {
-			Integer age = Integer.valueOf(str);
-			if (age<120) {
-				return true;
-			} else {
-				JOptionPane.showMessageDialog(null, "Wiek musi być poniżej 120 lat");
-				return false;
-			}
-		}
-		else {
-			JOptionPane.showMessageDialog(null, "Wiek musi być liczbą");
-			return false;
-		}
-	}
-	
 	public static boolean isText(String str) {
 		return str.matches("[a-zA-Z]+\\s*[a-zA-Z]*");
 	}

@@ -7,7 +7,6 @@ import pl.pojo.StatisticData;
 public class StatisticDataDAO extends DAO {
 
 	public StatisticDataDAO() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void persist(int clientNumber, int parkingNumber) {

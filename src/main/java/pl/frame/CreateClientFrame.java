@@ -18,7 +18,6 @@ import pl.pojo.ParkingSpace;
 
 public class CreateClientFrame extends JFrame implements ActionListener{
 
-	
 	private CreateClientPanel createClientPanel;
 	private JPanel panel=new JPanel(new BorderLayout());
 	
@@ -26,7 +25,7 @@ public class CreateClientFrame extends JFrame implements ActionListener{
 		createClientPanel=new CreateClientPanel();
 		panel.add(createClientPanel.getPanel(), BorderLayout.CENTER);
 		createButton(Names_PL.ADD_CLIENT_BUTTON_TITLE);
-		createButton(Names_PL.EXIT);
+		createButton(Names_PL.EXIT_BUTTON_TITLE);
 		addButtonsToPanel();
 		add(panel);
 		defaultSettings();
@@ -53,7 +52,7 @@ public class CreateClientFrame extends JFrame implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		String buttonActionCommand = e.getActionCommand();
-		if (Names_PL.EXIT==buttonActionCommand) {
+		if (Names_PL.EXIT_BUTTON_TITLE==buttonActionCommand) {
 			this.dispose();
 		}
 		if (Names_PL.ADD_CLIENT_BUTTON_TITLE==buttonActionCommand){

@@ -11,7 +11,8 @@ import pl.button.ParkingSpaceButton;
 import pl.constantsandstrings.Names_PL;
 
 public class CreateOrChooseClientFrame extends JFrame implements ActionListener {
-	private String[] frameTitle = { "Wybierz istniejącego klienta",
+
+    private final String[] FRAME_TITLE = { "Wybierz istniejącego klienta",
 			"Stwórz nowego klienta" };
 	
 	public CreateOrChooseClientFrame() {
@@ -29,8 +30,8 @@ public class CreateOrChooseClientFrame extends JFrame implements ActionListener 
 	}
 
 	private void createButtons() {
-		for (int i = 0; i < frameTitle.length; i++) {
-			createButton(frameTitle[i]);
+		for (int i = 0; i < FRAME_TITLE.length; i++) {
+			createButton(FRAME_TITLE[i]);
 		}
 	}
 
@@ -46,7 +47,7 @@ public class CreateOrChooseClientFrame extends JFrame implements ActionListener 
 
 	public void actionPerformed(ActionEvent e) {
 		String titleFrameFromButton = e.getActionCommand();
-		if (titleFrameFromButton == frameTitle[0]) {
+		if (titleFrameFromButton == FRAME_TITLE[0]) {
 			chooseClientFrame = new ChooseClientFrame();
 			this.dispose();
 		} else {

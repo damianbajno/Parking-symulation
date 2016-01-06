@@ -24,6 +24,7 @@ public class ThreadTraceStatisticPanel extends JPanel  {
     private JTextField numberOfTotalLoopsTextFiled = new JTextField(6);
 
     public ThreadTraceStatisticPanel() {
+
 	setLayout(new GridBagLayout());
 	add(statisticTitleLabel, new GBC(0, 0).setInsets(2, 0, 2, 0));
 

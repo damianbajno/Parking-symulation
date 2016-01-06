@@ -17,9 +17,9 @@ import pl.pojo.ParkingSpace;
 import pl.tables.ClientJTable;
 
 public class ChooseClientFrame implements ActionListener{
-	JFrame clientFrame=new JFrame();
-	ClientJTable clientJTable=new ClientJTable();
-	JButton commiteButton=new JButton(Names_PL.CLIENTFRAME_COMMITE_BUTTON);
+	private JFrame clientFrame=new JFrame();
+	private ClientJTable clientJTable=new ClientJTable();
+	private JButton commitButton=new JButton(Names_PL.CLIENT_FRAME_COMMIT_BUTTON);
 	
 	public ChooseClientFrame() {
 		super();
@@ -29,8 +29,8 @@ public class ChooseClientFrame implements ActionListener{
 		JScrollPane clientJTablePane=new JScrollPane(clientJTable);
 		clientFrame.add(clientJTablePane, BorderLayout.CENTER);
 		
-		commiteButton.addActionListener(this);
-		clientFrame.add(commiteButton, BorderLayout.SOUTH);
+		commitButton.addActionListener(this);
+		clientFrame.add(commitButton, BorderLayout.SOUTH);
 	}
 
 	public void defaultSettings(){

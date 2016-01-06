@@ -12,7 +12,6 @@ import pl.pojo.StatisticData;
 
 public class DAO {
 
-//	private static final ThreadLocal<Session> session = new ThreadLocal<Session>();
 	private static final Configuration configuration = new Configuration()
 			.configure().addAnnotatedClass(Client.class)
 			.addAnnotatedClass(ParkingSpace.class)
@@ -26,11 +25,6 @@ public class DAO {
 	}
 
 	protected static Session getSession() {
-//		Session session = DAO.session.get();
-//		if (session == null) {
-//			session = sessionfactory.openSession();
-//			DAO.session.set(session);
-//		}
 		return sessionfactory.getCurrentSession();
 	}
 
@@ -47,7 +41,7 @@ public class DAO {
 			System.out.println("Transaction started rolling back");
 			getSession().getTransaction().rollback();
 		} catch (HibernateException e) {
-			System.out.println("Transaction Can't roll back");
+			System.out.println("Transaction can't roll back");
 			e.printStackTrace();
 		}
 		

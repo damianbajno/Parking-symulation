@@ -12,15 +12,17 @@ import javax.swing.text.DefaultCaret;
 import pl.constantsandstrings.Constants;
 
 public class ThreadTraceTextPanel extends JPanel {
-    private int numberOfWritedLines = 5;
+
     private JTextArea jTextArea = new JTextArea();
 
     public ThreadTraceTextPanel() {
-	caretPolicy();
+	
 	jTextArea.setPreferredSize(new Dimension(
 		Constants.PARKING_BOARD_TEXT_AREA_DIMENSION.width-50,
 		Constants.PARKING_BOARD_TEXT_AREA_DIMENSION.height / 2));
 	jTextArea.setLineWrap(true);
+
+	caretPolicy();
 	
 	JScrollPane jScrollPane=new JScrollPane(jTextArea);
 	jScrollPane.setPreferredSize(new Dimension(
@@ -32,11 +34,12 @@ public class ThreadTraceTextPanel extends JPanel {
 
     private void caretPolicy() {
 	DefaultCaret caret = (DefaultCaret) jTextArea.getCaret();
-	caret.setUpdatePolicy(DefaultCaret.UPDATE_WHEN_ON_EDT);
+	caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     }
 
     public void append(String text) {
-	jTextArea.setRows(jTextArea.getLineCount()+5);
+	
+	jTextArea.setRows(jTextArea.getRows()+1);
 	
 	final String str1 = text;
 	EventQueue.invokeLater(new Runnable() {

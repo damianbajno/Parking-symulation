@@ -8,14 +8,15 @@ import pl.panel.ParkingSpacesTextBoard;
 
 public class ParkingSpaceTransaction {
 
-    private String threadName = Thread.currentThread().getName();
     private ParkingSpaceButtonList parkingSpaceButtonList = ParkingSpaceButtonList
 	    .getInstance();
     private ParkingSpacesTextBoard textBoardTransactions = ParkingSpacesTextBoard
 	    .getInstance();
     private ParkingSpaceDAO parkingSpaceDAO = ParkingSpaceDAO.getInstance();
 
-    int parkingSpaceNumber;
+    private String threadName = Thread.currentThread().getName();
+
+    private int parkingSpaceNumber;
 
     public void changeParkingSpaceStatusByThread() {
 	ParkingSpaceButton parkingSpaceButton = parkingSpaceButtonList
@@ -27,35 +28,41 @@ public class ParkingSpaceTransaction {
 	}
     }
 
-    private int clientNumberOccupy;
-
     private void setParkingSpaceOccupy(ParkingSpaceButton parkingSpaceButton) {
+	int clientNumberOccupy;
+
 	if ((clientNumberOccupy = parkingSpaceDAO
 		.parkingSpaceMakeOccupy(parkingSpaceButton.getParkingNumber())) != 0) {
+
 	    parkingSpaceButton.setOccupy();
-	    printParkingSpaceOccupySentence(parkingSpaceButton);
+	    printParkingSpaceOccupySentence(parkingSpaceButton,
+		    clientNumberOccupy);
+
 	} else {
-	    printParkingSpaceFailOccupySentence(parkingSpaceButton);
+	    printParkingSpaceFailOccupySentence(parkingSpaceButton,
+		    clientNumberOccupy);
 	}
 	parkingSpaceButton.unLock();
     }
 
-    private int clientNumberFree;
-
     private void setParkingSpaceFree(ParkingSpaceButton parkingSpaceButton) {
+	int clientNumberFree;
+
 	if ((clientNumberFree = parkingSpaceDAO
 		.parkingSpaceMakeFree(parkingSpaceButton.getParkingNumber())) != 0) {
 
 	    parkingSpaceButton.setFree();
-	    printParkingSpaceFreeSentence(parkingSpaceButton);
+	    printParkingSpaceFreeSentence(parkingSpaceButton, clientNumberFree);
+
 	} else {
-	    printParkingSpaceFailFreeSentence(parkingSpaceButton);
+	    printParkingSpaceFailFreeSentence(parkingSpaceButton,
+		    clientNumberFree);
 	}
 	parkingSpaceButton.unLock();
     }
 
     private void printParkingSpaceFreeSentence(
-	    ParkingSpaceButton parkingSpaceButton) {
+	    ParkingSpaceButton parkingSpaceButton, int clientNumberFree) {
 	textBoardTransactions
 		.append(threadName
 			+ "    "
@@ -65,7 +72,7 @@ public class ParkingSpaceTransaction {
     }
 
     private void printParkingSpaceFailFreeSentence(
-	    ParkingSpaceButton parkingSpaceButton) {
+	    ParkingSpaceButton parkingSpaceButton, int clientNumberFree) {
 
 	textBoardTransactions
 		.append(" == FAIL == "
@@ -78,7 +85,7 @@ public class ParkingSpaceTransaction {
     }
 
     private void printParkingSpaceOccupySentence(
-	    ParkingSpaceButton parkingSpaceButton) {
+	    ParkingSpaceButton parkingSpaceButton, int clientNumberOccupy) {
 	textBoardTransactions.append(threadName
 		+ "    "
 		+ String.format(Names_PL.Parking_SPACE_OCCUPY_SENTENSE,
@@ -88,7 +95,7 @@ public class ParkingSpaceTransaction {
     }
 
     private void printParkingSpaceFailOccupySentence(
-	    ParkingSpaceButton parkingSpaceButton) {
+	    ParkingSpaceButton parkingSpaceButton, int clientNumberOccupy) {
 	textBoardTransactions.append(" == FAIL ==  "
 		+ threadName
 		+ "    "

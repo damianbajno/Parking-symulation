@@ -23,8 +23,9 @@ import pl.pojo.ParkingSpace;
 import pl.pojo.StatisticData;
 
 public class ParkingSpaceDAO extends DAO {
-	private static int clientNumbers = ClientDAO.getAll().size();
-	ParkingSpacesTextBoard parkingSpacesTextBoard=ParkingSpacesTextBoard.getInstance();
+	
+    	private static int clientNumbers = ClientDAO.getAll().size();
+	private ParkingSpacesTextBoard parkingSpacesTextBoard=ParkingSpacesTextBoard.getInstance();
 	
 	public static ParkingSpaceDAO getInstance() {
 		return new ParkingSpaceDAO();

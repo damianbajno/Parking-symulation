@@ -1,9 +1,12 @@
 package pl.panel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -25,7 +28,11 @@ public class ThreadTracePanel extends JPanel {
     private static ThreadTracePanel mainThreadTracePanel;
     private ThreadLocal<ThreadTraceNestedPanel> threadTracePanelNestedLocal = new ThreadLocal<ThreadTracePanel.ThreadTraceNestedPanel>();
 
+    private ThreadTracePanel() {
+    }
+
     public static ThreadTracePanel getInstance() {
+
 	if (mainThreadTracePanel == null)
 	    synchronized (ThreadTracePanel.class) {
 		if (mainThreadTracePanel == null)
@@ -34,19 +41,32 @@ public class ThreadTracePanel extends JPanel {
 	return mainThreadTracePanel;
     }
 
-    private ThreadTracePanel() {
-    }
+    private int numberOfThreadPanels = 0;
 
-    private int numberOfThreadPanels=0;
     public void createNestedPanel(String threadName) {
-	
+
 	ThreadTraceNestedPanel threadTraceNestedPanel = new ThreadTraceNestedPanel(
 		threadName);
-	
-	mainThreadTracePanel.setLayout(new GridLayout(++numberOfThreadPanels, 1));
-	mainThreadTracePanel.add(threadTraceNestedPanel);
+
+	mainThreadTracePanel
+		.setLayout(new GridLayout(++numberOfThreadPanels, 1));
+	addPanelsToMain(threadTraceNestedPanel);
 	mainThreadTracePanel.repaint();
 	threadTracePanelNestedLocal.set(threadTraceNestedPanel);
+    }
+
+    private LinkedList<JPanel> nestedTracePanelLinkedList = new LinkedList<JPanel>();
+
+    public void addPanelsToMain(JPanel newPanel) {
+	nestedTracePanelLinkedList.addFirst(newPanel);
+	mainThreadTracePanel.removeAll();
+
+	Iterator<JPanel> nestedPanelIterator = nestedTracePanelLinkedList
+		.iterator();
+	while (nestedPanelIterator.hasNext()) {
+	    mainThreadTracePanel.add(nestedPanelIterator.next());
+	}
+
     }
 
     public void setNumberOfTotalLoops(int numberOfTotalLoops) {
@@ -60,18 +80,18 @@ public class ThreadTracePanel extends JPanel {
     }
 
     public void append(String text) {
-	if (threadTracePanelNestedLocal.get()!=null){
-	    threadTracePanelNestedLocal.get().threadTraceTextPanel
-		.append(text);
+	if (threadTracePanelNestedLocal.get() != null) {
+	    threadTracePanelNestedLocal.get().threadTraceTextPanel.append(text);
 	}
     }
-    
-    public void refreshThreadStatus(){
-	if (threadTracePanelNestedLocal.get()!=null){
-	    threadTracePanelNestedLocal.get().threadTraceStatisticPanel.refreshstatus();
+
+    public void refreshThreadStatus() {
+	if (threadTracePanelNestedLocal.get() != null) {
+	    threadTracePanelNestedLocal.get().threadTraceStatisticPanel
+		    .refreshstatus();
 	}
     }
-    
+
     // //Nested Class////
 
     private class ThreadTraceNestedPanel extends JPanel {
@@ -83,24 +103,25 @@ public class ThreadTracePanel extends JPanel {
 
 	    setLayout(new BorderLayout());
 	    setName(threadName);
-	    setBorder(BorderFactory.createTitledBorder(threadName+" - "+getDateTime()));
+	    setBorder(BorderFactory.createTitledBorder(threadName + " - "
+		    + getDateTime()));
 
 	    add(threadTraceTextPanel, BorderLayout.WEST);
-	    JPanel jPanel=new JPanel();
+	    JPanel jPanel = new JPanel();
 	    jPanel.add(threadTraceStatisticPanel, BorderLayout.NORTH);
 	    add(jPanel, BorderLayout.CENTER);
 
 	}
-    
-	private String getDateTime(){
-		DateTime dateTime=new DateTime(DateTimeZone.getDefault());
-		DateTimeFormatter dateTimeFormatter=DateTimeFormat.forPattern("HH:mm:ss");
-		return String.format(dateTime.toString(dateTimeFormatter));
-	    }
-    
+
+	private String getDateTime() {
+
+	    DateTime dateTime = new DateTime(DateTimeZone.getDefault());
+	    DateTimeFormatter dateTimeFormatter = DateTimeFormat
+		    .forPattern("HH:mm:ss");
+	    return String.format(dateTime.toString(dateTimeFormatter));
+
+	}
+
     }
-    
-    
-    
 
 }

@@ -9,29 +9,29 @@ import pl.pojo.StatisticData;
 
 public class Tools {
 
-	static ParkingSpaceDAO parkingSpaceDAO=ParkingSpaceDAO.getInstance();
-	static ClientDAO clientDAO=new ClientDAO();
-	
-	public Tools() {
-		// TODO Auto-generated constructor stub
+    private static ParkingSpaceDAO parkingSpaceDAO = ParkingSpaceDAO
+	    .getInstance();
+    private static ClientDAO clientDAO = new ClientDAO();
+
+    public Tools() {
+    }
+
+    public static void generateTables() {
+
+	for (int i = 0; i < 57; i++) {
+	    ParkingSpace parkingSpace = new ParkingSpace(i + 1,
+		    200 + Generator.generateInteger(200));
+	    parkingSpaceDAO.persist(parkingSpace);
 	}
 
-	public static void generateTables() {
+	for (int i = 0; i < 50; i++) {
+	    Client client = new Client(Generator.generateName(),
+		    Generator.generateSurname());
+	    clientDAO.persist(client);
+	}
 
-		 for (int i = 0; i < 57; i++) {
-		 ParkingSpace parkingSpace = new ParkingSpace(i + 1,
-		 200 + Generator.generateInteger(200));
-		 parkingSpaceDAO.persist(parkingSpace);
-		 }
-		
-		 for (int i = 0; i < 50; i++) {
-		 Client client = new Client(Generator.generateName(),
-		 Generator.generateSurname());
-		 clientDAO.persist(client);
-		 }
-		 
-		 StatisticDataDAO statisticDataDAO=new StatisticDataDAO();
-//		 statisticDataDAO.persist(new StatisticData(12, 40));
+	StatisticDataDAO statisticDataDAO = new StatisticDataDAO();
+	// statisticDataDAO.persist(new StatisticData(12, 40));
 
-}
+    }
 }

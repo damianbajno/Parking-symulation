@@ -6,8 +6,10 @@ import java.util.Random;
 import pl.panel.ParkingSpacesTextBoard;
 
 public class ParkingSpaceButtonList {
+
     private static ArrayList<ParkingSpaceButton> parkingSpaceButtons = new ArrayList<ParkingSpaceButton>();
     private static ParkingSpaceButtonList parkingSpaceButtonList;
+
     private ParkingSpacesTextBoard parkingSpacesTextBoard = ParkingSpacesTextBoard
 	    .getInstance();
 
@@ -38,14 +40,18 @@ public class ParkingSpaceButtonList {
     private Random random = new Random();
 
     public synchronized ParkingSpaceButton getRandomParkingSpace() {
+
 	int parkingSpaceNumber;
 	ParkingSpaceButton parkingSpaceButton;
 
 	do {
+
 	    parkingSpaceNumber = random.nextInt(parkingSpaceButtons.size());
 	    parkingSpaceButton = parkingSpaceButtons.get(parkingSpaceNumber);
+
 	} while (!parkingSpaceButton.trylock());
 	return parkingSpaceButton;
+
     }
 
     public void add(ParkingSpaceButton parkingSpaceButton) {

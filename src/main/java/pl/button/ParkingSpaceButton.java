@@ -20,11 +20,13 @@ public class ParkingSpaceButton extends JButton {
     private static int parkingSpaceNumberGenerator = 0;
 
     private final Dimension parkingSpaceDimension = new Dimension(50, 80);
-    private int parkingSpaceNumber;
+
     private ParkingSpaceListener parkingSpaceListener = new ParkingSpaceListener();
     private ParkingSpaceDAO parkingSpaceDAO = ParkingSpaceDAO.getInstance();
-    private boolean free;
     private Lock lock = new ReentrantLock();
+
+    private boolean free;
+    private int parkingSpaceNumber;
 
     public ParkingSpaceButton() {
 	parkingSpaceNumber = ++parkingSpaceNumberGenerator;

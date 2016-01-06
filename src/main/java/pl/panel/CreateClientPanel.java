@@ -15,7 +15,10 @@ import pl.tools.MassageTextUtils;
 
 public class CreateClientPanel {
 
+	private static final String PANEL_TITLE = "Pracownik";
+
 	private static final int textFildWidth = 20;
+
 	private JLabel nameLabel = new JLabel("Imie");
 	private JLabel surNameLabel = new JLabel("Nazwisko");
 
@@ -33,7 +36,7 @@ public class CreateClientPanel {
 
 		parkingSpacePanel.setLayout(new GridBagLayout());
 		parkingSpacePanel.setBorder(BorderFactory.createTitledBorder(
-				BorderFactory.createBevelBorder(3), "Pracownik"));
+				BorderFactory.createBevelBorder(3), PANEL_TITLE));
 
 		parkingSpacePanel.add(nameLabel, new GBC(0, 0).setAnchor(GBC.WEST)
 				.setIpad(10, 10));

@@ -16,30 +16,30 @@ import javax.swing.text.DefaultCaret;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.joda.time.JodaTimePermission;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.omg.CORBA.PRIVATE_MEMBER;
 
 import pl.constantsandstrings.Constants;
 import pl.constantsandstrings.Names_PL;
 
 public class ParkingSpacesTextBoard extends JPanel {
+    private static final String APPLICATION_LOGGER = "TextBoardLogger";
     private static ParkingSpacesTextBoard parkingSpacesTextBoard;
     private static JTextArea jTextArea = new JTextArea();
-    
-    private final String FILE_DIRECTORY = "/home/damian/Desktop/Coders/TestFiles/%s ParkingSpaceLoggerFromBoard.odt";
-    private Logger logger = Logger.getLogger("TextBoardLogger");
-    
-    public synchronized static ParkingSpacesTextBoard getInstance() {
-	if (parkingSpacesTextBoard == null) {
-	    parkingSpacesTextBoard = new ParkingSpacesTextBoard();
-	    parkingSpacesTextBoard.addJTextArea();
-	    return parkingSpacesTextBoard;
-	} else {
-	    return parkingSpacesTextBoard;
-	}
 
+    private final String FILE_DIRECTORY = "/home/damian/Desktop/Coders/TestFiles/%s ParkingSpaceLoggerFromBoard.odt";
+    private Logger logger = Logger.getLogger(APPLICATION_LOGGER);
+
+    public static ParkingSpacesTextBoard getInstance() {
+
+	if (parkingSpacesTextBoard == null) {
+	    synchronized (ParkingSpacesTextBoard.class) {
+		if (parkingSpacesTextBoard == null) {
+		    parkingSpacesTextBoard = new ParkingSpacesTextBoard();
+		}
+	    }
+	}
+	return parkingSpacesTextBoard;
     }
 
     private ParkingSpacesTextBoard() {
@@ -54,24 +54,24 @@ public class ParkingSpacesTextBoard extends JPanel {
 		TitledBorder.DEFAULT_POSITION, new Font(Font.SERIF, Font.PLAIN,
 			17)));
 
+	add(jTextArea);
+	
 	DefaultCaret defaultCaret = (DefaultCaret) jTextArea.getCaret();
-	defaultCaret.setUpdatePolicy(DefaultCaret.UPDATE_WHEN_ON_EDT);
-
+	defaultCaret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+	
+	
 	initializeHandler();
-
     }
 
-    private void addJTextArea() {
-	parkingSpacesTextBoard.add(jTextArea);
-    }
-
-    private int numberOfWritedLines =5;
+    private AtomicInteger numberOfWritedLines =new AtomicInteger(5);
 
     public void append(String text) {
-	numberOfWritedLines++;
-	jTextArea.setRows(numberOfWritedLines);
-//	setRows(numberOfWritedLines.get());
-//	logger.info(text);
+	
+	synchronized (jTextArea) {
+	    jTextArea.setRows(jTextArea.getLineCount() + 2);
+	}
+	// setRows(numberOfWritedLines.get());
+	// logger.info(text);
 
 	final String str1 = text;
 	EventQueue.invokeLater(new Runnable() {
@@ -93,7 +93,8 @@ public class ParkingSpacesTextBoard extends JPanel {
 
     private void initializeHandler() {
 	try {
-	    Handler fileHandeler = new FileHandler(getFileDirectoryWithDateTime(), true);
+	    Handler fileHandeler = new FileHandler(
+		    getFileDirectoryWithDateTime(), true);
 	    logger.addHandler(fileHandeler);
 	} catch (SecurityException e) {
 	    e.printStackTrace();
@@ -102,10 +103,12 @@ public class ParkingSpacesTextBoard extends JPanel {
 	}
     }
 
-    private String getFileDirectoryWithDateTime(){
-	DateTime dateTime=new DateTime(DateTimeZone.getDefault());
-	DateTimeFormatter dateTimeFormatter=DateTimeFormat.forPattern("ddMMyyyy HH:mm:ss");
-	return String.format(FILE_DIRECTORY, dateTime.toString(dateTimeFormatter));
+    private String getFileDirectoryWithDateTime() {
+	DateTime dateTime = new DateTime(DateTimeZone.getDefault());
+	DateTimeFormatter dateTimeFormatter = DateTimeFormat
+		.forPattern("ddMMyyyy HH:mm:ss");
+	return String.format(FILE_DIRECTORY,
+		dateTime.toString(dateTimeFormatter));
     }
-    
+
 }

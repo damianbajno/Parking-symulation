@@ -5,7 +5,7 @@ import java.awt.Dimension;
 public class Constants {
     
     public static final int NUMBER_OF_THREAD_BUTTONS = 4;
-    public static final int MAX_NUMBER_OF_DISPLAYED_THREADS = 1000;
+    public static final int MAX_NUMBER_THREAD_TRACE_PANELS = 1000;
     
     public static final int PARKING_PANEL_ROWS = 7;
     public static final int PARKING_PANEL_COLUMNS = 13;
