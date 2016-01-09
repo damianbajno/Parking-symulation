@@ -22,7 +22,7 @@ import pl.panel.ThreadTracePanel;
 public class MainParkingFrame extends JFrame {
 
     private static final String PARKING_VISUALIZATION_TAB_TITLE = "Parking Visualization";
-    private static final String THREAD_MANAGER_TAB_TITLE = "Thread Manager";
+    private static final String THREAD_MANAGER_TAB_TITLE = "ParkingSpace Transaction";
     private static final String THREAD_STATISTIC_TAB_TITLE = "Thread Statistic";
     private JTabbedPane parkingManagerPanel = new JTabbedPane();
 

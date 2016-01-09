@@ -67,8 +67,7 @@ public class ParkingSpaceTransactionThread {
 	}
 
 	private void nextTransaction(int number) {
-	    threadTracePanel.append("\n  === New Transaction = " + number
-		    + " === \n");
+	    threadTracePanel.append("=== New Transaction = " + number + " ===");
 	}
 
 	private void printExceptionSentence(int numberOfLoopsMade) {

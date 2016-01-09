@@ -7,15 +7,16 @@ import pl.pojo.Client;
 import pl.pojo.ParkingSpace;
 import pl.pojo.StatisticData;
 
-public class Tools {
+public class TableGenerator {
 
     private static ParkingSpaceDAO parkingSpaceDAO = ParkingSpaceDAO
 	    .getInstance();
     private static ClientDAO clientDAO = new ClientDAO();
 
-    public Tools() {
+    public static void main(String[] args) {
+	TableGenerator.generateTables();
     }
-
+    
     public static void generateTables() {
 
 	for (int i = 0; i < 57; i++) {
@@ -29,9 +30,6 @@ public class Tools {
 		    Generator.generateSurname());
 	    clientDAO.persist(client);
 	}
-
-	StatisticDataDAO statisticDataDAO = new StatisticDataDAO();
-	// statisticDataDAO.persist(new StatisticData(12, 40));
 
     }
 }

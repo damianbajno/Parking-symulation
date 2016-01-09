@@ -37,9 +37,12 @@ public class ThreadTraceTextPanel extends JPanel {
 	caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
     }
 
+    private int linesNumber=2;
+    
     public void append(String text) {
 	
-	jTextArea.setRows(jTextArea.getRows()+1);
+	linesNumber++;
+	jTextArea.setRows(linesNumber);
 	
 	final String str1 = text;
 	EventQueue.invokeLater(new Runnable() {

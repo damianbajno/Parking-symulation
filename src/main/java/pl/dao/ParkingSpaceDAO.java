@@ -49,7 +49,7 @@ public class ParkingSpaceDAO extends DAO {
 			e.getStackTrace();
 			rollback();
 
-			System.out.println(Thread.currentThread().getName()+" ParkingSpaceDAO couldn't make ParkingSpace "
+			System.out.println(Thread.currentThread().getName()+" ParkingSpaceDAO couldn't make ParkingSpace nr. "
 					+ parkingSpaceId + " free");
 			return 0;
 		}
@@ -72,8 +72,8 @@ public class ParkingSpaceDAO extends DAO {
 		} catch (HibernateException e) {
 
 			System.out.println(Thread.currentThread().getName()
-					+ "  ParkingSpaceDAO couldn't make ParkingSpace "
-					+ parkingSpaceId + " occupy by " + client.getId());
+					+ "  ParkingSpaceDAO couldn't make ParkingSpace nr. "
+					+ parkingSpaceId + " occupy by client nr. " + client.getId());
 			e.getStackTrace();
 
 			rollback();
@@ -91,7 +91,7 @@ public class ParkingSpaceDAO extends DAO {
 			client = (Client) getSession().get(Client.class, clientNumber);
 		} while (client.reservedParkingSpace());
 
-		getSession().lock(client, LockMode.PESSIMISTIC_FORCE_INCREMENT);
+		getSession().lock(client, LockMode.OPTIMISTIC_FORCE_INCREMENT);
 		return client;
 	}
 
